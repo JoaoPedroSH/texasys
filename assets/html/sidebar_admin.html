@@ -1,0 +1,50 @@
+<aside id="sidebar" class="sidebar">
+
+    <div class="row" style="text-align: center;">
+        <div class="col">
+            <a class="btn btn-outline-primary rounded-pill" onclick="swalLogout()">
+                <i class="bi bi-power" style="font-size:larger;" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    data-bs-original-title="SAIR"></i>
+            </a>
+        </div>
+    </div>
+    
+    <br>
+
+    <ul class="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link" href="dashboard.php">
+                <i class="bi bi-grid"></i>
+                <span>Painel</span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="employees.php">
+                <i class="bi bi-layers"></i>
+                <span>Funcionarios</span>
+            </a>
+        </li>
+    </ul>
+
+</aside>
+
+<script>
+    function swalLogout() {
+        Swal.fire({
+            title: 'Deseja sair?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, sair.',
+            confirmButtonColor: '#87adbd',
+            cancelButtonText: 'Não',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.replace('../all/bords.php')
+            }
+        })
+    }
+</script>
