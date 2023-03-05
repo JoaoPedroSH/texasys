@@ -388,7 +388,7 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #012970;
+  color: #fff;
   font-family: "Nunito", sans-serif;
 }
 
@@ -403,11 +403,11 @@ h6 {
   /* Search Bar */
 }
 
-.header .toggle-sidebar-btn {
+.h {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #012970;
+  color: #fff;
 }
 
 .header .search-bar {
@@ -484,13 +484,13 @@ h6 {
 
 .header-nav .nav-icon {
   font-size: 22px;
-  color: #012970;
+  color: #fff;
   margin-right: 25px;
   position: relative;
 }
 
 .header-nav .nav-profile {
-  color: #012970;
+  color: #fff;
 }
 
 .header-nav .nav-profile img {
@@ -784,7 +784,7 @@ h6 {
 }
 
 .dashboard .filter .icon {
-  color: #aab7cf;
+  color: #012970;
   padding-right: 20px;
   padding-bottom: 5px;
   transition: 0.3s;
