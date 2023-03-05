@@ -837,7 +837,7 @@ h6 {
 }
 
 .dashboard .sales-card .card-icon {
-  color: #4154f1;
+  color: #878891;
   background: #f6f6fe;
 }
 
@@ -847,8 +847,8 @@ h6 {
 }
 
 .dashboard .customers-card .card-icon {
-  color: #ff771d;
-  background: #ffecdf;
+  color: #ff0000;
+  background: #ffa6a6;
 }
 
 /* Activity */
