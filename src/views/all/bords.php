@@ -2,19 +2,19 @@
 <html lang="en">
 
 <?php
-include_once '../../assets/html/head.html';
+include_once '../../../assets/html/head.html';
 ?>
 
 <body>
 
     <!-- ======= Header ======= -->
     <?php
-    include_once '../../assets/html/header.html';
+    include_once '../../../assets/html/header.html';
     ?>
 
     <!-- ======= Sidebar ======= -->
     <?php
-    include_once '../../assets/html/sidebar.html';
+    include_once '../../../assets/html/sidebar.html';
     ?>
 
     <main id="main" class="main">
@@ -163,7 +163,7 @@ include_once '../../assets/html/head.html';
 
     <!-- ======= Footer ======= -->
     <?php
-    include_once '../../assets/html/footer.html';
+    include_once '../../../assets/html/footer.html';
     ?>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -171,7 +171,7 @@ include_once '../../assets/html/head.html';
 </body>
 
 <?php
-include_once '../../assets/html/scripts.html';
+include_once '../../../assets/html/scripts.html';
 ?>
 
 </html>
