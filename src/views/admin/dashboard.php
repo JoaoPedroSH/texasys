@@ -12,7 +12,7 @@ if (isset($_SESSION['access_admin_success'])) {
     <html lang="pt">
 
     <?php
-    include_once '../../../assets/html/head.html';
+    include_once '../../../assets/html/head_admin.html';
     ?>
 
     <body>

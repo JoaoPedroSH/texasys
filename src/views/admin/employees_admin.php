@@ -15,7 +15,7 @@ include_once '../../../assets/html/head.html';
     
     <!-- ======= Sidebar ======= -->
     <?php
-    include_once '../../../assets/html/sidebar.html';
+    include_once '../../../assets/html/sidebar_admin.html';
     ?>
             </li><!-- End Dashboard Nav -->
         </ul>
@@ -63,6 +63,10 @@ include_once '../../../assets/html/head.html';
                                             <div class="d-flex align-items-center">
                                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i class="bi bi-cart"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>R$ 0,00</h6>
+                                                    <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1">Vago</span>
                                                 </div>
                                             </div>
                                         </div>
