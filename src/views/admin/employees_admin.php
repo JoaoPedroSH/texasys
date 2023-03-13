@@ -64,10 +64,6 @@ include_once '../../../assets/html/head_admin.html';
                                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                                     <i class="bi bi-cart"></i>
                                                 </div>
-                                                <div class="ps-3">
-                                                    <h6>R$ 0,00</h6>
-                                                    <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1">Vago</span>
-                                                </div>
                                             </div>
                                         </div>
 

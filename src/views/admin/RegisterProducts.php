@@ -14,7 +14,7 @@ include_once '../../../assets/html/head.html';
 
     <!-- ======= Sidebar ======= -->
     <?php
-    include_once '../../../assets/html/sidebar.html';
+    include_once '../../../assets/html/sidebar_admin.html';
     ?>
 
     <main id="main" class="main">

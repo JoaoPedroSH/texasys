@@ -17,21 +17,7 @@ include_once '../../../assets/html/head.html';
     <?php
     include_once '../../../assets/html/sidebar.html';
     ?>
-            </li><!-- End Dashboard Nav -->
-        </ul>
-
-        <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link " href="bords.php">
-                    <i class="bi bi-layers"></i>
-                    <span>Mesas</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-        </ul>
-        
-
-    </aside><!-- End Sidebar-->
+    
     <main id="main" class="main">
 
         <div class="pagetitle">
