@@ -60,7 +60,7 @@ include_once '../../../assets/html/head.html';
                                         <div class="col-md-4" style="text-align: center; margin-top: 30px;">
 
                                             <div>
-                                                <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><i class="bi bi-bag-plus"></i></button>
+                                                <button type="button" class="btn btn-outline-success btn-sm rounded-pill " data-bs-toggle="modal" data-bs-target="#AddProduct"><i class="bi bi-bag-plus"></i></button>
                                             </div>
                                             <div style="margin-top: 10px;">
                                                 <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><i class="ri-eye-line"></i></button>
@@ -71,6 +71,28 @@ include_once '../../../assets/html/head.html';
 
                                         </div>
 
+                                        <!-- Basic Modal -->
+
+                                        <div class="modal fade" id="AddProduct" tabindex="-1"="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Adicionar Produto</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card-body">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Full Screen Modal-->
+                                        <!-- End Basic Modal-->
 
                                     </div>
                                 </div>
@@ -161,12 +183,12 @@ include_once '../../../assets/html/head.html';
 
     </main><!-- End #main -->
 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
     <!-- ======= Footer ======= -->
     <?php
     include_once '../../../assets/html/footer.html';
     ?>
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 </body>
 
