@@ -82,12 +82,29 @@ include_once '../../../assets/html/head.html';
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="card-body">
-                                                            
+                                                            <div name="SearchAndFilter" class="row g-3">
+                                                                <div class="col-md-12">
+                                                                    <div id="dataTable_filter" class="dataTables_filter">
+
+                                                                        <input type="search" list="products" id="search" class="form-control form-control" placeholder="Buscar" aria-controls="dataTable">
+
+                                                                        <datalist id="products">
+                                                                            <option value="brahama"></option>
+                                                                            <option value="Antarcta"></option>
+                                                                            <option value="skol"></option>
+                                                                        </datalist>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="range" class="form-control" name="quantidade" placeholder="Quantidade">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-primary">Salvar</button>
                                                     </div>
                                                 </div>
                                             </div>
