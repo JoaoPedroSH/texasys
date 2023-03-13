@@ -3,7 +3,7 @@
 
 <!-- ======= Head ======= -->
 <?php
-include_once '../../../assets/html/head.html';
+include_once '../../../assets/html/head_admin.html';
 ?>
 
 <body>

@@ -10,7 +10,7 @@ include_once '../../../assets/html/head.html';
     <!-- ======= Header ======= -->
     <?php
     include_once '../../../assets/html/header.html';
-    ?><!-- End Header -->
+    ?>
 
     <!-- ======= Sidebar ======= -->
     <?php
@@ -23,8 +23,8 @@ include_once '../../../assets/html/head.html';
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Mesas</a></li>
-                    
+                    <li class="breadcrumb-item">Mesas</li>
+
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -90,7 +90,7 @@ include_once '../../../assets/html/head.html';
                                                     <i class="bi bi-cart"></i>
                                                 </div>
                                                 <div class="ps-3">
-                                                    <h6>R$ 110,00</h6>
+                                                    <h6>R$ 111,00</h6>
                                                     <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1">Ocupado</span>
                                                 </div>
                                             </div>
@@ -102,7 +102,7 @@ include_once '../../../assets/html/head.html';
                                                 <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><i class="bi bi-bag-plus"></i></button>
                                             </div>
                                             <div style="margin-top: 10px;">
-                                                <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><i class="ri-eye-line"></i></button>
+                                                <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><a href="../all/products.php"><i class="ri-eye-line"></i></a></button>
                                             </div>
                                             <div style="margin-top: 10px;">
                                                 <button type="button" class="btn btn-outline-success btn-sm rounded-pill "><i class="ri-file-edit-line"></i></button>
