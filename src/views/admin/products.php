@@ -3,6 +3,8 @@
 
 <?php
 include_once '../../../assets/html/head.html';
+
+session_start();
 ?>
 
 <body>
@@ -33,9 +35,10 @@ include_once '../../../assets/html/head.html';
                         <div class="card-body">
 
                             <!-- No Labels Form -->
-                            <form class="row g-3">
+                            <form action="../../controllers/ProductsController.php" method="POST" class="row g-3">
+                                <input type="hidden" name="register">   
                                 <div class="col-md-6">
-                                    <select id="inputState" class="form-select">
+                                    <select name="category" class="form-select" required>
                                         <option selected="">Categoria</option>
                                         <option value="alcoólica">Bebida alcoólica</option>
                                         <option value="não alcoólica">Bebida não alcoólica</option>
@@ -43,16 +46,16 @@ include_once '../../../assets/html/head.html';
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="product" class="form-control" placeholder="Produto">
+                                    <input type="text" name="product" class="form-control" placeholder="Produto" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="value" class="form-control" placeholder="Valor em R$">
+                                    <input type="text" name="value" class="form-control" placeholder="Valor em R$" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="supplier" class="form-control" placeholder="Fornecedor">
+                                    <input type="text" name="supplier" class="form-control" placeholder="Fornecedor" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="supplier-value" class="form-control" placeholder="Valor do Fornecedor">
+                                    <input type="text" name="supplier-value" class="form-control" placeholder="Valor do Fornecedor" required>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
@@ -80,6 +83,28 @@ include_once '../../../assets/html/scripts.html';
 <!-- ======= Footer ======= -->
 <?php
 include_once '../../../assets/html/footer.html';
+?>
+
+<?php 
+ if(isset($_SESSION['register_products_success'])) {
+?>
+    <script>
+        swalRegisterSuccess();
+    </script>
+<?php
+    unset($_SESSION['register_products_success']);
+ }
+?>
+
+<?php 
+ if(isset($_SESSION['register_products_fail'])) {
+?>
+    <script>
+        swalRegisterfailed();
+    </script>
+<?php
+    unset($_SESSION['register_products_fail']);
+ }
 ?>
 
 </html>
