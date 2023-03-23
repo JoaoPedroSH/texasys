@@ -17,3 +17,23 @@ function swalRegisterfailed() {
     timer: 1500,
   });
 }
+
+function swalAddTableSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Mesa adicionada!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalAddTablefailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao adicionar mesa!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

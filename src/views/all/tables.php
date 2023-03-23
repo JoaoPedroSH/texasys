@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <?php
+session_start();
 include_once '../../../assets/html/head.html';
 ?>
 
 <body>
 
-    <!-- ======= Header ======= -->
+    <!-- ======= Header e Sidebar ======= -->
     <?php
     include_once '../../../assets/html/header.html';
-    ?>
-
-    <!-- ======= Sidebar ======= -->
-    <?php
     include_once '../../../assets/html/sidebar.html';
     ?>
 
@@ -34,40 +32,41 @@ include_once '../../../assets/html/head.html';
                             <h5 class="modal-title">ADICIONAR MESA</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-8 form-floating mb-3">
-                                    <select class="form-select" id="employee" required>
-                                        <option selected="">Selecione</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                    <label for="employee">
-                                        <strong> Funcionário </strong>
-                                    </label>
+                        <form action="../../controllers/TablesController.php" method="POST">
+                            <input type="hidden" name="add" value="true">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-4 form-floating mb-3">
+                                        <select class="form-select" name="cod-table" id="cod-table" required>
+                                            <option value="">Selecione</option>
+                                            <option value="1">01</option>
+                                            <option value="2">02</option>
+                                        </select>
+                                        <label for="cod-table">
+                                            <strong> Nº da Mesa </strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8 form-floating mb-3">
+                                        <select class="form-select" name="employee" id="employee" required>
+                                            <option value="">Selecione</option>
+                                            <option value="João Pedro">João Pedro</option>
+                                        </select>
+                                        <label for="employee">
+                                            <strong> Funcionário </strong>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 form-floating mb-3">
-                                    <select class="form-select" id="table-number" required>
-                                        <option selected="">Selecione</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                    <label for="table-number">
-                                        <strong> Nº da Mesa </strong>
-                                    </label>
-                                </div>
+
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                <i class="bi bi-x-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-success">
-                                <i class="bi bi-check-square"></i>
-                            </button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-square"></i>
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-square"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -79,7 +78,10 @@ include_once '../../../assets/html/head.html';
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class=" col-md-3">
+
+
+
+                        <div class="col-md-3">
                             <div class="card info-card revenue-card">
                                 <div class="card-body">
                                     <div class="row">
@@ -87,7 +89,7 @@ include_once '../../../assets/html/head.html';
                                         <div class="col-md-10">
                                             <h5 class="card-title">
                                                 Mesa
-                                                <strong style="color:#198754;"> 01 </strong>
+                                                <strong style="color:#198754;">1 </strong>
                                             </h5>
                                             <div class="d-flex align-items-center">
                                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -125,6 +127,8 @@ include_once '../../../assets/html/head.html';
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -141,6 +145,29 @@ include_once '../../../assets/html/head.html';
 <!-- ======= Scripts ======= -->
 <?php
 include_once '../../../assets/html/scripts.html';
+?>
+
+<!-- ======= Alerts ======= -->
+<?php
+if (isset($_SESSION['table_added_success'])) {
+?>
+    <script>
+        swalAddTableSuccess();
+    </script>
+<?php
+    unset($_SESSION['table_added_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['table_added_fail'])) {
+?>
+    <script>
+        swalAddTableFailed();
+    </script>
+<?php
+    unset($_SESSION['table_added_fail']);
+}
 ?>
 
 </html>
