@@ -79,19 +79,8 @@ include_once '../../../assets/html/head.html';
             </div>
         </section>
 
-    </main><!-- End #main -->
+    </main>
 
-    <!-- ======= Footer ======= -->
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; <a href="https://wa.me/94992927891">João P.</a> & <a href="https://wa.me/94992303058">
-                        Pedro.H </a> & <a href="https://wa.me/94991066477">Eduardo D.</a> 2023</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 </body>

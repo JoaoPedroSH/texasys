@@ -50,7 +50,7 @@ include_once '../../../assets/html/head.html';
                                         
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit">Acessar</button>
-                                            <a class="btn btn-secondary w-100 mt-2" href="./bords.php" type="button" >Voltar</a>
+                                            <a class="btn btn-secondary w-100 mt-2" href="./tables.php" type="button" >Voltar</a>
                                         </div>
                                     </form>
 
@@ -64,8 +64,7 @@ include_once '../../../assets/html/head.html';
             </section>
 
         </div>
-    </main><!-- End #main -->
-
+    </main>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <?php

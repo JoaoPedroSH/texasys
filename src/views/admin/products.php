@@ -24,17 +24,14 @@ session_start();
         <div class="pagetitle">
             <h1>Cadastrar Produtos</h1>
             <hr>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section dashboard">
             <div class="row">
 
-                <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="card-body">
-
-                            <!-- No Labels Form -->
                             <form action="../../controllers/ProductsController.php" method="POST" class="row g-3">
                                 <input type="hidden" name="register">   
                                 <div class="col-md-6">
@@ -61,14 +58,14 @@ session_start();
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                     <button type="reset" class="btn btn-secondary">Cancelar</button>
                                 </div>
-                            </form><!-- End No Labels Form -->
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-    </main><!-- End #main -->
+    </main>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

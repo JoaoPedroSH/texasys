@@ -300,10 +300,6 @@ if (isset($_SESSION['access_admin_success'])) {
 
         </main>
 
-        <?php
-        include_once '../../../assets/html/footer.html';
-        ?>
-
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     </body>
