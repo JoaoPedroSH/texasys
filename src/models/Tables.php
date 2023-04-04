@@ -4,15 +4,6 @@ namespace models;
 
 class Tables
 {
-
-    /* public function getTables()
-    {
-        require '../../config/ConnectionDB.php';
-        $get_table_query = "SELECT * FROM mesas_adicionadas";
-        $get_table_response = $mysqli->query($get_table_query);
-        return $get_table_response;
-    } */
-
     public function postAddTables($request)
     {
 

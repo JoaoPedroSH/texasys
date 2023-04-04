@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <?php
 session_start();
+
+require_once '../../../config/ConnectionDB.php';
+
+$get_table_query = "SELECT * FROM mesas_adicionadas";
+$get_table_response = $mysqli->query($get_table_query);
+?>
+
+<?php
 include_once '../../../assets/html/head.html';
 ?>
 
@@ -79,55 +85,56 @@ include_once '../../../assets/html/head.html';
                 <div class="col-lg-12">
                     <div class="row">
 
+                        <?php
+                        while ($tables = $get_table_response->fetch_assoc()) {
+                        ?>
+                            <div class="col-md-3">
+                                <div class="card info-card revenue-card">
+                                    <div class="card-body">
+                                        <div class="row">
 
-
-                        <div class="col-md-3">
-                            <div class="card info-card revenue-card">
-                                <div class="card-body">
-                                    <div class="row">
-
-                                        <div class="col-md-10">
-                                            <h5 class="card-title">
-                                                Mesa
-                                                <strong style="color:#198754;">1 </strong>
-                                            </h5>
-                                            <div class="d-flex align-items-center">
-                                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                                            <div class="col-md-10">
+                                                <h5 class="card-title">
+                                                    Mesa
+                                                    <strong style="color:#198754;"> <?= $tables['cod_mesa'] ?> </strong>
+                                                </h5>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-file-earmark-spreadsheet"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                                        <h6> R$ 0,00 </h6>
+                                                        <span class="text-success small pt-1 fw-bold"></span>
+                                                        <span class="text-muted small pt-2 ps-1">
+                                                            <strong style="color:#2eca6a;"> <?= $tables['funcionario'] ?> </strong>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <div class="ps-3">
-                                                    <h6> R$ 0,00 </h6>
-                                                    <span class="text-success small pt-1 fw-bold"></span>
-                                                    <span class="text-muted small pt-2 ps-1">
-                                                        <strong style="color:#2eca6a;">João Pedro</strong>
-                                                    </span>
+                                            </div>
+
+                                            <div class="col-md-2" style="margin-top: 30px;">
+                                                <div>
+                                                    <button type="button" id="button-add-product" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
+                                                        <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div style="margin-top: 2px;">
+                                                    <button type="button" id="view-consumption" class="btn btn-outline-secondary btn-sm rounded-pill" title="Visualizar Consumo">
+                                                        <i class="ri-eye-fill" style="font-size: 20px;"></i>
+                                                    </button>
+                                                </div>
+                                                <div style="margin-top: 2px;">
+                                                    <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" title="Imprimir Conta">
+                                                        <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-2" style="margin-top: 30px;">
-                                            <div>
-                                                <button type="button" id="button-add-product" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
-                                                    <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
-                                                </button>
-                                            </div>
-                                            <div style="margin-top: 2px;">
-                                                <button type="button" id="view-consumption" class="btn btn-outline-secondary btn-sm rounded-pill" title="Visualizar Consumo">
-                                                    <i class="ri-eye-fill" style="font-size: 20px;"></i>
-                                                </button>
-                                            </div>
-                                            <div style="margin-top: 2px;">
-                                                <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" title="Imprimir Conta">
-                                                    <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
-                                                </button>
-                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        <?php } ?>
 
                     </div>
                 </div>
