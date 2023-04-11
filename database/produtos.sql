@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 23-Mar-2023 às 07:39
+-- Tempo de geração: 11-Abr-2023 às 16:25
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -34,7 +34,9 @@ CREATE TABLE `produtos` (
   `produto` varchar(1000) NOT NULL,
   `valor_produto` int(11) NOT NULL,
   `fornecedor` varchar(1000) NOT NULL,
-  `valor_fornecedor` int(11) NOT NULL
+  `valor_fornecedor` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -55,7 +57,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
