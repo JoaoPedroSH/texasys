@@ -7,7 +7,7 @@ use services\Products;
 $registerProducts = new Products();
 
 
-if (isset($_POST['register'])) {   
+if (isset($_POST['add'])) {
     return $registerProducts->postRegisterProducts($_POST);    
 }   
 

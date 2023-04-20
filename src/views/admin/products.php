@@ -29,7 +29,7 @@ include_once '../../../assets/html/head.html';
     <!-- ======= Header e Sidebar ======= -->
     <?php
     include_once '../../../assets/html/header.html';
-    include_once '../../../assets/html/sidebar.html';
+    include_once '../../../assets/html/sidebar_admin.html';
     ?>
 
     <main id="main" class="main">
@@ -91,7 +91,7 @@ include_once '../../../assets/html/head.html';
                                     <div class="col-md-4 form-floating mb-3">
                                         <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Valor em R$" required>
                                         <label for="quantity">
-                                            <strong> Quantidade </strong>
+                                            <strong> Quantidade de unidades </strong>
                                         </label>
                                     </div>
                                     <div class="modal-footer">
@@ -131,8 +131,8 @@ include_once '../../../assets/html/head.html';
                                             <th scope="col">Categoria</th>
                                             <th scope="col">Produto</th>
                                             <th scope="col">Valor</th>
-                                            <th scope="col">Quantidade</th>
-                                            <th scope="col">Data</th>
+                                            <th scope="col">Quantidade (unidades)</th>
+                                            <th scope="col">Data últ. reposição</th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
