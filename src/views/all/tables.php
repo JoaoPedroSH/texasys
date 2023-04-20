@@ -7,6 +7,9 @@ require_once '../../../config/ConnectionDB.php';
 
 $get_table_query = "SELECT * FROM mesas_adicionadas";
 $get_table_response = $mysqli->query($get_table_query);
+
+$get_products_query = "SELECT * FROM produtos";
+$get_products_response = $mysqli->query($get_products_query);
 ?>
 
 <?php
@@ -114,9 +117,63 @@ include_once '../../../assets/html/head.html';
 
                                             <div class="col-md-2" style="margin-top: 30px;">
                                                 <div>
-                                                    <button type="button" id="button-add-product" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
+                                                    <button type="button" id="button-add-product" data-bs-toggle="modal" data-bs-target="#addProductsTables" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
                                                         <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
                                                     </button>
+
+                                                    <div class="modal fade" id="addProductsTables" tabindex="-1" aria-hidden="true" style="display: none;">
+                                                        <div class="modal-dialog modal-md">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">ADICIONAR PRODUTOS Á MESA</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="../../controllers/TablesController.php" method="POST">
+                                                                    <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
+                                                                        <div class="col-md-9">
+                                                                            <div id="dataTable_filter" class="dataTables_filter">
+                                                                                <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                                <i class="bi bi-x-square"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-success">
+                                                                                <i class="bi bi-check-square"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <table class="table table-bordered" style="margin-top: 15px;">
+                                                                        <thead>
+                                                                            <tr class="table-secondary">
+                                                                                <th scope="col">Produto</th>
+                                                                                <th scope="col">Quantidade</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody id="dataTable">
+                                                                            <?php
+                                                                            while ($products = $get_products_response->fetch_assoc()) {
+                                                                            ?>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="form-check form-switch">
+                                                                                            <input class="form-check-input" type="checkbox" id="product-<?= $products['id'] ?>" name="product-<?= $products['id'] ?>" value="<?= $products['produto'] ?>">
+                                                                                            <label class="form-check-label" for="product-<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input class="form-control" type="number" name="quantidade-<?= $products['id'] ?>" id="quantidade-<?= $products['id'] ?>" min="0" value="0">
+                                                                                    </td>
+                                                                                </tr>
+                                                                            <?php } ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div style="margin-top: 2px;">
                                                     <button type="button" id="view-consumption" class="btn btn-outline-secondary btn-sm rounded-pill" title="Visualizar Consumo">
@@ -124,7 +181,7 @@ include_once '../../../assets/html/head.html';
                                                     </button>
                                                 </div>
                                                 <div style="margin-top: 2px;">
-                                                    <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" title="Imprimir Conta">
+                                                    <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" step="1f" title="Imprimir Conta">
                                                         <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
                                                     </button>
                                                 </div>
@@ -148,6 +205,8 @@ include_once '../../../assets/html/head.html';
     </a>
 
 </body>
+
+
 
 <!-- ======= Scripts ======= -->
 <?php
