@@ -205,7 +205,7 @@ include_once '../../../assets/html/head.html';
                                                                                 <th scope="col" style="text-align:center">Produto</th>
                                                                                 <th scope="col" style="text-align:center">Quantidade</th>
                                                                                 <th scope="col" style="text-align:center">Valor</th>
-                                                                                <th scope="col" style="text-align:center">Ação</th>
+                                                                                <th scope="col" style="text-align:center"></th>
                                                                             </tr>
                                                                         </thead>
 
