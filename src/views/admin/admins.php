@@ -31,7 +31,7 @@ include_once '../../../assets/html/head.html';
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1><strong> FUNCIONÁRIOS </strong></h1>
+            <h1><strong> ADMINISTRADORES </strong></h1>
         </div>
 
         <div id="button-modal-add">
@@ -39,38 +39,32 @@ include_once '../../../assets/html/head.html';
                 Cadastrar <i class="bi bi-plus-circle-fill"></i>
             </button>
             <div class="modal fade" id="verticalycentered" tabindex="-1" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-md">
+                <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">CADASTRAR FUNCIONÁRIO</h5>
+                            <h5 class="modal-title">CADASTRAR ADMINISTRADOR</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="../../controllers/EmployeesController.php" method="POST">
+                        <form action="../../controllers/AdminsController.php" method="POST">
                             <input type="hidden" name="add" value="true">
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-6 form-floating mb-3">
+                                    <div class="col-md-12 form-floating mb-3">
                                         <input type="text" name="name" id="name" class="form-control" placeholder="Nome" required>
                                         <label for="name">
                                             <strong> Nome </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-6 form-floating mb-3 ml-3">
-                                        <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Sobrenome" required>
-                                        <label for="lastname">
-                                            <strong> Sobrenome </strong>
+                                    <div class="col-md-12 form-floating mb-3 ml-3">
+                                        <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Nome de Usuário" required>
+                                        <label for="user_name">
+                                            <strong> Nome de usuário </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-6 form-floating mb-3">
-                                        <input type="text" name="function" id="function" class="form-control" placeholder="Função" required>
-                                        <label for="function">
-                                            <strong> Função </strong>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-6 form-floating mb-3">
-                                        <input type="text" name="telefone" id="telefone" class="form-control" placeholder="N° Telefone" required>
-                                        <label for="telefone">
-                                            <strong> N° Telefone </strong>
+                                    <div class="col-md-12 form-floating mb-3">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Senha" required>
+                                        <label for="password">
+                                            <strong> Senha </strong>
                                         </label>
                                     </div>
                                     <div class="modal-footer">
@@ -107,24 +101,20 @@ include_once '../../../assets/html/head.html';
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="table-primary">
-                                            <th scope="col">Função</th>
                                             <th scope="col">Nome</th>
-                                            <th scope="col">Telefone</th>
-                                            <th scope="col">Débito</th>
+                                            <th scope="col">Nome de usuário</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
                                         <?php
-                                        $get_employees_query = "SELECT * FROM funcionarios";
-                                        $get_employees_response = $mysqli->query($get_employees_query);
-                                        while ($employees = $get_employees_response->fetch_assoc()) {
+                                        $get_admins_query = "SELECT * FROM admins";
+                                        $get_admins_response = $mysqli->query($get_admins_query);
+                                        while ($admins = $get_admins_response->fetch_assoc()) {
                                         ?>
                                             <tr>
-                                                <td><?= $employees['funcao'] ?></td>
-                                                <td><?= $employees['nome'] ?> <?= $employees['sobrenome'] ?></td>
-                                                <td><?= $employees['numero'] ?></td>
-                                                <td>R$<?= $employees['debito'] ?></td>
+                                                <td><?= $admins['nome'] ?></td>
+                                                <td><?= $admins['nome_usuario'] ?></td>
                                                 <td></td>
                                             </tr>
                                         <?php } ?>
@@ -154,24 +144,24 @@ include_once '../../../assets/html/scripts.html';
 
 <!-- ======= Alerts ======= -->
 <?php
-if (isset($_SESSION['register_employees_success'])) {
+if (isset($_SESSION['register_admins_success'])) {
 ?>
     <script>
-        swalEmployeesAddSuccess();
+        swalAdminsAddSuccess();
     </script>
 <?php
-    unset($_SESSION['register_employees_success']);
+    unset($_SESSION['register_admins_success']);
 }
 ?>
 
 <?php
-if (isset($_SESSION['register_employees_fail'])) {
+if (isset($_SESSION['register_admins_fail'])) {
 ?>
     <script>
-        swalEmployeesAddFailed();
+        swalAdminsAddFailed();
     </script>
 <?php
-    unset($_SESSION['register_employees_fail']);
+    unset($_SESSION['register_admins_fail']);
 }
 ?>
 

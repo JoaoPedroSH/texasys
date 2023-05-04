@@ -133,6 +133,7 @@ include_once '../../../assets/html/head.html';
                                             <th scope="col">Valor</th>
                                             <th scope="col">Quantidade (unidades)</th>
                                             <th scope="col">Data últ. reposição</th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
@@ -145,6 +146,7 @@ include_once '../../../assets/html/head.html';
                                                 <td><?= $products['valor_produto'] ?></td>
                                                 <td><?= $products['quantidade'] ?></td>
                                                 <td><?= date('d/m/Y', strtotime($products['data'])) ?></td>
+                                                <td></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

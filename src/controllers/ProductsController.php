@@ -4,17 +4,17 @@ require_once '../models/Products.php';
 
 use services\Products;
 
-$registerProducts = new Products();
+$products = new Products();
 
 
 if (isset($_POST['add'])) {
-    return $registerProducts->postRegisterProducts($_POST);    
+    return $products->postProducts($_POST);    
 }   
 
 if (isset($_POST['edit'])) {
-    return $registerProducts->putRegisterProducts($_POST);
+    return $products->putProducts($_POST);
 }
 
 if (isset($_POST['delete'])) {
-    return $registerProducts->deleteRegisterProducts($_POST['id']);
+    return $products->deleteProducts($_POST['id']);
 }

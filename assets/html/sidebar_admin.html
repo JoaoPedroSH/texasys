@@ -41,7 +41,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="../../../src/views/admin/employees.php">
+            <a class="nav-link " href="../../../src/views/admin/admins.php">
                 <i class="bi bi-person-gear"></i>
                 <span>Administradores</span>
             </a>
@@ -73,7 +73,7 @@
             cancelButtonText: 'Não',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.replace('../all/tables.php')
+                location.replace('../all/tables.php')
             }
         })
     }

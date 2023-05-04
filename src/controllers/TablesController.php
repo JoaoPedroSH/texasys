@@ -10,10 +10,6 @@ if (isset($_POST['add'])) {
 }
 
 if (isset($_POST['add-products-of-tables'])) {
-   
-
-    
-
     return $tables->postAddProductOfTables($_POST);
 }
 

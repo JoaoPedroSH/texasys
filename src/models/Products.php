@@ -4,19 +4,9 @@ namespace services;
 
 class Products
 {
-    public function getRegisterProducts()
+
+    public function postProducts()
     {
-
-        require '../../config/ConnectionDB.php';
-
-        $registerProducts_query = "SELECT * FROM produtos";
-        $registerProducts_response = $mysqli->query($registerProducts_query);
-        return $registerProducts_response;
-    }
-
-    public function postRegisterProducts()
-    {
-
         require '../../config/ConnectionDB.php';
 
         $category = $mysqli->escape_string($_POST['category']);
@@ -44,11 +34,11 @@ class Products
         }
     }
 
-    public function putRegisterProducts()
+    public function putProducts()
     {
     }
 
-    public function deleteRegisterProducts()
+    public function deleteProducts()
     {
     }
 }

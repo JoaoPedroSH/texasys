@@ -57,3 +57,43 @@ function swalProductAddTablefailed() {
     timer: 1500,
   });
 }
+
+function swalEmployeesAddSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Funcionário cadastrado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalEmployeesAddfailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Funcionário não foi cadastrado!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalAdminsAddSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Administrador cadastrado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalAdminsAddfailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Administrador não foi cadastrado!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
