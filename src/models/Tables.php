@@ -4,6 +4,26 @@ namespace models;
 
 class Tables
 {
+
+    public function putQuantityTables($request)
+    {
+        require '../../config/ConnectionDB.php';
+
+        $quantity_tables = $mysqli->escape_string($request['quantity-tables']);
+        $table_quant_report = "UPDATE mesas_quantidade SET quantidade = '$quantity_tables' WHERE id = 1";
+        $table_quant_response = $mysqli->query($table_quant_report);
+
+        if ($table_quant_response == 1) {
+            session_start();
+            $_SESSION['table_added_success'] = true;
+            header('Location: ../views/all/tables.php');
+        } else {
+            session_start();
+            $_SESSION['table_added_fail'] = true;
+            header('Location: ../views/all/tables.php');
+        }
+    }
+
     public function postAddTables($request)
     {
 

@@ -13,6 +13,6 @@ if (isset($_POST['add-products-of-tables'])) {
     return $tables->postAddProductOfTables($_POST);
 }
 
-if (isset($_POST['view-products-of-tables'])) {
-
+if (isset($_POST['put_quant_tables'])) {
+    return $tables->putQuantityTables($_POST);
 }

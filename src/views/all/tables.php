@@ -39,20 +39,36 @@ include_once '../../../assets/html/head.html';
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-4 form-floating mb-3">
+
                                         <select class="form-select" name="cod-table" id="cod-table" required>
                                             <option value="">Selecione</option>
-                                            <option value="1">01</option>
-                                            <option value="2">02</option>
+                                            <?php
+                                            $get_tables_quant_query = "SELECT * FROM mesas_quantidade";
+                                            $get_tables_quant_response = $mysqli->query($get_tables_quant_query);
+                                            $tables_quant = $get_tables_quant_response->fetch_assoc();
+                                            $i = 1;
+                                            while ($i <= $tables_quant['quantidade']) {
+                                            ?>
+                                                <option value="<?= $i ?>"><?= $i ?></option>
+                                            <?php $i++;
+                                            } ?>
                                         </select>
+
                                         <label for="cod-table">
                                             <strong> Nº da Mesa </strong>
                                         </label>
                                     </div>
                                     <div class="col-md-8 form-floating mb-3">
-                                        <select class="form-select" name="employee" id="employee" required>
-                                            <option value="">Selecione</option>
-                                            <option value="João Pedro">João Pedro</option>
-                                        </select>
+                                        <?php
+                                        $get_employees_query = "SELECT * FROM funcionarios";
+                                        $get_employees_response = $mysqli->query($get_employees_query);
+                                        while ($employees = $get_employees_response->fetch_assoc()) {
+                                        ?>
+                                            <select class="form-select" name="employee" id="employee" required>
+                                                <option value="">Selecione</option>
+                                                <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
+                                            </select>
+                                        <?php } ?>
                                         <label for="employee">
                                             <strong> Funcionário </strong>
                                         </label>
@@ -61,10 +77,10 @@ include_once '../../../assets/html/head.html';
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-danger" id="cancel-add-table" data-bs-dismiss="modal" title="Cancelar">
                                     <i class="bi bi-x-square"></i>
                                 </button>
-                                <button type="submit" class="btn btn-success">
+                                <button type="submit" id="save-add-table" class="btn btn-success" title="Cadastrar">
                                     <i class="bi bi-check-square"></i>
                                 </button>
                             </div>
@@ -133,10 +149,10 @@ include_once '../../../assets/html/head.html';
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3">
-                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                            <button type="button" class="btn btn-danger" id="cancel-add-product-table" data-bs-dismiss="modal" title="Cancelar">
                                                                                 <i class="bi bi-x-square"></i>
                                                                             </button>
-                                                                            <button type="submit" class="btn btn-success">
+                                                                            <button type="submit" class="btn btn-success" id="save-add-product-table" title="Adicionar">
                                                                                 <i class="bi bi-check-square"></i>
                                                                             </button>
                                                                         </div>
@@ -272,6 +288,32 @@ include_once '../../../assets/html/head.html';
                 </div>
             </div>
         </section>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row" style="align-items: center;">
+                    <span style="margin-bottom: 10px;">Quantidade de mesas</span>
+                    <form action="../../controllers/TablesController.php" method="POST">
+                        <div class="row" style="justify-content: start;">
+                            <input type="hidden" name="put_quant_tables" value="true">
+                            <div class="col-sm-1">
+                                <?php
+                                $get_tables_quant_form_query = "SELECT * FROM mesas_quantidade";
+                                $get_tables_quant_form_response = $mysqli->query($get_tables_quant_form_query);
+                                $tables_quant_form = $get_tables_quant_form_response->fetch_assoc();
+                                ?>
+                                <input class="form-control" type="number" name="quantity-tables" min="1" value="<?= $tables_quant_form['quantidade'] ?>">
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-secondary" id="quant-tables" title="Atualizar quantidade">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </main>
 
