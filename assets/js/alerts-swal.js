@@ -37,3 +37,23 @@ function swalAddTablefailed() {
     timer: 1500,
   });
 }
+
+function swalProductAddTableSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Produto adicionado a mesa!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalProductAddTablefailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao adicionar produto a mesa!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

@@ -27,6 +27,46 @@ class Tables
         }
     }
 
+    public function postAddProductOfTables($request)
+    {
+        require '../../config/ConnectionDB.php';
+
+        $id_table = $request['id-tables'];
+
+        foreach ($request as $key => $value) {
+            if (strpos($key, 'produto_') !== false) {
+                $id_produto = substr($key, strlen('produto_'));
+                $quantidade = $request['quantidade_' . $id_produto];
+
+                /* Pegar valor do produto*/
+                $get_products_value = "SELECT * FROM produtos WHERE id = $id_produto";
+                $get_products_value_response = $mysqli->query($get_products_value);
+                $products_value = $get_products_value_response->fetch_assoc();
+                $value_product = $products_value['valor_produto'] * $quantidade;
+
+                /* Subitrair valor da quantidade de produtos em estoque */
+                $quantidade_in_data = $products_value['quantidade'];
+                $new_quantidade = $quantidade_in_data - $quantidade;
+                $put_quant_product = "UPDATE produtos SET quantidade = '$new_quantidade' WHERE id = $id_produto";
+                $mysqli->query($put_quant_product);
+
+                $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product')";
+                $res_product_add_table = $mysqli->query($product_add_table);
+
+                if ($res_product_add_table != 0) {
+                    session_start();
+                    $_SESSION['product_table_added_success'] = true;
+                    header('Location: ../views/all/tables.php');
+                } else {
+                    session_start();
+                    $_SESSION['product_table_added_fail'] = true;
+                    header('Location: ../views/all/tables.php');
+                }
+            }
+        }
+    }
+
+
     /* public function putPastures($request, $retreat)
     {
         require 'Conexao.php';

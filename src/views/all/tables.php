@@ -2,14 +2,7 @@
 <html lang="en">
 <?php
 session_start();
-
 require_once '../../../config/ConnectionDB.php';
-
-$get_table_query = "SELECT * FROM mesas_adicionadas";
-$get_table_response = $mysqli->query($get_table_query);
-
-$get_products_query = "SELECT * FROM produtos";
-$get_products_response = $mysqli->query($get_products_query);
 ?>
 
 <?php
@@ -89,6 +82,8 @@ include_once '../../../assets/html/head.html';
                     <div class="row">
 
                         <?php
+                        $get_table_query = "SELECT * FROM mesas_adicionadas";
+                        $get_table_response = $mysqli->query($get_table_query);
                         while ($tables = $get_table_response->fetch_assoc()) {
                         ?>
                             <div class="col-md-3">
@@ -117,18 +112,20 @@ include_once '../../../assets/html/head.html';
 
                                             <div class="col-md-2" style="margin-top: 30px;">
                                                 <div>
-                                                    <button type="button" id="button-add-product" data-bs-toggle="modal" data-bs-target="#addProductsTables" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
+                                                    <button type="button" id="button-add-product" data-bs-toggle="modal" data-bs-target="#addProductsTables_<?= $tables['cod_mesa'] ?>" class="btn btn-outline-secondary btn-sm rounded-pill" title="Adicionar Produto">
                                                         <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
                                                     </button>
 
-                                                    <div class="modal fade" id="addProductsTables" tabindex="-1" aria-hidden="true" style="display: none;">
+                                                    <div class="modal fade" id="addProductsTables_<?= $tables['cod_mesa'] ?>" tabindex="-1" aria-hidden="true" style="display: none;">
                                                         <div class="modal-dialog modal-md">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">ADICIONAR PRODUTOS Á MESA</h5>
+                                                                    <h5 class="modal-title">ADICIONAR PRODUTOS Á MESA <strong><?= $tables['cod_mesa'] ?></strong></h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <form action="../../controllers/TablesController.php" method="POST">
+                                                                <form action="../../controllers/TablesController.php" method="POST" id="formAddProductsTables">
+                                                                    <input type="hidden" name="add-products-of-tables" value="true">
+                                                                    <input type="hidden" name="id-tables" value="<?= $tables['cod_mesa'] ?>">
                                                                     <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
                                                                         <div class="col-md-9">
                                                                             <div id="dataTable_filter" class="dataTables_filter">
@@ -154,17 +151,21 @@ include_once '../../../assets/html/head.html';
 
                                                                         <tbody id="dataTable">
                                                                             <?php
+                                                                            $get_products_query = "SELECT * FROM produtos";
+                                                                            $get_products_response = $mysqli->query($get_products_query);
                                                                             while ($products = $get_products_response->fetch_assoc()) {
                                                                             ?>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <div class="form-check form-switch">
-                                                                                            <input class="form-check-input" type="checkbox" id="product-<?= $products['id'] ?>" name="product-<?= $products['id'] ?>" value="<?= $products['produto'] ?>">
-                                                                                            <label class="form-check-label" for="product-<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
+                                                                                        <div class="form-check form-control form-switch" style="align-items: center; border:0px">
+                                                                                            <input class="form-check-input check-produto" type="checkbox" id="produto_<?= $products['id'] ?>" name="produto_<?= $products['id'] ?>" value="<?= $products['id'] ?>">
+                                                                                            <label class="form-check-label" for="produto_<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
                                                                                         </div>
                                                                                     </td>
-                                                                                    <td>
-                                                                                        <input class="form-control" type="number" name="quantidade-<?= $products['id'] ?>" id="quantidade-<?= $products['id'] ?>" min="0" value="0">
+                                                                                    <td class="col-md-3">
+                                                                                        <div>
+                                                                                            <input class="form-control input-quantidade" type="number" name="quantidade_<?= $products['id'] ?>" id="quantidade_<?= $products['id'] ?>" min="1" value="1" style="display:none;" disabled>
+                                                                                        </div>
                                                                                     </td>
                                                                                 </tr>
                                                                             <?php } ?>
@@ -175,11 +176,85 @@ include_once '../../../assets/html/head.html';
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div style="margin-top: 2px;">
-                                                    <button type="button" id="view-consumption" class="btn btn-outline-secondary btn-sm rounded-pill" title="Visualizar Consumo">
+                                                    <button type="button" id="view-consumption" data-bs-toggle="modal" data-bs-target="#viewProductsTables_<?= $tables['cod_mesa'] ?>" class="btn btn-outline-secondary btn-sm rounded-pill" title="Visualizar Consumo">
                                                         <i class="ri-eye-fill" style="font-size: 20px;"></i>
                                                     </button>
+
+                                                    <div class="modal fade" id="viewProductsTables_<?= $tables['cod_mesa'] ?>" tabindex="-1" aria-hidden="true" style="display: none;">
+                                                        <div class="modal-dialog modal-md">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"> PRODUTOS ADICIONADOS Á MESA <strong><?= $tables['cod_mesa'] ?></strong></h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="../../controllers/TablesController.php" method="POST" id="formAddProductsTables">
+                                                                    <input type="hidden" name="view-products-of-tables" value="true">
+                                                                    <input type="hidden" name="id-tables" value="<?= $tables['cod_mesa'] ?>">
+                                                                    <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
+                                                                        <div class="col-md-12">
+                                                                            <div id="dataTable_filter" class="dataTables_filter">
+                                                                                <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <table class="table table-bordered" style="margin-top: 15px;">
+                                                                        <thead>
+                                                                            <tr class="table-secondary">
+                                                                                <th scope="col" style="text-align:center">Produto</th>
+                                                                                <th scope="col" style="text-align:center">Quantidade</th>
+                                                                                <th scope="col" style="text-align:center">Valor</th>
+                                                                                <th scope="col" style="text-align:center">Ação</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody id="dataTable">
+                                                                            <?php
+                                                                            $code_mesa = $tables['cod_mesa'];
+                                                                            $get_products_table_query = "SELECT * FROM produtos_adicionados_mesas WHERE id_mesa = $code_mesa";
+                                                                            $get_products_table_response = $mysqli->query($get_products_table_query);
+
+                                                                            while ($products_added = $get_products_table_response->fetch_assoc()) {
+                                                                            ?>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="form-control" style="align-items:center; border:0px; text-align:center">
+                                                                                            <?php
+                                                                                            $code_produto = $products_added['id_produto'];
+                                                                                            $get_products_unic_query = "SELECT * FROM produtos WHERE id = $code_produto";
+                                                                                            $get_products_unic_response = $mysqli->query($get_products_unic_query);
+                                                                                            $products_unic = $get_products_unic_response->fetch_assoc();
+                                                                                            ?>
+                                                                                            <label> <?= $products_unic['produto'] ?> </label>
+
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="col-md-3">
+                                                                                        <div class="form-control" style="align-items:center; border:0px; text-align:center">
+                                                                                            <label> <?= $products_added['quantidade'] ?> </label>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="form-control" style="align-items:center; border:0px; text-align:center">
+                                                                                            <label> R$<?= $products_added['valor'] ?> </label>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="form-control" style="align-items:center; border:0px; text-align:center">
+                                                                                            <a href="#"><i class="bi bi-pencil-square"></i></a>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            <?php } ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                                 <div style="margin-top: 2px;">
                                                     <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" step="1f" title="Imprimir Conta">
                                                         <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
@@ -206,7 +281,24 @@ include_once '../../../assets/html/head.html';
 
 </body>
 
+<script>
+    const checkboxes = document.querySelectorAll('.check-produto');
 
+    checkboxes.forEach(checkbox => {
+        const quantidadeInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('.input-quantidade');
+
+        checkbox.addEventListener('change', () => {
+            quantidadeInput.disabled = !checkbox.checked;
+            quantidadeInput.style.display = checkbox.checked ? 'block' : 'none';
+        });
+    });
+
+    const modal = document.getElementById('addProductsTables');
+
+    modal.addEventListener('hidden.bs.modal', () => {
+        location.reload();
+    });
+</script>
 
 <!-- ======= Scripts ======= -->
 <?php
@@ -233,6 +325,28 @@ if (isset($_SESSION['table_added_fail'])) {
     </script>
 <?php
     unset($_SESSION['table_added_fail']);
+}
+?>
+
+<?php
+if (isset($_SESSION['product_table_added_success'])) {
+?>
+    <script>
+        swalProductAddTableSuccess();
+    </script>
+<?php
+    unset($_SESSION['product_table_added_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['product_table_added_fail'])) {
+?>
+    <script>
+        swalProductAddTableFailed();
+    </script>
+<?php
+    unset($_SESSION['product_table_added_fail']);
 }
 ?>
 
