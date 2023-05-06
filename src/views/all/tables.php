@@ -27,6 +27,7 @@ include_once '../../../assets/html/head.html';
             <button type="button" class="btn btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#verticalycentered">
                 Adicionar <i class="bi bi-plus-circle-fill"></i>
             </button>
+
             <div class="modal fade" id="verticalycentered" tabindex="-1" aria-hidden="true" style="display: none;">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -120,7 +121,14 @@ include_once '../../../assets/html/head.html';
                                                         <h6> R$ 0,00 </h6>
                                                         <span class="text-success small pt-1 fw-bold"></span>
                                                         <span class="text-muted small pt-2 ps-1">
-                                                            <strong style="color:#2eca6a;"> <?= $tables['funcionario'] ?> </strong>
+                                                            <?php
+                                                            $id_employees = $tables['funcionario'];
+                                                            $get_table_employees_query = "SELECT * FROM funcionarios WHERE id = $id_employees";
+                                                            $get_table_employees_response = $mysqli->query($get_table_employees_query);
+                                                            while ($nome_employees = $get_table_employees_response->fetch_assoc()) {
+                                                            ?>
+                                                                <strong style="color:#2eca6a;"> <?= $nome_employees['nome'] ?> </strong>
+                                                            <?php } ?>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -272,9 +280,36 @@ include_once '../../../assets/html/head.html';
                                                 </div>
 
                                                 <div style="margin-top: 2px;">
-                                                    <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" step="1f" title="Imprimir Conta">
+                                                    <button type="button" id="print-bill" class="btn btn-outline-secondary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#printBillTables_<?= $tables['cod_mesa'] ?>" title="Imprimir Conta">
                                                         <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
                                                     </button>
+
+                                                    <div class="modal fade" id="printBillTables_<?= $tables['cod_mesa'] ?>" tabindex="-1" aria-hidden="true" style="display: none;">
+                                                        <div class="modal-dialog modal-md">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h2 class="modal-title" style="text-align: center;"> DESEJA <strong> IMPRIMIR </strong> E <strong> FECHAR </strong> A CONTA DA MESA <strong><?= $tables['cod_mesa'] ?></strong> ? </h2>
+                                                                    <form action="../../controllers/PrintBillController.php" method="POST" id="formAddProductsTables">
+                                                                        <input type="hidden" name="print" value="true">
+                                                                        <input type="hidden" name="id-tables-print" value="<?= $tables['cod_mesa'] ?>">
+                                                                        <hr>
+                                                                        <div class="col-md-12">
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                                Não <i class="bi bi-x-square"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-success">
+                                                                                Sim <i class="bi bi-check-square"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
