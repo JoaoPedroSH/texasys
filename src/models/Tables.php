@@ -64,7 +64,7 @@ class Tables
                 $products_value = $get_products_value_response->fetch_assoc();
                 $value_product = $products_value['valor_produto'] * $quantidade;
 
-                /* Subitrair valor da quantidade de produtos em estoque */
+                /* Subtrair valor da quantidade de produtos em estoque */
                 $quantidade_in_data = $products_value['quantidade'];
                 $new_quantidade = $quantidade_in_data - $quantidade;
                 $put_quant_product = "UPDATE produtos SET quantidade = '$new_quantidade' WHERE id = $id_produto";
