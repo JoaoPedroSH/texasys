@@ -16,3 +16,7 @@ if (isset($_POST['add-products-of-tables'])) {
 if (isset($_POST['put_quant_tables'])) {
     return $tables->putQuantityTables($_POST);
 }
+
+if (isset($_POST['delete-product-added'])) {
+    return $tables->deleteProductAddedTable($_POST);
+}

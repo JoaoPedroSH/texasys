@@ -1,25 +1,57 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-start toggle-sidebar-btn" >
+    <div class="d-flex align-items-center justify-content-start toggle-sidebar-btn">
 
         <i class="bi bi-grip-vertical"></i>
         <img src="../../../assets/img/logo.png" style="width: 10rem; height: 3rem; margin-left: 20px;">
+
+    </div>
+
+    <div class="d-flex align-items-center justify-content-start toggle-sidebar-btn">
+
+        <button id="notification" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="bi bi-bell"><strong id="num_notification"></strong></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="notification" id="dropdownMenu"></div>
         <div id="clock"></div>
 
     </div>
 
     <style>
+        #notification {
+            position: absolute;
+            right: 12%;
+            cursor: pointer;
+            background-color: #102E5D;
+        }
+
+        #num_notification {
+            width: 10px;
+            height: 10px;
+            align-items: start;
+            font-size: medium;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+        }
+
         #clock {
             font-size: 24px;
             color: white;
             text-align: center;
-            position: absolute; 
+            position: absolute;
             right: 0;
-            margin-right: 20px; 
+            margin-right: 20px;
             font-weight: bold;
         }
     </style>
-    
+
     <script>
         function updateClock() {
             var currentTime = new Date();
@@ -35,6 +67,43 @@
             document.getElementById("clock").innerHTML = currentTimeString;
         }
         setInterval(updateClock, 1000);
+    </script>
+
+    <script>
+        fetch('../../services/Notification.php')
+            .then(response => response.json())
+            .then(data => {
+                let count = data.quant;
+                document.getElementById("num_notification").innerHTML = count;
+                if (count > 0) {
+                    var dropdownMenu = document.getElementById("dropdownMenu");
+                    var itens = Object.values(data.notification);
+
+                    for (var i = 0; i < itens.length; i++) {
+                        var item = document.createElement("a");
+                        item.classList.add("dropdown-item");
+                        item.href = "./products.php";
+
+                        var itemHTML = '<strong>&bull; ' + itens[i].produto + '</strong> está com <strong>' + itens[i].quantidade + '</strong> unidades no estoque!';
+
+                        item.innerHTML = itemHTML;
+                        dropdownMenu.appendChild(item);
+
+                        if (i < itens.length - 1) {
+                            var divider = document.createElement("div");
+                            divider.classList.add("dropdown-divider");
+                            dropdownMenu.appendChild(divider);
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+            });
+    </script>
+
+    <script>
+        document.getElementById("notification").classList.add("show");
     </script>
 
 </header>

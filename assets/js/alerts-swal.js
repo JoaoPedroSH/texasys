@@ -18,6 +18,26 @@ function swalRegisterfailed() {
   });
 }
 
+function swalProductRemovedTableSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Produto removido!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalProductRemovedTableFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Não foi possível remover o produto!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
 function swalAddTableSuccess() {
   Swal.fire({
     position: "top-end",
