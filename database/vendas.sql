@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 06-Maio-2023 às 08:26
+-- Tempo de geração: 18-Maio-2023 às 05:44
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -35,7 +35,8 @@ CREATE TABLE `vendas` (
   `tipo_venda` varchar(255) NOT NULL,
   `valor` int(11) NOT NULL,
   `data` date NOT NULL,
-  `horario` varchar(255) NOT NULL
+  `horario` varchar(255) NOT NULL,
+  `turno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
