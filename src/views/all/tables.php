@@ -21,15 +21,63 @@ include_once '../../../assets/html/head.html';
 
     <main id="main" class="main">
 
-
-
         <div class="col-md-12">
             <div class="pagetitle">
                 <h1><strong> BALCÃO </strong></h1>
             </div>
+
+            <div class="card" style="display:inline-flex">
+                <div class="card-header">
+                    <div class="d-flex align-items-center mb-2">
+                        <div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="radio-client" name="radio-stacked-sales-counter" value="client" checked>
+                                <label class="custom-control-label" for="radio-client">Cliente</label>
+                            </div>
+                        </div>
+                        <div class="ps-3">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="radio-employees" name="radio-stacked-sales-counter" value="employees">
+                                <label class="custom-control-label" for="radio-employees">Funcionário</label>
+                            </div>
+                        </div>
+                    </div>
+                    <select class="custom-select" id="select-employees-counter" style="display:none;" required>
+                        <option selected disabled value="">Selecionar funcionário</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <button type="button" id="button-add-product-sales-counter" data-bs-toggle="modal" data-bs-target="#addProductSalesCounter" class="btn btn-warning btn-md" title="Adicionar Produtos">
+                                <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
+                            </button>
+                        </div>
+                        <div class="ps-3">
+                            <button type="button" id="button-view-product-sales-counter" data-bs-toggle="modal" data-bs-target="#viewProductSalesCounter" class="btn btn-warning btn-md" title="Visualizar Produtos">
+                                <i class="ri-eye-fill" style="font-size: 20px;"></i>
+                            </button>
+                        </div>
+                        <div class="input-group ps-3 input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="number" min="1" class="form-control">
+                        </div>
+                        <div class="ps-3">
+                            <button type="button" id="button-finish-sales-counter" data-bs-toggle="modal" data-bs-target="#finishSalesCounter" class="btn btn-success btn-md" title="Finalizar Compra">
+                                <i class="bi bi-check-circle-fill" style="font-size: 20px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <hr>
+        <div class="col-md-12">
+            <hr style="margin-bottom:35px; border: 1px solid;">
+        </div>
 
         <div class="col-md-12">
 
@@ -379,19 +427,28 @@ include_once '../../../assets/html/head.html';
 </body>
 
 <script>
-    const checkboxes = document.querySelectorAll('.check-produto');
+    $(document).ready(function() {
+        $("input[name='radio-stacked-sales-counter']").change(function() {
+            var selecionado = $("input[name='radio-stacked-sales-counter']:checked").val();
+            if (selecionado === "employees") {
+                $("#select-employees-counter").show();
+            } else {
+                $("#select-employees-counter").hide();
+            }
+        });
+    });
+</script>
 
+<script>
+    const checkboxes = document.querySelectorAll('.check-produto');
     checkboxes.forEach(checkbox => {
         const quantidadeInput = checkbox.parentElement.parentElement.nextElementSibling.querySelector('.input-quantidade');
-
         checkbox.addEventListener('change', () => {
             quantidadeInput.disabled = !checkbox.checked;
             quantidadeInput.style.display = checkbox.checked ? 'block' : 'none';
         });
     });
-
     const modal = document.getElementById('addProductsTables');
-
     modal.addEventListener('hidden.bs.modal', () => {
         location.reload();
     });
@@ -403,6 +460,28 @@ include_once '../../../assets/html/scripts.html';
 ?>
 
 <!-- ======= Alerts ======= -->
+<?php
+if (isset($_SESSION['num_table_added_success'])) {
+?>
+    <script>
+        swalAddQuantTableSuccess();
+    </script>
+<?php
+    unset($_SESSION['num_table_added_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['num_table_added_fail'])) {
+?>
+    <script>
+        swalAddQuantTableFailed();
+    </script>
+<?php
+    unset($_SESSION['num_table_added_fail']);
+}
+?>
+
 <?php
 if (isset($_SESSION['table_added_success'])) {
 ?>

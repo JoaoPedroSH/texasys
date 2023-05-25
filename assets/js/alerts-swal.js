@@ -58,6 +58,26 @@ function swalAddTablefailed() {
   });
 }
 
+function swalAddQuantTableSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Quantidade de Mesas atualizada!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalAddQuantTablefailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao atualizar quantidade de Mesas!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
 function swalProductAddTableSuccess() {
   Swal.fire({
     position: "top-end",

@@ -3,7 +3,7 @@
     <div class="row" style="text-align: center;">
         <div class="col">
             <a class="btn btn-outline-primary rounded-pill" onclick="swalLogout()">
-                <i class="bi bi-power" style="font-size:larger;" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                <i class="bi bi-power" style="font-size:larger; color: #f8f9fc;" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     data-bs-original-title="SAIR"> </i>
             </a>
         </div>
@@ -73,7 +73,7 @@
             cancelButtonText: 'Não',
         }).then((result) => {
             if (result.isConfirmed) {
-                location.replace('../all/tables.php')
+                location.replace('../all/tables.php');
             }
         })
     }

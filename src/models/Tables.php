@@ -15,11 +15,11 @@ class Tables
 
         if ($table_quant_response == 1) {
             session_start();
-            $_SESSION['table_added_success'] = true;
+            $_SESSION['num_table_added_success'] = true;
             header('Location: ../views/all/tables.php');
         } else {
             session_start();
-            $_SESSION['table_added_fail'] = true;
+            $_SESSION['num_table_added_fail'] = true;
             header('Location: ../views/all/tables.php');
         }
     }
