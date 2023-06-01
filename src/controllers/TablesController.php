@@ -20,3 +20,7 @@ if (isset($_POST['put_quant_tables'])) {
 if (isset($_POST['delete-product-added'])) {
     return $tables->deleteProductAddedTable($_POST);
 }
+
+if (isset($_POST['finish-tables'])) {
+    return $tables->finishTable($_POST);
+}

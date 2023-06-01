@@ -82,7 +82,7 @@ function swalProductAddTableSuccess() {
   Swal.fire({
     position: "top-end",
     icon: "success",
-    title: "Produto adicionado a mesa!",
+    title: "Produto adicionado!",
     showConfirmButton: false,
     timer: 1500,
   });
@@ -92,7 +92,7 @@ function swalProductAddTablefailed() {
   Swal.fire({
     position: "top-end",
     icon: "error",
-    title: "Erro ao adicionar produto a mesa!",
+    title: "Erro ao adicionar produto!",
     showConfirmButton: false,
     timer: 1500,
   });
@@ -133,6 +133,26 @@ function swalAdminsAddfailed() {
     position: "top-end",
     icon: "error",
     title: "Administrador não foi cadastrado!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalFinishSalesCounterSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Compra finalizada com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalFinishSalesCounterFail() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao finalizar compra!",
     showConfirmButton: false,
     timer: 1500,
   });

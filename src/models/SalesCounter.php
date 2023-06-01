@@ -2,10 +2,10 @@
 
 namespace models;
 
-class Tables
+class SalesCounter
 {
 
-    public function finishTable($request)
+    public function finishSalesCounter($request)
     {
         require '../../config/ConnectionDB.php';
 
@@ -13,9 +13,9 @@ class Tables
 
         /** Calcular margem de lucro com base nos valores dos produtos */
 
-        /** Cadastrar na tabela 'vendas_mesas' */
+        /** Cadastrar na tabela 'vendas_balcao' */
 
-        /** Deletar os registros da tabela 'produtos_adicionados_mesas' */
+        /** Deletar os registros da tabela 'produtos_adicionados_balcao' */
 
         if ($teste == true) {
             session_start();
@@ -28,59 +28,14 @@ class Tables
         }
     }
 
-    public function putQuantityTables($request)
+    public function postAddProductOfSalesCounter($request)
     {
         require '../../config/ConnectionDB.php';
-
-        $quantity_tables = $mysqli->escape_string($request['quantity-tables']);
-        $table_quant_report = "UPDATE mesas_quantidade SET quantidade = '$quantity_tables' WHERE id = 1";
-        $table_quant_response = $mysqli->query($table_quant_report);
-
-        if ($table_quant_response == 1) {
-            session_start();
-            $_SESSION['num_table_added_success'] = true;
-            header('Location: ../views/all/tables.php');
-        } else {
-            session_start();
-            $_SESSION['num_table_added_fail'] = true;
-            header('Location: ../views/all/tables.php');
-        }
-    }
-
-    public function postAddTables($request)
-    {
-
-        require '../../config/ConnectionDB.php';
-
-        $cod_table = $mysqli->escape_string($request['cod-table']);
-        $employee = $mysqli->escape_string($request['employee']);
-
-        $table_report = "INSERT INTO mesas_adicionadas (cod_mesa, funcionario) VALUES ('$cod_table', '$employee')";
-        $table_response = $mysqli->query($table_report);
-
-
-        if ($table_response == 1) {
-            session_start();
-            $_SESSION['table_added_success'] = true;
-            header('Location: ../views/all/tables.php');
-        } else {
-            session_start();
-            $_SESSION['table_added_fail'] = true;
-            header('Location: ../views/all/tables.php');
-        }
-    }
-
-    public function postAddProductOfTables($request)
-    {
-        require '../../config/ConnectionDB.php';
-
-        $id_table = $request['id-tables'];
 
         foreach ($request as $key => $value) {
             if (strpos($key, 'produto_') !== false) {
                 $id_produto = substr($key, strlen('produto_'));
                 $quantidade = $request['quantidade_' . $id_produto];
-
 
                 $get_products_value = "SELECT * FROM produtos WHERE id = $id_produto";
                 $get_products_value_response = $mysqli->query($get_products_value);
@@ -91,7 +46,7 @@ class Tables
                 if ($quantity_product == 0 || $quantity_product < $quantidade) {
 
                     $nome_produto = $products_value['produto'];
-                    $message = "Quantidade insuficiente de " . $nome_produto . " no estoque! No pedido: " . $quantidade . ", em estoque: " . $quantity_product .".";
+                    $message = "Quantidade insuficiente de " . $nome_produto . " no estoque! No pedido: " . $quantidade . ", em estoque: " . $quantity_product . ".";
                     echo "<script>
                                 window.location.replace('../views/all/tables.php');
                                 alert('$message');
@@ -106,16 +61,16 @@ class Tables
                     $put_quant_product = "UPDATE produtos SET quantidade = '$new_quantidade' WHERE id = $id_produto";
                     $mysqli->query($put_quant_product);
 
-                    $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product')";
+                    $product_add_table = "INSERT INTO produtos_adicionados_balcao (id_produto, quantidade, valor) VALUES ('$id_produto', '$quantidade', '$value_product')";
                     $res_product_add_table = $mysqli->query($product_add_table);
 
                     if ($res_product_add_table != 0) {
                         session_start();
-                        $_SESSION['product_table_added_success'] = true;
+                        $_SESSION['product_sales_counter_added_success'] = true;
                         header('Location: ../views/all/tables.php');
                     } else {
                         session_start();
-                        $_SESSION['product_table_added_fail'] = true;
+                        $_SESSION['product_sales_counter_added_fail'] = true;
                         header('Location: ../views/all/tables.php');
                     }
                 }
@@ -123,7 +78,7 @@ class Tables
         }
     }
 
-    public function deleteProductAddedTable($request)
+    public function deleteProductAddedSalesCounter($request)
     {
         require '../../config/ConnectionDB.php';
 
@@ -140,18 +95,16 @@ class Tables
         $put_quant_product_query = "UPDATE produtos SET quantidade = '$new_quant' WHERE id = $id_product";
         $mysqli->query($put_quant_product_query);
 
-        $delete_query = "DELETE FROM produtos_adicionados_mesas WHERE id = $cod_product_added";
+        $delete_query = "DELETE FROM produtos_adicionados_balcao WHERE id = $cod_product_added";
         $delete_response = $mysqli->query($delete_query);
-
-        print_r($put_quant_product_response);
 
         if ($delete_response == true) {
             session_start();
-            $_SESSION['removed_product_success'] = true;
+            $_SESSION['removed_product_sales_counter_success'] = true;
             header('Location: ../views/all/tables.php');
         } else {
             session_start();
-            $_SESSION['removed_product_fail'] = true;
+            $_SESSION['removed_product_sales_counter_fail'] = true;
             header('Location: ../views/all/tables.php');
         }
     }
