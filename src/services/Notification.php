@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/ConnectionDB.php';
 
-$product_notification_query = "SELECT * FROM produtos WHERE quantidade < 10";
+$product_notification_query = "SELECT * FROM produtos WHERE quantidade > -1 AND quantidade < 10";
 $product_notification_result = $mysqli->query($product_notification_query);
 $num_notification = $product_notification_result->num_rows;
 

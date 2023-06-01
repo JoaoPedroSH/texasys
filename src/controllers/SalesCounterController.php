@@ -18,7 +18,6 @@ if (isset($_POST['finish-sales-counter'])) {
 } 
 
 else {
-    echo('teste4');
     require_once '../../config/ConnectionDB.php';
     $product_value_query = "SELECT SUM(valor) as total FROM produtos_adicionados_balcao ";
     $product_value_result = $mysqli->query($product_value_query);

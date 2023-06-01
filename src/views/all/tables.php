@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 require_once '../../../config/ConnectionDB.php';
 ?>
@@ -59,12 +62,12 @@ include_once '../../../assets/html/head.html';
 
                         <div class="d-flex align-items-center">
                             <div>
-                                <button type="button" id="button-add-product-sales-counter" data-bs-toggle="modal" data-bs-target="#addProductSalesCounter" class="btn btn-warning btn-md" title="Adicionar Produtos">
+                                <button type="button" id="button-add-product-sales-counter" data-bs-toggle="modal" data-bs-target="#addProductSalesCounter" class="btn btn-warning btn-md" title="Adicionar produtos">
                                     <i class="bi bi-plus-circle-fill" style="font-size: 20px;"></i>
                                 </button>
                             </div>
                             <div class="ps-3">
-                                <button type="button" id="button-view-product-sales-counter" data-bs-toggle="modal" data-bs-target="#viewProductSalesCounter" class="btn btn-warning btn-md" title="Visualizar Produtos">
+                                <button type="button" id="button-view-product-sales-counter" data-bs-toggle="modal" data-bs-target="#viewProductSalesCounter" class="btn btn-warning btn-md" title="Visualizar produtos">
                                     <i class="ri-eye-fill" style="font-size: 20px;"></i>
                                 </button>
                             </div>
@@ -76,7 +79,7 @@ include_once '../../../assets/html/head.html';
                             </div>
                             <div class="ps-3">
                                 <input type="hidden" name="finish-sales-counter" value="true">
-                                <button type="button" id="button-finish-sales-counter" data-bs-toggle="modal" data-bs-target="#finishSalesCounter" class="btn btn-success btn-md" title="Finalizar Compra">
+                                <button type="button" id="button-finish-sales-counter" data-bs-toggle="modal" data-bs-target="#finishSalesCounter" class="btn btn-success btn-md" title="Finalizar compra">
                                     <i class="bi bi-check-circle-fill" style="font-size: 20px;"></i>
                                 </button>
                             </div>
@@ -348,7 +351,19 @@ include_once '../../../assets/html/head.html';
                                                                 <i class="bi bi-file-earmark-spreadsheet"></i>
                                                             </div>
                                                             <div class="ps-3">
-                                                                <h6> R$ 0,00 </h6>
+                                                                <?php
+                                                                $id_mesa_value = $tables['cod_mesa'];
+                                                                $product_sum_table_query = "SELECT SUM(valor) as total FROM produtos_adicionados_mesas WHERE id_mesa = $id_mesa_value";
+                                                                $product_sum_table_result = $mysqli->query($product_sum_table_query);
+                                                                while ($sum_tables = $product_sum_table_result->fetch_assoc()) {
+                                                                    if ($sum_tables['total'] > 0) {
+                                                                        $sum_tables_value = $sum_tables['total']; 
+                                                                    } else {
+                                                                        $sum_tables_value = '0'; 
+                                                                    }
+                                                                ?>
+                                                                    <h6> R$ <?= $sum_tables_value ?></h6>
+                                                                <?php } ?>
                                                                 <span class="text-success small pt-1 fw-bold"></span>
                                                                 <span class="text-muted small pt-2 ps-1">
                                                                     <?php

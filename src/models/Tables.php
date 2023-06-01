@@ -15,7 +15,7 @@ class Tables
 
         /** Cadastrar na tabela 'vendas_mesas' */
 
-        /** Deletar os registros da tabela 'produtos_adicionados_mesas' */
+        /** Alterar os registros das colunas 'status' e 'id_vendas_mesas' na tabela 'produtos_adicionados_mesas' */
 
         if ($teste == true) {
             session_start();
@@ -88,25 +88,52 @@ class Tables
 
                 $quantity_product = $products_value['quantidade'];
 
-                if ($quantity_product == 0 || $quantity_product < $quantidade) {
-
-                    $nome_produto = $products_value['produto'];
-                    $message = "Quantidade insuficiente de " . $nome_produto . " no estoque! No pedido: " . $quantidade . ", em estoque: " . $quantity_product .".";
-                    echo "<script>
+                if ($quantity_product !== '-1') {
+                    if ($quantity_product == 0 || $quantity_product < $quantidade) {
+                        $nome_produto = $products_value['produto'];
+                        $message = "Quantidade insuficiente de " . $nome_produto . " no estoque! No pedido: " . $quantidade . ", em estoque: " . $quantity_product . ".";
+                        echo "<script>
                                 window.location.replace('../views/all/tables.php');
                                 alert('$message');
                             </script>";
+                    }
                 } else {
                     /* Pegar valor do produto*/
+                    $lucro = $products_value['valor_produto'] - $products_value['valor_fornecedor'];
                     $value_product = $products_value['valor_produto'] * $quantidade;
 
                     /* Subtrair valor da quantidade de produtos em estoque */
-                    $quantidade_in_data = $products_value['quantidade'];
-                    $new_quantidade = $quantidade_in_data - $quantidade;
-                    $put_quant_product = "UPDATE produtos SET quantidade = '$new_quantidade' WHERE id = $id_produto";
-                    $mysqli->query($put_quant_product);
+                    if ($quantity_product !== '-1') {
+                        $quantidade_in_data = $products_value['quantidade'];
+                        $new_quantidade = $quantidade_in_data - $quantidade;
+                        $put_quant_product = "UPDATE produtos SET quantidade = '$new_quantidade' WHERE id = $id_produto";
+                        $mysqli->query($put_quant_product);
+                    }
 
-                    $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product')";
+                    /* Calcula o turno */
+                    date_default_timezone_set('America/Belem');
+                    $date = date('Y-m-d');
+                    $time = date('H:i:s');
+
+                    $time_atual = strtotime($time);
+                    $time_comparation_01 = strtotime("09:00:00");
+                    $time_comparation_02 = strtotime("15:00:00");
+                    $time_comparation_03 = strtotime("23:00:00");
+                    $time_comparation_04 = strtotime("01:00:00");
+
+                    if ($time_atual >= $time_comparation_01 && $time_atual < $time_comparation_02) {
+                        $turno = 1;
+                    } elseif ($time_atual >= $time_comparation_02 && $time_atual < $time_comparation_03) {
+                        $turno = 2;
+                    } elseif ($time_atual >= $time_comparation_03 && $time_atual < $time_comparation_04) {
+                        $turno = 2;
+                    } else {
+                        $turno = 0;
+                    }
+
+                    $status = 'aberto';
+
+                    $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor, lucro, data, hora, turno, status) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product', '$lucro', '$date', '$time', '$turno', '$status')";
                     $res_product_add_table = $mysqli->query($product_add_table);
 
                     if ($res_product_add_table != 0) {
