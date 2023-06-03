@@ -9,13 +9,44 @@ class SalesCounter
     {
         require '../../config/ConnectionDB.php';
 
-        print_r($request);
 
-        /** Calcular margem de lucro com base nos valores dos produtos */
+        /** Soma valores e lucros dos produtos */
+        $valor_sales_general = "SELECT SUM(valor) AS valor_total FROM produtos_adicionados_balcao WHERE status = 'aberto'";
+        $valor_general_response = $mysqli->query($valor_sales_general)->fetch_assoc();
+        $valor_general = $valor_general_response['valor_total'];
+
+        $lucro_sales_general = "SELECT SUM(lucro) AS lucro_total FROM produtos_adicionados_balcao WHERE status = 'aberto'";
+        $lucro_general_response = $mysqli->query($lucro_sales_general)->fetch_assoc();
+        $lucro_general = $lucro_general_response['lucro_total'];
+
+        date_default_timezone_set('America/Belem');
+        $data_hora = date('Y-m-d H:i:s');
+
+        $tipo_vendas = $request['radio-stacked-sales-counter'];
 
         /** Cadastrar na tabela 'vendas_balcao' */
+        if ($tipo_vendas == 'client') {
+            $finish_sales_client = "INSERT INTO vendas_balcao_cliente (valor_geral, lucro_geral, data_hora) VALUES ('$valor_general','$lucro_general','$data_hora')";
+            $mysqli->query($finish_sales_client);
+
+            $id_sales_client = "SELECT id FROM vendas_balcao_cliente ORDER BY id DESC LIMIT 1;";
+            $id_sales_client_response = $mysqli->query($id_sales_client)->fetch_assoc();
+
+            $id_vendas_balcao = $id_sales_client_response['id'];
+        } elseif ($tipo_vendas == 'employees') {
+            $id_employees = $request['employees-counter'];
+            $finish_sales_employees = "INSERT INTO vendas_balcao_funcionario (id_funcionario, valor_geral, lucro_geral, data_hora, status) VALUES ('$id_employees', '$valor_general', '$lucro_general', '$data_hora', 'pendente' )";
+            $mysqli->query($finish_sales_employees);
+
+            $id_sales_employees = "SELECT id FROM vendas_balcao_funcionario ORDER BY id DESC LIMIT 1;";
+            $id_sales_employees_response = $mysqli->query($id_sales_employees)->fetch_assoc();
+
+            $id_vendas_balcao = $id_sales_employees_response['id'];
+        }
 
         /** Alterar os registros das colunas 'status' e 'id_vendas_balcao' na tabela 'produtos_adicionados_balcao' */
+        $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET status = 'fechado', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
+        $mysqli->query($finish_sales_counter);
 
         if ($teste == true) {
             session_start();

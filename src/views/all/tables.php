@@ -91,7 +91,7 @@ include_once '../../../assets/html/head.html';
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <strong style="font-size: 24px;"> DESEJA FINALIZAR ESTA COMPRA? </strong>
+                                            <strong style="font-size: 24px;"> DESEJA REALMENTE FINALIZAR ESTA COMPRA? </strong>
                                         </div>
 
                                         <div class="modal-footer">
