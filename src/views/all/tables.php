@@ -33,32 +33,7 @@ include_once '../../../assets/html/head.html';
                 <div class="card-header"></div>
                 <div class="card-body">
                     <form action="../../controllers/SalesCounterController.php" method="POST">
-                        <div class="d-flex align-items-center mb-2">
-                            <div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="radio-client" name="radio-stacked-sales-counter" value="client" checked>
-                                    <label class="custom-control-label" for="radio-client">Cliente</label>
-                                </div>
-                            </div>
-                            <div class="ps-3">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="radio-employees" name="radio-stacked-sales-counter" value="employees">
-                                    <label class="custom-control-label" for="radio-employees">Funcionário</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mb-4">
-                            <?php
-                            $get_employees_query = "SELECT * FROM funcionarios";
-                            $get_employees_response = $mysqli->query($get_employees_query);
-                            while ($employees = $get_employees_response->fetch_assoc()) {
-                            ?>
-                                <select class="custom-select" name="employees-counter" id="select-employees-counter" style="display:none;">
-                                    <option selected disabled value="">Selecionar funcionário</option>
-                                    <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
-                                </select>
-                            <?php } ?>
-                        </div>
+                        
 
                         <div class="d-flex align-items-center">
                             <div>
@@ -106,6 +81,32 @@ include_once '../../../assets/html/head.html';
                                 </div>
                             </div>
 
+                        </div>
+                        <div class="d-flex align-items-center mt-3">
+                            <div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="radio-client" name="radio-stacked-sales-counter" value="client" checked>
+                                    <label class="custom-control-label" for="radio-client">Cliente</label>
+                                </div>
+                            </div>
+                            <div class="ps-3">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="radio-employees" name="radio-stacked-sales-counter" value="employees">
+                                    <label class="custom-control-label" for="radio-employees">Funcionário</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mt-1">
+                            <?php
+                            $get_employees_query = "SELECT * FROM funcionarios";
+                            $get_employees_response = $mysqli->query($get_employees_query);
+                            while ($employees = $get_employees_response->fetch_assoc()) {
+                            ?>
+                                <select class="custom-select" name="employees-counter" id="select-employees-counter" style="display:none;">
+                                    <option selected disabled value="">Selecionar funcionário</option>
+                                    <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
+                                </select>
+                            <?php } ?>
                         </div>
                     </form>
 
