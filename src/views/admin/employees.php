@@ -55,7 +55,7 @@ include_once '../../../assets/html/head.html';
                                             <strong> Nome </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-6 form-floating mb-3 ml-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Sobrenome" required>
                                         <label for="lastname">
                                             <strong> Sobrenome </strong>
@@ -124,16 +124,43 @@ include_once '../../../assets/html/head.html';
                                                 <td><?= $employees['funcao'] ?></td>
                                                 <td><?= $employees['nome'] ?> <?= $employees['sobrenome'] ?></td>
                                                 <td><?= $employees['numero'] ?></td>
-                                                <td>R$<?= $employees['debito'] ?></td>
-                                                <td></td>
+                                                <td>R$ <?= $employees['debito'] ?></td>
+                                                <td>
+                                                    <form id="formDischarge" action="../../controllers/EmployeesController.php" method="POST">
+                                                        <input type="hidden" name="discharge_debit" value="true">
+                                                        <input type="hidden" name="id_employees_discharge" value="<?= $employees['id'] ?>">
+                                                        <a role="button"  data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish"><i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
+
+                                                        <div class="modal fade" id="dischargeEmployeesFinish">
+                                                            <div class="modal-dialog ">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <strong style="font-size: 24px;"> DESEJA QUITAR ESTE DEBITO DE R$<?= $employees['debito'] ?>? </strong>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
+                                                                            <i class="bi bi-x-square"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-success" title="Sim">
+                                                                            <i class="bi bi-check-square"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -146,6 +173,13 @@ include_once '../../../assets/html/head.html';
     </a>
 
 </body>
+
+<script>
+    function submitFormDischarge() {
+        var form = document.getElementById("formDischarge");
+        form.submit();
+    }
+</script>
 
 <!-- ======= Scripts ======= -->
 <?php
@@ -172,6 +206,28 @@ if (isset($_SESSION['register_employees_fail'])) {
     </script>
 <?php
     unset($_SESSION['register_employees_fail']);
+}
+?>
+
+<?php
+if (isset($_SESSION['dischange_debit_success'])) {
+?>
+    <script>
+        swalDischangeDebitSuccess();
+    </script>
+<?php
+    unset($_SESSION['dischange_debit_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['dischange_debit_fail'])) {
+?>
+    <script>
+        swalDischangeDebitFailed();
+    </script>
+<?php
+    unset($_SESSION['dischange_debit_fail']);
 }
 ?>
 

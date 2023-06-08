@@ -55,7 +55,7 @@ include_once '../../../assets/html/head.html';
                                             <strong> Nome </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-12 form-floating mb-3 ml-3">
+                                    <div class="col-md-12 form-floating mb-3">
                                         <input type="text" name="user_name" id="user_name" class="form-control" placeholder="Nome de Usuário" required>
                                         <label for="user_name">
                                             <strong> Nome de usuário </strong>

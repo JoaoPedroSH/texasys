@@ -157,3 +157,23 @@ function swalFinishSalesCounterFail() {
     timer: 1500,
   });
 }
+
+function swalDischangeDebitSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Débito quitado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalDischangeDebitFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao quitar débito!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

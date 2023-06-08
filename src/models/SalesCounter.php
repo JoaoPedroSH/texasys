@@ -9,6 +9,7 @@ class SalesCounter
     {
         require '../../config/ConnectionDB.php';
 
+        $id_employees = $request['employees-counter'];
 
         /** Soma valores e lucros dos produtos */
         $valor_sales_general = "SELECT SUM(valor) AS valor_total FROM produtos_adicionados_balcao WHERE status = 'aberto'";
@@ -21,12 +22,13 @@ class SalesCounter
 
         date_default_timezone_set('America/Belem');
         $data_hora = date('Y-m-d H:i:s');
+        $timestamp = strtotime($data_hora);
 
         $tipo_vendas = $request['radio-stacked-sales-counter'];
 
         /** Cadastrar na tabela 'vendas_balcao' */
         if ($tipo_vendas == 'client') {
-            $finish_sales_client = "INSERT INTO vendas_balcao_cliente (valor_geral, lucro_geral, data_hora) VALUES ('$valor_general','$lucro_general','$data_hora')";
+            $finish_sales_client = "INSERT INTO vendas_balcao_cliente (valor_geral, lucro_geral, data_hora, carimbo_data_hora) VALUES ('$valor_general','$lucro_general','$data_hora', '$timestamp')";
             $mysqli->query($finish_sales_client);
 
             $id_sales_client = "SELECT id FROM vendas_balcao_cliente ORDER BY id DESC LIMIT 1;";
@@ -34,8 +36,7 @@ class SalesCounter
 
             $id_vendas_balcao = $id_sales_client_response['id'];
         } elseif ($tipo_vendas == 'employees') {
-            $id_employees = $request['employees-counter'];
-            $finish_sales_employees = "INSERT INTO vendas_balcao_funcionario (id_funcionario, valor_geral, lucro_geral, data_hora, status) VALUES ('$id_employees', '$valor_general', '$lucro_general', '$data_hora', 'pendente' )";
+            $finish_sales_employees = "INSERT INTO vendas_balcao_funcionario (id_funcionario, valor_geral, lucro_geral, data_hora, carimbo_data_hora, status) VALUES ('$id_employees', '$valor_general', '$lucro_general', '$data_hora', '$timestamp', 'pendente' )";
             $mysqli->query($finish_sales_employees);
 
             $id_sales_employees = "SELECT id FROM vendas_balcao_funcionario ORDER BY id DESC LIMIT 1;";
@@ -47,6 +48,13 @@ class SalesCounter
         /** Alterar os registros das colunas 'status' e 'id_vendas_balcao' na tabela 'produtos_adicionados_balcao' */
         $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET status = 'fechado', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
         $mysqli->query($finish_sales_counter);
+
+        $valor_employees = "SELECT SUM(valor_geral) AS valor_total FROM vendas_balcao_funcionario WHERE status = 'pendente' AND id_funcionario = '$id_employees'";
+        $valor_employees_response = $mysqli->query($valor_employees)->fetch_assoc();
+        $valor_employees = $valor_employees_response['valor_total'];
+
+        $add_value_employees = "UPDATE funcionarios SET debito = '$valor_employees' WHERE id = '$id_employees'";
+        $mysqli->query($add_value_employees);
 
         if ($teste == true) {
             session_start();

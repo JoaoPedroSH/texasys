@@ -76,7 +76,7 @@ include_once '../../../assets/html/head.html';
                                             <strong> Valor de venda </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3 ml-3">
+                                    <div class="col-md-4 form-floating mb-3">
                                         <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Produto" required>
                                         <label for="supplier">
                                             <strong> Fornecedor </strong>

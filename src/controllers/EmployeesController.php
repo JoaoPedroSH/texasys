@@ -18,3 +18,7 @@ if (isset($_POST['edit'])) {
 if (isset($_POST['delete'])) {
     return $employees->deleteEmployees($_POST['id']);
 }
+
+if (isset($_POST['discharge_debit'])) {
+    return $employees->putDischangeDebit($_POST['id_employees_discharge']);
+}
