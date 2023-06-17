@@ -29,7 +29,7 @@ class SalesCounter
         /** Cadastrar na tabela 'vendas_balcao' */
         if ($tipo_vendas == 'client') {
             $finish_sales_client = "INSERT INTO vendas_balcao_cliente (valor_geral, lucro_geral, data_hora, carimbo_data_hora) VALUES ('$valor_general','$lucro_general','$data_hora', '$timestamp')";
-            $mysqli->query($finish_sales_client);
+            $insert_client =  $mysqli->query($finish_sales_client);
 
             $id_sales_client = "SELECT id FROM vendas_balcao_cliente ORDER BY id DESC LIMIT 1;";
             $id_sales_client_response = $mysqli->query($id_sales_client)->fetch_assoc();
@@ -37,7 +37,7 @@ class SalesCounter
             $id_vendas_balcao = $id_sales_client_response['id'];
         } elseif ($tipo_vendas == 'employees') {
             $finish_sales_employees = "INSERT INTO vendas_balcao_funcionario (id_funcionario, valor_geral, lucro_geral, data_hora, carimbo_data_hora, status) VALUES ('$id_employees', '$valor_general', '$lucro_general', '$data_hora', '$timestamp', 'pendente' )";
-            $mysqli->query($finish_sales_employees);
+            $insert_employees = $mysqli->query($finish_sales_employees);
 
             $id_sales_employees = "SELECT id FROM vendas_balcao_funcionario ORDER BY id DESC LIMIT 1;";
             $id_sales_employees_response = $mysqli->query($id_sales_employees)->fetch_assoc();
@@ -56,7 +56,7 @@ class SalesCounter
         $add_value_employees = "UPDATE funcionarios SET debito = '$valor_employees' WHERE id = '$id_employees'";
         $mysqli->query($add_value_employees);
 
-        if ($teste == true) {
+        if ($insert_client == true || $insert_employees == true) {
             session_start();
             $_SESSION['finish_sales_counter_success'] = true;
             header('Location: ../views/all/tables.php');
