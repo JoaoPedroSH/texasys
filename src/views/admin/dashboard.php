@@ -125,10 +125,10 @@ if (isset($_SESSION['access_admin_success'])) {
                                                                 data: data.sales_grafic_counter[0],
                                                             }, {
                                                                 name: 'Mesas (R$)',
-                                                                data: [0, 32, 45, 50]
+                                                                data: data.sales_grafic_tables[0]
                                                             }, {
                                                                 name: 'Geral (R$)',
-                                                                data: [0, 11, 32, 50]
+                                                                data: data.sales_grafic_general
                                                             }],
                                                             chart: {
                                                                 height: 350,
