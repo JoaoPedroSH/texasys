@@ -33,7 +33,7 @@ if (isset($_SESSION['access_admin_success'])) {
                 $data_atual = date('d/m/y');
                 $data_seguinte = date('d/m/y', strtotime(date('Y-m-d') . ' +1 day'));
                 ?>
-                <h1>Estatísticas</h1>
+                <h1><strong>ESTATÍSTICAS</strong></h1>
                 <strong>(<?= $data_atual ?> - 09:00 | <?= $data_seguinte ?> - 01:00)</strong>
             </div>
 
