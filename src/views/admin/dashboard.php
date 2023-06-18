@@ -122,13 +122,13 @@ if (isset($_SESSION['access_admin_success'])) {
                                                         new ApexCharts(document.querySelector("#reportsChart"), {
                                                             series: [{
                                                                 name: 'Balcão (R$)',
-                                                                data: data.sales_grafic_counter[0],
+                                                                data: data.sales_grafic_counter[0]
                                                             }, {
                                                                 name: 'Mesas (R$)',
                                                                 data: data.sales_grafic_tables[0]
                                                             }, {
                                                                 name: 'Geral (R$)',
-                                                                data: data.sales_grafic_general
+                                                                data: data.sales_grafic_general[0]
                                                             }],
                                                             chart: {
                                                                 height: 350,

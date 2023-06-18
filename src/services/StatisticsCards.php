@@ -25,11 +25,11 @@ $sql_sales_general_mesas = "SELECT COUNT(id) AS quant_vendas FROM vendas_mesas W
 $sales_general_mesas_response = $mysqli->query($sql_sales_general_mesas)->fetch_assoc();
 $sales_general_mesas = intval($sales_general_mesas_response['quant_vendas']);
 
-$sql_valor_general_mesas = "SELECT SUM(valor_geral) AS valor_vendas FROM vendas_mesas WHERE carimbo_data_hora > $timestamp_init AND carimbo_data_hora < $timestamp_end ";
+$sql_valor_general_mesas = "SELECT SUM(valor) AS valor_vendas FROM vendas_mesas WHERE carimbo_data_hora > $timestamp_init AND carimbo_data_hora < $timestamp_end ";
 $valor_general_mesas_response = $mysqli->query($sql_valor_general_mesas)->fetch_assoc();
 $valor_general_mesas = floatval($valor_general_mesas_response['valor_vendas']);
 
-$sql_lucro_general_mesas = "SELECT SUM(lucro_geral) AS lucro_vendas FROM vendas_mesas WHERE carimbo_data_hora > $timestamp_init AND carimbo_data_hora < $timestamp_end ";
+$sql_lucro_general_mesas = "SELECT SUM(lucro) AS lucro_vendas FROM vendas_mesas WHERE carimbo_data_hora > $timestamp_init AND carimbo_data_hora < $timestamp_end ";
 $lucro_general_mesas_response = $mysqli->query($sql_lucro_general_mesas)->fetch_assoc();
 $lucro_general_mesas = floatval($lucro_general_mesas_response['lucro_vendas']);
 

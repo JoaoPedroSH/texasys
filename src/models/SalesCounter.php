@@ -81,7 +81,7 @@ class SalesCounter
                 $products_value = $get_products_value_response->fetch_assoc();
 
                 $quantity_product = $products_value['quantidade'];
-                $lucro = $products_value['valor_produto'] - $products_value['valor_fornecedor'];
+                $lucro = ($products_value['valor_produto'] - $products_value['valor_fornecedor']) * $quantidade;
 
                 if ($quantity_product == 0 || $quantity_product < $quantidade) {
 
@@ -127,7 +127,7 @@ class SalesCounter
                     $product_add_table = "INSERT INTO produtos_adicionados_balcao (id_produto, quantidade, valor, lucro, data, hora, turno, status) VALUES ('$id_produto', '$quantidade', '$value_product', '$lucro', '$date', '$time', '$turno', '$status')";
                     $res_product_add_table = $mysqli->query($product_add_table);
 
-                    if ($res_product_add_table != 0) {
+                    if ($res_product_add_table == true ) {
                         session_start();
                         $_SESSION['product_sales_counter_added_success'] = true;
                         header('Location: ../views/all/tables.php');

@@ -48,12 +48,11 @@ $sumFunction = function ($balcao, $mesas) {
     return $balcao + $mesas;
 };
 $result_general = array_map($sumFunction, $values_response_counter, $values_response_tables);
-$values_response_general = '[' . implode(', ', $result_general) . ']';
 
 $response_finish = array(
     'sales_grafic_counter' => $values_response_counter,
     'sales_grafic_tables' => $values_response_tables,
-    'sales_grafic_general' => $values_response_general,
+    'sales_grafic_general' => $result_general,
     'date_init' => $data_atual,
     'date_end' => $data_seguinte,
 );

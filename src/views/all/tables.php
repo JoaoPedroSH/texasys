@@ -354,7 +354,7 @@ include_once '../../../assets/html/head.html';
                                                             <div class="ps-3">
                                                                 <?php
                                                                 $id_mesa_value = $tables['cod_mesa'];
-                                                                $product_sum_table_query = "SELECT SUM(valor) as total FROM produtos_adicionados_mesas WHERE id_mesa = $id_mesa_value";
+                                                                $product_sum_table_query = "SELECT SUM(valor) as total FROM produtos_adicionados_mesas WHERE id_mesa = $id_mesa_value AND status = 'aberto'";
                                                                 $product_sum_table_result = $mysqli->query($product_sum_table_query);
                                                                 while ($sum_tables = $product_sum_table_result->fetch_assoc()) {
                                                                     if ($sum_tables['total'] > 0) {
@@ -847,6 +847,28 @@ if (isset($_SESSION['finish_sales_counter_fail'])) {
     </script>
 <?php
     unset($_SESSION['finish_sales_counter_fail']);
+}
+?>
+
+<?php
+if (isset($_SESSION['finish_sales_tables_success'])) {
+?>
+    <script>
+        swalFinishSalesTablesSuccess();
+    </script>
+<?php
+    unset($_SESSION['finish_sales_tables_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['finish_sales_tables_fail'])) {
+?>
+    <script>
+        swalFinishSalesTablesFail();
+    </script>
+<?php
+    unset($_SESSION['finish_sales_tables_fail']);
 }
 ?>
 

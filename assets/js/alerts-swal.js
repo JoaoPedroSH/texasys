@@ -158,6 +158,26 @@ function swalFinishSalesCounterFail() {
   });
 }
 
+function swalFinishSalesTablesSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Compra da mesa finalizada com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalFinishSalesTablesFail() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao finalizar compra da mesa!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
 function swalDischangeDebitSuccess() {
   Swal.fire({
     position: "top-end",
