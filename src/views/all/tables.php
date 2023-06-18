@@ -482,7 +482,7 @@ include_once '../../../assets/html/head.html';
                                                                                 <tbody id="dataTable">
                                                                                     <?php
                                                                                     $code_mesa = $tables['cod_mesa'];
-                                                                                    $get_products_table_query = "SELECT * FROM produtos_adicionados_mesas WHERE id_mesa = $code_mesa";
+                                                                                    $get_products_table_query = "SELECT * FROM produtos_adicionados_mesas WHERE id_mesa = $code_mesa AND status = 'aberto'";
                                                                                     $get_products_table_response = $mysqli->query($get_products_table_query);
 
                                                                                     while ($products_added = $get_products_table_response->fetch_assoc()) {
@@ -543,10 +543,11 @@ include_once '../../../assets/html/head.html';
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <h2 class="modal-title" style="text-align: center;"> DESEJA <strong> IMPRIMIR </strong> E <strong> FECHAR </strong> A CONTA DA MESA <strong><?= $tables['cod_mesa'] ?></strong> ? </h2>
+                                                                            <h2 class="modal-title" style="text-align: center;"> DESEJA IMPRIMIR A CONTA DA MESA <strong><?= $tables['cod_mesa'] ?></strong> ? </h2>
                                                                             <form action="../../controllers/PrintBillController.php" method="POST">
                                                                                 <input type="hidden" name="print" value="true">
                                                                                 <input type="hidden" name="id-tables-print" value="<?= $tables['cod_mesa'] ?>">
+                                                                                <input type="hidden" id="value-totality-print">
                                                                                 <hr>
                                                                                 <div class="col-md-12">
                                                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
@@ -576,7 +577,7 @@ include_once '../../../assets/html/head.html';
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <strong style="font-size: 24px;"> DESEJA FINALIZAR A MESA <?= $tables['cod_mesa'] ?>? </strong>
+                                                                            <h2 class="modal-title" style="text-align: center;"> DESEJA FINALIZAR A CONTA DA MESA <strong> <?= $tables['cod_mesa'] ?></strong> ? </h2>
                                                                         </div>
 
                                                                         <div class="modal-footer">

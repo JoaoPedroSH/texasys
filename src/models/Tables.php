@@ -16,27 +16,34 @@ class Tables
         $valor_general_response = $mysqli->query($valor_sales_general)->fetch_assoc();
         $valor_general = $valor_general_response['valor_total'];
 
-        $lucro_sales_general = "SELECT SUM(lucro) AS lucro_total FROM produtos_adicionados_mesas WHERE id_mesa = $id_table AND status = 'aberto'";
-        $lucro_general_response = $mysqli->query($lucro_sales_general)->fetch_assoc();
-        $lucro_general = $lucro_general_response['lucro_total'];
+        if ($valor_general > 0) {
 
-        date_default_timezone_set('America/Belem');
-        $data_hora = date('Y-m-d H:i:s');
-        $timestamp = strtotime($data_hora);
+            $lucro_sales_general = "SELECT SUM(lucro) AS lucro_total FROM produtos_adicionados_mesas WHERE id_mesa = $id_table AND status = 'aberto'";
+            $lucro_general_response = $mysqli->query($lucro_sales_general)->fetch_assoc();
+            $lucro_general = $lucro_general_response['lucro_total'];
 
-        /** Cadastrar na tabela 'vendas_mesas' */
-        $finish_mesas = "INSERT INTO vendas_mesas (id_mesa, valor, lucro, data_hora, carimbo_data_hora) VALUES ('$id_table', '$valor_general','$lucro_general','$data_hora', '$timestamp')";
-        $insert_mesas =  $mysqli->query($finish_mesas);
-        $id_mesas = "SELECT id FROM vendas_mesas ORDER BY id DESC LIMIT 1;";
-        $id_mesas_response = $mysqli->query($id_mesas)->fetch_assoc();
-        $id_vendas_mesas = $id_mesas_response['id'];
+            date_default_timezone_set('America/Belem');
+            $data_hora = date('Y-m-d H:i:s');
+            $timestamp = strtotime($data_hora);
 
-        /** Alterar os registros das colunas 'status' e 'id_vendas_mesas' na tabela 'produtos_adicionados_mesas' */
-        $finish_sales_mesas = "UPDATE produtos_adicionados_mesas SET status = 'fechado', id_vendas_mesas = '$id_vendas_mesas' WHERE id_mesa = $id_table AND status = 'aberto'";
-        $mysqli->query($finish_sales_mesas);
+            /** Cadastrar na tabela 'vendas_mesas' */
+            $finish_mesas = "INSERT INTO vendas_mesas (id_mesa, valor, lucro, data_hora, carimbo_data_hora) VALUES ('$id_table', '$valor_general','$lucro_general','$data_hora', '$timestamp')";
+            $insert_mesas =  $mysqli->query($finish_mesas);
+            $id_mesas = "SELECT id FROM vendas_mesas ORDER BY id DESC LIMIT 1;";
+            $id_mesas_response = $mysqli->query($id_mesas)->fetch_assoc();
+            $id_vendas_mesas = $id_mesas_response['id'];
 
-        $delete_table_query = "DELETE FROM mesas_adicionadas WHERE cod_mesa = $id_table";
-        $delete_table_response = $mysqli->query($delete_table_query);
+            /** Alterar os registros das colunas 'status' e 'id_vendas_mesas' na tabela 'produtos_adicionados_mesas' */
+            $finish_sales_mesas = "UPDATE produtos_adicionados_mesas SET status = 'fechado', id_vendas_mesas = '$id_vendas_mesas' WHERE id_mesa = $id_table AND status = 'aberto'";
+            $mysqli->query($finish_sales_mesas);
+
+            $delete_table_query = "DELETE FROM mesas_adicionadas WHERE cod_mesa = $id_table";
+            $delete_table_response = $mysqli->query($delete_table_query);
+        } else {
+
+            $delete_table_query = "DELETE FROM mesas_adicionadas WHERE cod_mesa = $id_table";
+            $delete_table_response = $mysqli->query($delete_table_query);
+        }
 
         if ($insert_mesas == true || $delete_table_response == true) {
             session_start();
