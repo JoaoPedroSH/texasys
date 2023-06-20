@@ -30,11 +30,26 @@ if (isset($_SESSION['access_admin_success'])) {
             <div class="pagetitle">
                 <?php
                 date_default_timezone_set('America/Belem');
-                $data_atual = date('d/m/y');
-                $data_seguinte = date('d/m/y', strtotime(date('Y-m-d') . ' +1 day'));
+
+                $agora = time();
+                $dia_atual = date('Y-m-d', $agora);
+                $hora_atual = date('H:i:s', $agora);
+                $timestamp_init = strtotime($dia_atual . ' 09:00:00');
+                $timestamp_end = strtotime($dia_atual . ' 01:00:00') + (24 * 60 * 60);
+
+                if ($agora < $timestamp_init && $hora_atual < '06:00:00') {
+                    $dia_anterior = date('Y-m-d', strtotime('-1 day', $agora));
+                    $date_init = $dia_anterior;
+                    $date_end = $dia_atual;
+                } else {
+                    $data_atual = date('Y-m-d');
+                    $data_seguinte = date('Y-m-d', strtotime($data_atual . ' +1 day'));
+                    $date_init = $data_atual;
+                    $date_end = $data_seguinte;
+                }
                 ?>
                 <h1><strong>ESTATÍSTICAS</strong></h1>
-                <strong>(<?= $data_atual ?> - 09:00 | <?= $data_seguinte ?> - 01:00)</strong>
+                <strong>(<?= date('d/m/Y', strtotime($date_init)) ?> - 09:00 | <?= date('d/m/Y', strtotime($date_end)) ?> - 01:00)</strong>
             </div>
 
             <section class="section dashboard">
@@ -126,9 +141,6 @@ if (isset($_SESSION['access_admin_success'])) {
                                                             }, {
                                                                 name: 'Mesas (R$)',
                                                                 data: data.sales_grafic_tables[0]
-                                                            }, {
-                                                                name: 'Geral (R$)',
-                                                                data: data.sales_grafic_general[0]
                                                             }],
                                                             chart: {
                                                                 height: 350,

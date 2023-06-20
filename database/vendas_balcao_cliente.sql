@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 20-Jun-2023 às 04:50
+-- Tempo de geração: 20-Jun-2023 às 04:51
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -25,33 +25,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura da tabela `vendas_balcao_cliente`
 --
 
-CREATE TABLE `funcionarios` (
+CREATE TABLE `vendas_balcao_cliente` (
   `id` int(11) NOT NULL,
-  `funcao` varchar(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `sobrenome` varchar(255) NOT NULL,
-  `numero` varchar(255) NOT NULL,
-  `debito` decimal(10,0) NOT NULL
+  `valor_geral` float NOT NULL,
+  `lucro_geral` float NOT NULL,
+  `data_hora` datetime NOT NULL,
+  `carimbo_data_hora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `funcionarios`
---
-
-INSERT INTO `funcionarios` (`id`, `funcao`, `nome`, `sobrenome`, `numero`, `debito`) VALUES
-(3, 'Balconista', 'João', 'Lima', '94992927891', '0');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `funcionarios`
+-- Índices para tabela `vendas_balcao_cliente`
 --
-ALTER TABLE `funcionarios`
+ALTER TABLE `vendas_balcao_cliente`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,10 +51,10 @@ ALTER TABLE `funcionarios`
 --
 
 --
--- AUTO_INCREMENT de tabela `funcionarios`
+-- AUTO_INCREMENT de tabela `vendas_balcao_cliente`
 --
-ALTER TABLE `funcionarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `vendas_balcao_cliente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

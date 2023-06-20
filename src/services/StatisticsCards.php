@@ -1,11 +1,23 @@
 <?php
 require_once '../../config/ConnectionDB.php';
 date_default_timezone_set('America/Belem');
-$data_atual = date('Y-m-d');
-$timestamp_init = strtotime($data_atual . ' 09:00:00');
 
-$data_seguinte = date('Y-m-d', strtotime($data_atual . ' +1 day'));
-$timestamp_end = strtotime($data_seguinte . ' 01:00:00');
+$agora = time();
+$dia_atual = date('Y-m-d', $agora);
+$hora_atual = date('H:i:s', $agora);
+$timestamp_init = strtotime($dia_atual . ' 09:00:00');
+$timestamp_end = strtotime($dia_atual . ' 01:00:00') + (24 * 60 * 60);
+
+if ($agora < $timestamp_init && $hora_atual < '06:00:00') {
+    $dia_anterior = date('Y-m-d', strtotime('-1 day', $agora));
+    $timestamp_init = strtotime($dia_anterior . ' 09:00:00');
+    $timestamp_end = strtotime($dia_atual . ' 01:00:00');
+} else {
+    $data_atual = date('Y-m-d');
+    $data_seguinte = date('Y-m-d', strtotime($data_atual . ' +1 day'));
+    $timestamp_init = strtotime($data_atual . ' 09:00:00');
+    $timestamp_end = strtotime($data_seguinte . ' 01:00:00');
+}
 
 /** Balcao */
 $sql_sales_general_balcao = "SELECT COUNT(id) AS quant_vendas FROM vendas_balcao_cliente WHERE carimbo_data_hora > $timestamp_init AND carimbo_data_hora < $timestamp_end ";

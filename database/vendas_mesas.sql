@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18-Maio-2023 às 05:44
+-- Tempo de geração: 20-Jun-2023 às 04:51
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -25,18 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vendas`
+-- Estrutura da tabela `vendas_mesas`
 --
 
-CREATE TABLE `vendas` (
+CREATE TABLE `vendas_mesas` (
   `id` int(11) NOT NULL,
-  `id_vendas` int(11) NOT NULL,
-  `id_funcionario` int(11) NOT NULL,
-  `tipo_venda` varchar(255) NOT NULL,
-  `valor` int(11) NOT NULL,
-  `data` date NOT NULL,
-  `horario` varchar(255) NOT NULL,
-  `turno` int(11) NOT NULL
+  `id_mesa` int(11) NOT NULL,
+  `valor` float NOT NULL,
+  `lucro` float NOT NULL,
+  `data_hora` datetime NOT NULL,
+  `carimbo_data_hora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -44,9 +42,9 @@ CREATE TABLE `vendas` (
 --
 
 --
--- Índices para tabela `vendas`
+-- Índices para tabela `vendas_mesas`
 --
-ALTER TABLE `vendas`
+ALTER TABLE `vendas_mesas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -54,10 +52,10 @@ ALTER TABLE `vendas`
 --
 
 --
--- AUTO_INCREMENT de tabela `vendas`
+-- AUTO_INCREMENT de tabela `vendas_mesas`
 --
-ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `vendas_mesas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

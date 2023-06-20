@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 11-Abr-2023 às 16:25
+-- Tempo de geração: 20-Jun-2023 às 04:50
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -32,12 +32,20 @@ CREATE TABLE `produtos` (
   `id` int(11) NOT NULL,
   `categoria` varchar(255) NOT NULL,
   `produto` varchar(1000) NOT NULL,
-  `valor_produto` int(11) NOT NULL,
+  `valor_produto` float NOT NULL,
   `fornecedor` varchar(1000) NOT NULL,
-  `valor_fornecedor` int(11) NOT NULL,
+  `valor_fornecedor` float NOT NULL,
   `quantidade` int(11) NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `categoria`, `produto`, `valor_produto`, `fornecedor`, `valor_fornecedor`, `quantidade`, `data`) VALUES
+(17, 'alcoólica', 'Skol 1L', 12, 'teste', 8, 83, '2023-04-20'),
+(18, 'alcoólica', 'Skin Lata 263ml', 5, 'ambev', 3.5, 95, '2023-06-18');
 
 --
 -- Índices para tabelas despejadas
@@ -57,7 +65,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

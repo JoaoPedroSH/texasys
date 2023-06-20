@@ -25,33 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura da tabela `calendario`
 --
 
-CREATE TABLE `funcionarios` (
+CREATE TABLE `calendario` (
   `id` int(11) NOT NULL,
-  `funcao` varchar(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `sobrenome` varchar(255) NOT NULL,
-  `numero` varchar(255) NOT NULL,
-  `debito` decimal(10,0) NOT NULL
+  `data_hoje` date NOT NULL,
+  `data_amanha` date NOT NULL,
+  `hora_hoje` time NOT NULL,
+  `hora_amanha` time NOT NULL,
+  `carimbo_hoje` int(11) NOT NULL,
+  `carimbo_amanha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `funcionarios`
---
-
-INSERT INTO `funcionarios` (`id`, `funcao`, `nome`, `sobrenome`, `numero`, `debito`) VALUES
-(3, 'Balconista', 'João', 'Lima', '94992927891', '0');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `funcionarios`
+-- Índices para tabela `calendario`
 --
-ALTER TABLE `funcionarios`
+ALTER TABLE `calendario`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,10 +53,10 @@ ALTER TABLE `funcionarios`
 --
 
 --
--- AUTO_INCREMENT de tabela `funcionarios`
+-- AUTO_INCREMENT de tabela `calendario`
 --
-ALTER TABLE `funcionarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `calendario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

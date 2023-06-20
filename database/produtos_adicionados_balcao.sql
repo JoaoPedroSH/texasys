@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 20-Jun-2023 às 04:50
+-- Tempo de geração: 20-Jun-2023 às 04:51
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -25,33 +25,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura da tabela `produtos_adicionados_balcao`
 --
 
-CREATE TABLE `funcionarios` (
+CREATE TABLE `produtos_adicionados_balcao` (
   `id` int(11) NOT NULL,
-  `funcao` varchar(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `sobrenome` varchar(255) NOT NULL,
-  `numero` varchar(255) NOT NULL,
-  `debito` decimal(10,0) NOT NULL
+  `id_produto` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `valor` float NOT NULL,
+  `lucro` float NOT NULL,
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  `turno` int(11) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `id_vendas_balcao` int(11) NOT NULL,
+  `tipo_vendas` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `funcionarios`
---
-
-INSERT INTO `funcionarios` (`id`, `funcao`, `nome`, `sobrenome`, `numero`, `debito`) VALUES
-(3, 'Balconista', 'João', 'Lima', '94992927891', '0');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `funcionarios`
+-- Índices para tabela `produtos_adicionados_balcao`
 --
-ALTER TABLE `funcionarios`
+ALTER TABLE `produtos_adicionados_balcao`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -59,10 +57,10 @@ ALTER TABLE `funcionarios`
 --
 
 --
--- AUTO_INCREMENT de tabela `funcionarios`
+-- AUTO_INCREMENT de tabela `produtos_adicionados_balcao`
 --
-ALTER TABLE `funcionarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `produtos_adicionados_balcao`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 05-Mar-2023 às 12:40
+-- Tempo de geração: 20-Jun-2023 às 04:50
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -40,11 +40,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `nome`, `nome_usuario`, `senha`) VALUES
-(1, 'João Pedro', 'JP', '123'),
-(5, 'Eduardo', 'EDU', '123'),
-(6, 'Eduardo', 'EDU', '123'),
-(7, 'Pedro', 'PH', '123'),
-(8, 'Pedro', 'PH', '123');
+(1, 'João Pedro', 'JP', '123');
 
 --
 -- Índices para tabelas despejadas
@@ -64,7 +60,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT de tabela `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
