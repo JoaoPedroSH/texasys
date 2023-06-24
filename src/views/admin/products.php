@@ -73,7 +73,7 @@ include_once '../../../assets/html/head.html';
                                         </label>
                                     </div>
                                     <div class="col-md-4 form-floating mb-3">
-                                        <input type="number" name="value" id="value" class="form-control" placeholder="Valor em R$" required>
+                                        <input type="number" step="any" name="value" id="value" class="form-control" placeholder="Valor em R$" required>
                                         <label for="value">
                                             <strong> Valor de venda </strong>
                                         </label>
@@ -85,7 +85,7 @@ include_once '../../../assets/html/head.html';
                                         </label>
                                     </div>
                                     <div class="col-md-4 form-floating mb-3">
-                                        <input type="number" name="supplier-value" id="supplier-value" class="form-control" placeholder="Valor em R$" required>
+                                        <input type="number" step="any" name="supplier-value" id="supplier-value" class="form-control" placeholder="Valor em R$" required>
                                         <label for="supplier-value">
                                             <strong> Valor de compra </strong>
                                         </label>
@@ -132,9 +132,11 @@ include_once '../../../assets/html/head.html';
                                         <tr class="table-primary">
                                             <th scope="col">Categoria</th>
                                             <th scope="col">Produto</th>
-                                            <th scope="col">Valor(R$)</th>
-                                            <th scope="col">Quantidade (unidades)</th>
+                                            <th scope="col">Valor (R$)</th>
+                                            <th scope="col">Quantidade (Unidades)</th>
                                             <th scope="col">Fonecedor</th>
+                                            <th scope="col">Valor de fornecedor (R$)</th>
+                                            <th scope="col">Data de cadastro</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -147,7 +149,9 @@ include_once '../../../assets/html/head.html';
                                                 <td><?= $products['produto'] ?></td>
                                                 <td>R$ <?= $products['valor_produto'] ?></td>
                                                 <td><?= $products['quantidade'] ?></td>
-                                                <td><?= $products['fornecedor'] ?></td>                                               
+                                                <td><?= $products['fornecedor'] ?></td>
+                                                <td>R$ <?= $products['valor_fornecedor'] ?></td>
+                                                <td><?= date('d/m/Y', strtotime($products['data'])) ?></td>
                                                 <td>
                                                     <a role="button" data-bs-toggle="modal" data-bs-target="#EditProducts_<?= $products['id'] ?>">
                                                         <i class="bi bi-pencil-square mr-1" style="color:#343a40;" title="Editar Produto"></i>
@@ -158,12 +162,13 @@ include_once '../../../assets/html/head.html';
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
+                                                                <h5 class="modal-title">EDITAR PRODUTO</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <form action="../../controllers/ProductsController.php" method="POST">
                                                                     <input type="hidden" name="edit" value="true">
                                                                     <input type="hidden" name="id" value="<?= $products['id'] ?>">
-                                                                    <div class="col-md-12 form-floating mb-3">
+                                                                    <div class="col-md-12 form-floating mb-3 mt-3">
                                                                         <select name="category" id="category" class="form-select" required>
                                                                             <option value="alcoólica" <?php if ($products['categoria'] == 'alcoólica') { ?> selected <?php } ?>>Bebida alcoólica</option>
                                                                             <option value="não alcoólica" <?php if ($products['categoria'] == 'não alcoólica') { ?> selected <?php } ?>>Bebida não alcoólica</option>
@@ -180,9 +185,9 @@ include_once '../../../assets/html/head.html';
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-12 form-floating mb-3">
-                                                                        <input value="<?= $products['valor_produto'] ?>" type="number" name="value" id="value" class="form-control" placeholder="Valor(R$)" required>
+                                                                        <input value="<?= $products['valor_produto'] ?>" step="any" type="number" name="value" id="value" class="form-control" placeholder="Valor(R$)" required>
                                                                         <label for="value">
-                                                                            <strong> valor(R$) </strong>
+                                                                            <strong> Valor(R$) </strong>
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-12 form-floating mb-3">
@@ -205,16 +210,8 @@ include_once '../../../assets/html/head.html';
                                                                             <i class="bi bi-check-square"></i>
                                                                         </button>
                                                                     </div>
+                                                                </form>
                                                             </div>
-                                                        </div>
-                                                        </form>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
-                                                                <i class="bi bi-x-square"></i>
-                                                            </button>
-                                                            <button type="submit" class="btn btn-success" title="Sim">
-                                                                <i class="bi bi-check-square"></i>
-                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -224,29 +221,29 @@ include_once '../../../assets/html/head.html';
 
                                                     <!-- Modal Delete -->
                                                     <div class="modal fade" id="DeleteProducts_<?= $products['$id'] ?>">
-                                                            <div class="modal-dialog ">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <strong style="font-size: 24px;"> DESEJA EXCLUIR ESSE PRODUTO "<?= $products['produto'] ?>"? </strong>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <form action="../../controllers/ProductsController.php" method="POST">
+                                                        <div class="modal-dialog ">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <strong style="font-size: 24px;"> DESEJA EXCLUIR O PRODUTO "<?= $products['produto'] ?>"? </strong>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="../../controllers/ProductsController.php" method="POST">
                                                                         <input type="hidden" name="delete" value="true">
                                                                         <input type="hidden" name="id" value="<?= $products['id'] ?>">
-                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
-                                                                                <i class="bi bi-x-square"></i>
-                                                                            </button>
-                                                                            <button type="submit" class="btn btn-success" title="Sim">
-                                                                                <i class="bi bi-check-square"></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </div>
+                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
+                                                                            <i class="bi bi-x-square"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-success" title="Sim">
+                                                                            <i class="bi bi-check-square"></i>
+                                                                        </button>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php } ?>

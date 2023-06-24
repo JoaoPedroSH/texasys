@@ -60,7 +60,7 @@ include_once '../../../assets/html/head.html';
                                             <th scope="col">Produto</th>
                                             <th scope="col">Valor</th>
                                             <th scope="col">Quantidade (unidades)</th>
-                                            <th scope="col">Data últ. reposição</th>
+                                            <th scope="col">Data de cadastro</th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
@@ -70,7 +70,7 @@ include_once '../../../assets/html/head.html';
                                             <tr>
                                                 <td><?= $products['categoria'] ?></td>
                                                 <td><?= $products['produto'] ?></td>
-                                                <td><?= $products['valor_produto'] ?></td>
+                                                <td>R$ <?= $products['valor_produto'] ?></td>
                                                 <td><?= $products['quantidade'] ?></td>
                                                 <td><?= date('d/m/Y', strtotime($products['data'])) ?></td>
                                             </tr>
