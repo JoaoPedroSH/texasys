@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 20-Jun-2023 às 04:51
+-- Tempo de geração: 24-Jun-2023 às 05:56
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -35,8 +35,7 @@ CREATE TABLE `produtos_adicionados_mesas` (
   `quantidade` int(11) NOT NULL,
   `valor` float NOT NULL,
   `lucro` float NOT NULL,
-  `data` date NOT NULL,
-  `hora` time NOT NULL,
+  `data_hora` datetime NOT NULL,
   `turno` int(10) NOT NULL,
   `status` varchar(10) NOT NULL,
   `id_vendas_mesas` int(11) NOT NULL
@@ -60,7 +59,7 @@ ALTER TABLE `produtos_adicionados_mesas`
 -- AUTO_INCREMENT de tabela `produtos_adicionados_mesas`
 --
 ALTER TABLE `produtos_adicionados_mesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
