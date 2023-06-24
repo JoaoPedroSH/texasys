@@ -105,4 +105,5 @@ $response = array(
     'produtos' => $produtos,
     'produtos_dados' => $produtos_combinados
 );
+
 echo json_encode($response);

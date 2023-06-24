@@ -205,6 +205,44 @@ if (isset($_SESSION['access_admin_success'])) {
                 </div>
             </section>
 
+            <div class="pagetitle">
+                <h1><strong>RELATÓRIOS</strong></h1>
+            </div>
+
+            <section class="section dashboard">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row" style="align-items: center;">
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="date" value="<?= date('Y-m-d', strtotime('-1 day')) ?>" id="select-calendario">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" id="select-turno">
+                                            <option value="0">Todos os turnos</option>
+                                            <option value="1">09:00 - 15:00</option>
+                                            <option value="2">15:00 - 23:00</option>
+                                            <option value="3">23:00 - 01:00</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" id="button-gerar-reports" onclick="searchReports()" class="btn btn-sm btn-warning rounded-pill">
+                                            <strong id="text-gerar-reports">Gerar</strong> <i class="bi bi-file-earmark-text-fill"></i>
+                                        </button>
+
+                                        <button type="button" id="printReports" class="btn btn-sm btn-success rounded-pill" style="display: none;">
+                                            <strong>Imprimir</strong> <i class="bi bi-printer"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -212,6 +250,39 @@ if (isset($_SESSION['access_admin_success'])) {
     </body>
 
     <script>
+        function searchReports() {
+            let data_calendario = document.getElementById("select-calendario").value;
+            let hora_turno = document.getElementById("select-turno").value;
+
+            document.getElementById("button-gerar-reports").disabled = true;
+            document.getElementById("text-gerar-reports").innerText = 'Gerando...';
+
+            let formData = new FormData();
+            formData.append('calendario', data_calendario);
+            formData.append('turno', hora_turno);
+
+            fetch('../../services/SearchReports.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("button-gerar-reports").disabled = false;
+                    document.getElementById("text-gerar-reports").innerText = 'Gerar';
+                    console.log(data);
+
+                    if (data.status === true) {
+                        document.getElementById("printReports").style.display = "inline-block";
+                    } else {
+                        document.getElementById("printReports").style.display = "none";
+                    }
+
+                })
+                .catch(error => {
+                    console.error('Erro na requisição:', error);
+                });
+        }
+
         function valueSalesCounter() {
             fetch('../../services/StatisticsCards.php')
                 .then(response => response.json())
