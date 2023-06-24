@@ -38,21 +38,11 @@ if (isset($_SESSION['access_admin_success'])) {
 
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input class="form-control" type="text" id="searchInput" placeholder="BUSQUE UMA DATA AQUI">
-                                    <?php
-                                    require '../../../config/ConnectionDB.php';
-                                    $get_calendary_query = "SELECT * FROM calendario";
-                                    $get_calendary_response = $mysqli->query($get_calendary_query);
-                                    while ($calendary = $get_calendary_response->fetch_assoc()) {
-                                    ?>
-                                        <select class="form-control" id="select-calendario">
-                                            <option value="<?= $calendary['id'] ?>"><?= date('d/m/Y', strtotime($calendary['data_hoje'])) ?> - <?= date('d/m/Y', strtotime($calendary['data_amanha'])) ?></option>
-                                        </select>
-                                    <?php } ?>
+                                    <input class="form-control" type="date" id="select-calendario">
                                 </div>
                                 <div class="col-md-3">
                                     <select class="form-control" id="select-turno">
-                                        <option value="0">Todos os turnos (09:00 - 01:00)</option>
+                                        <option value="0">Todos os turnos</option>
                                         <option value="1">09:00 - 15:00</option>
                                         <option value="2">15:00 - 23:00</option>
                                         <option value="3">23:00 - 01:00</option>
@@ -99,43 +89,27 @@ if (isset($_SESSION['access_admin_success'])) {
             let data_calendario = document.getElementById("select-calendario").value;
             let hora_turno = document.getElementById("select-turno").value;
 
+            let formData = new FormData();
+            formData.append('calendario', data_calendario);
+            formData.append('turno', hora_turno);
+
             fetch('../../services/SearchReports.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        calendario: data_calendario,
-                        turno: hora_turno
-                    })
+                    body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    if (data.status == true) {
+                    if (data.status === "true") {
                         document.getElementById("printReports").style.display = "inline-block";
                     } else {
-                        document.getElementById("printReports").style.display = "none"; 
+                        document.getElementById("printReports").style.display = "none";
                     }
                 })
                 .catch(error => {
                     console.error('Erro na requisição:', error);
                 });
         }
-
-
-        document.getElementById("searchInput").addEventListener("keyup", function() {
-            var input = this.value.toLowerCase();
-            var select = document.getElementById("select-calendario");
-            for (var i = 0; i < select.options.length; i++) {
-                var optionText = select.options[i].text.toLowerCase();
-                if (optionText.indexOf(input) > -1) {
-                    select.options[i].style.display = "";
-                } else {
-                    select.options[i].style.display = "none";
-                }
-            }
-        });
     </script>
 
     </html>

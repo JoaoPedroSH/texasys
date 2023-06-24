@@ -136,7 +136,7 @@ class Tables
 
                     /* Calcula o turno */
                     date_default_timezone_set('America/Belem');
-                    $date = date('Y-m-d');
+                    $date = date('Y-m-d H:i:s');
                     $time = date('H:i:s');
 
                     $time_atual = strtotime($time);
@@ -157,7 +157,7 @@ class Tables
 
                     $status = 'aberto';
 
-                    $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor, lucro, data, hora, turno, status) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product', '$lucro', '$date', '$time', '$turno', '$status')";
+                    $product_add_table = "INSERT INTO produtos_adicionados_mesas (id_mesa, id_produto, quantidade, valor, lucro, data_hora, turno, status) VALUES ('$id_table', '$id_produto', '$quantidade', '$value_product', '$lucro', '$date', '$turno', '$status')";
                     $res_product_add_table = $mysqli->query($product_add_table);
 
                     if ($res_product_add_table != 0) {
