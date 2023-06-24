@@ -92,7 +92,11 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
     }
     $produtos_combinados = array_values($produtos_combinados);
 
-    $status = true;
+    if (empty($produtos_combinados)) {
+        $status = false;
+    } else {
+        $status = true;
+    }
 }
 
 header('Content-Type: application/json');
@@ -102,8 +106,6 @@ $response = array(
     'data_final' => $data_seguinte,
     'receita' => $receita,
     'lucro' => $lucro,
-    'produtos' => $produtos,
     'produtos_dados' => $produtos_combinados
 );
-
 echo json_encode($response);

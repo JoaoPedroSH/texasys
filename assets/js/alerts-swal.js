@@ -237,3 +237,23 @@ function swalDeleteFailed() {
     timer: 1500,
   });
 }
+
+function swalReportsSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Relatório gerado e pronto para impressão!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalReportsFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "warning",
+    title: "Nenhuma informação encontrada!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

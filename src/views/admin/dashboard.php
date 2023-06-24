@@ -232,9 +232,17 @@ if (isset($_SESSION['access_admin_success'])) {
                                             <strong id="text-gerar-reports">Gerar</strong> <i class="bi bi-file-earmark-text-fill"></i>
                                         </button>
 
-                                        <button type="button" id="printReports" class="btn btn-sm btn-success rounded-pill" style="display: none;">
-                                            <strong>Imprimir</strong> <i class="bi bi-printer"></i>
-                                        </button>
+                                        <form action="../../controllers/PrintController.php" method="POST">
+                                            <input type="hidden" name="print-report" value="">
+                                            <input type="hidden" id="dado-data1" name="dado-data1" value="">
+                                            <input type="hidden" id="dado-data2" name="dado-data2" value="">
+                                            <input type="hidden" id="dado-receita" name="dado-receita" value="">
+                                            <input type="hidden" id="dado-lucro" name="dado-lucro" value="">
+                                            <input type="hidden" id="dado-produtos" name="dado-produtos" value="">
+                                            <button type="submit" id="printReports" class="btn btn-sm btn-success rounded-pill mt-2" style="display: none;">
+                                                <strong>Imprimir</strong> <i class="bi bi-printer"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -273,10 +281,16 @@ if (isset($_SESSION['access_admin_success'])) {
 
                     if (data.status === true) {
                         document.getElementById("printReports").style.display = "inline-block";
+                        document.getElementById("dado-data1").value = data.data_inicio;
+                        document.getElementById("dado-data2").value = data.data_final;
+                        document.getElementById("dado-receita").value = data.receita;
+                        document.getElementById("dado-lucro").value = data.lucro;
+                        document.getElementById("dado-produtos").value = JSON.stringify(data.produtos_dados);
+                        swalReportsSuccess()
                     } else {
                         document.getElementById("printReports").style.display = "none";
+                        swalReportsFailed()
                     }
-
                 })
                 .catch(error => {
                     console.error('Erro na requisição:', error);
