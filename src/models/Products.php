@@ -5,16 +5,16 @@ namespace services;
 class Products
 {
 
-    public function postProducts()
+    public function postProducts($request)
     {
         require '../../config/ConnectionDB.php';
 
-        $category = $mysqli->escape_string($_POST['category']);
-        $product = $mysqli->escape_string($_POST['product']);
-        $value = $mysqli->escape_string($_POST['value']);
-        $quantity = $mysqli->escape_string($_POST['quantity']);
-        $supplier = $mysqli->escape_string($_POST['supplier']);
-        $supplierValue = $mysqli->escape_string($_POST['supplier-value']);
+        $category = $mysqli->escape_string($request['category']);
+        $product = $mysqli->escape_string($request['product']);
+        $value = $mysqli->escape_string($request['value']);
+        $quantity = $mysqli->escape_string($request['quantity']);
+        $supplier = $mysqli->escape_string($request['supplier']);
+        $supplierValue = $mysqli->escape_string($request['supplier-value']);
 
         date_default_timezone_set('America/Belem');
         $data = date('Y-m-d');
@@ -34,11 +34,47 @@ class Products
         }
     }
 
-    public function putProducts()
+    public function putProducts($request)
     {
+        require '../../config/ConnectionDB.php';
+
+        $id = $mysqli->escape_string($request['id']);
+        $category = $mysqli->escape_string($request['category']);
+        $product = $mysqli->escape_string($request['product']);
+        $value = $mysqli->escape_string($request['value']);
+        $quantity = $mysqli->escape_string($request['quantity']);
+        $supplier = $mysqli->escape_string($request['supplier']);
+        $supplierValue = $mysqli->escape_string($request['supplier-value']);
+
+        $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity' WHERE id = $id";
+        $update_response = $mysqli->query($update_query);
+
+        if ($update_response == true) {
+            session_start();
+            $_SESSION['edit_products_success'] = true;
+            header('Location: ../views/admin/products.php');
+        } else {
+            session_start();
+            $_SESSION['edit_products_fail'] = true;
+            header('Location: ../views/admin/products.php');
+        }
     }
 
-    public function deleteProducts()
+    public function deleteProducts($id)
     {
+        require '../../config/ConnectionDB.php';
+
+        $delete_query = " DELETE FROM produtos WHERE id = $id";
+        $delete_response = $mysqli->query($delete_query);
+
+        if ($delete_response == true) {
+            session_start();
+            $_SESSION['delete_products_success'] = true;
+            header('Location: ../views/admin/products.php');
+        } else {
+            session_start();
+            $_SESSION['delete_products_fail'] = true;
+            header('Location: ../views/admin/products.php');
+        }
     }
 }

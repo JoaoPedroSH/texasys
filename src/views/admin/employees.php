@@ -126,10 +126,13 @@ include_once '../../../assets/html/head.html';
                                                 <td><?= $employees['numero'] ?></td>
                                                 <td>R$ <?= $employees['debito'] ?></td>
                                                 <td>
+                                                    
+
                                                     <form id="formDischarge" action="../../controllers/EmployeesController.php" method="POST">
                                                         <input type="hidden" name="discharge_debit" value="true">
                                                         <input type="hidden" name="id_employees_discharge" value="<?= $employees['id'] ?>">
-                                                        <a role="button"  data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish"><i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
+                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish">
+                                                            <i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
 
                                                         <div class="modal fade" id="dischargeEmployeesFinish">
                                                             <div class="modal-dialog ">

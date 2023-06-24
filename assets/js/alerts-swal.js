@@ -197,3 +197,43 @@ function swalDischangeDebitFailed() {
     timer: 1500,
   });
 }
+
+function swalEditSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Produto Editado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalEditFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao editar o produto!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalDeleteSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Produto deletado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalDeleteFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: "Erro ao deleta o produto!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}

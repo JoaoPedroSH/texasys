@@ -54,8 +54,14 @@ class Employees
         }
     }
 
-    public function putEmployees()
+    public function putEmployees($request)
     {
+        require '../../config/ConnectionDB.php';
+
+        $function = $mysqli->escape_string($request['function']);
+        $name = $mysqli->escape_string($request['name']);
+        $lastname = $mysqli->escape_string($request['lastname']);
+        $telefone = $mysqli->escape_string($request['telefone']);
     }
 
     public function deleteEmployees()
