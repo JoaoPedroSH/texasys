@@ -33,7 +33,7 @@ include_once '../../../assets/html/head.html';
                 <div class="card-header"></div>
                 <div class="card-body">
                     <form action="../../controllers/SalesCounterController.php" method="POST">
-                        
+
 
                         <div class="d-flex align-items-center">
                             <div>
@@ -97,16 +97,18 @@ include_once '../../../assets/html/head.html';
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-1">
-                            <?php
-                            $get_employees_query = "SELECT * FROM funcionarios";
-                            $get_employees_response = $mysqli->query($get_employees_query);
-                            while ($employees = $get_employees_response->fetch_assoc()) {
-                            ?>
-                                <select class="custom-select" name="employees-counter" id="select-employees-counter" style="display:none;">
-                                    <option selected disabled value="">Selecionar funcionário</option>
+
+                            <select class="custom-select" name="employees-counter" id="select-employees-counter" style="display:none;">
+                                <option selected disabled value="">Selecionar funcionário</option>
+                                <?php
+                                $get_employees_query = "SELECT * FROM funcionarios";
+                                $get_employees_response = $mysqli->query($get_employees_query);
+                                while ($employees = $get_employees_response->fetch_assoc()) {
+                                ?>
                                     <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
-                                </select>
-                            <?php } ?>
+                                <?php } ?>
+                            </select>
+
                         </div>
                     </form>
 
@@ -294,16 +296,17 @@ include_once '../../../assets/html/head.html';
                                                 </label>
                                             </div>
                                             <div class="col-md-8 form-floating mb-3">
-                                                <?php
-                                                $get_employees_query = "SELECT * FROM funcionarios";
-                                                $get_employees_response = $mysqli->query($get_employees_query);
-                                                while ($employees = $get_employees_response->fetch_assoc()) {
-                                                ?>
-                                                    <select class="form-select" name="employee" id="employee" required>
-                                                        <option value="">Selecione</option>
+                                                <select class="form-select" name="employee" id="employee" required>
+                                                    <option selected disabled value="">Selecione</option>
+                                                    <?php
+                                                    $get_employees_query = "SELECT * FROM funcionarios";
+                                                    $get_employees_response = $mysqli->query($get_employees_query);
+                                                    while ($employees = $get_employees_response->fetch_assoc()) {
+                                                    ?>
                                                         <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
-                                                    </select>
-                                                <?php } ?>
+                                                    <?php } ?>
+                                                </select>
+
                                                 <label for="employee">
                                                     <strong> Funcionário </strong>
                                                 </label>
@@ -358,9 +361,9 @@ include_once '../../../assets/html/head.html';
                                                                 $product_sum_table_result = $mysqli->query($product_sum_table_query);
                                                                 while ($sum_tables = $product_sum_table_result->fetch_assoc()) {
                                                                     if ($sum_tables['total'] > 0) {
-                                                                        $sum_tables_value = $sum_tables['total']; 
+                                                                        $sum_tables_value = $sum_tables['total'];
                                                                     } else {
-                                                                        $sum_tables_value = '0'; 
+                                                                        $sum_tables_value = '0';
                                                                     }
                                                                 ?>
                                                                     <h6> R$ <?= $sum_tables_value ?></h6>
