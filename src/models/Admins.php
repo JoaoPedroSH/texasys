@@ -29,11 +29,21 @@ class Admins
         }
     }
 
-    public function putAdmin()
+    public function deleteAdmin($id)
     {
-    }
+        require '../../config/ConnectionDB.php';
 
-    public function deleteAdmin()
-    {
+        $delete_query = " DELETE FROM admins WHERE id = $id";
+        $delete_response = $mysqli->query($delete_query);
+
+        if ($delete_response == true) {
+            session_start();
+            $_SESSION['delete_admins_success'] = true;
+            header('Location: ../views/admin/admins.php');
+        } else {
+            session_start();
+            $_SESSION['delete_admins_fail'] = true;
+            header('Location: ../views/admin/admins.php');
+        }
     }
 }

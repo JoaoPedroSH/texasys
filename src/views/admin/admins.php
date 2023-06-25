@@ -13,7 +13,6 @@ include_once '../../../assets/html/head.html';
     tr {
         text-align: center;
     }
-
     #search-filter {
         justify-content: end;
         margin-bottom: 20px;
@@ -115,7 +114,38 @@ include_once '../../../assets/html/head.html';
                                             <tr>
                                                 <td><?= $admins['nome'] ?></td>
                                                 <td><?= $admins['nome_usuario'] ?></td>
-                                                <td></td>
+                                                <td>
+
+                                                    <i class="bi bi-key mr-1" id="icon-senha-admin" title="Senha: <?= $admins['senha'] ?>"></i>
+
+                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#DeleteAdmin_<?= $admins['id'] ?>">
+                                                        <i class="bi bi-trash3" title="Deletar usuario"></i>
+                                                    </a>
+                                                    <div class="modal fade" id="DeleteAdmin_<?= $admins['id'] ?>">
+                                                        <div class="modal-dialog ">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <strong style="font-size: 24px;"> DESEJA EXCLUIR O ADMINISTRADOR "<?= $admins['nome_usuario'] ?>"? </strong>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="../../controllers/AdminsController.php" method="POST">
+                                                                        <input type="hidden" name="delete" value="true">
+                                                                        <input type="hidden" name="id" value="<?= $admins['id'] ?>">
+                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
+                                                                            <i class="bi bi-x-square"></i>
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-success" title="Sim">
+                                                                            <i class="bi bi-check-square"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -162,6 +192,28 @@ if (isset($_SESSION['register_admins_fail'])) {
     </script>
 <?php
     unset($_SESSION['register_admins_fail']);
+}
+?>
+
+<?php
+if (isset($_SESSION['delete_admins_success'])) {
+?>
+    <script>
+        swalAdminsDeleteSuccess();
+    </script>
+<?php
+    unset($_SESSION['delete_admins_success']);
+}
+?>
+
+<?php
+if (isset($_SESSION['delete_admins_fail'])) {
+?>
+    <script>
+        swalAdminsDeleteFailed();
+    </script>
+<?php
+    unset($_SESSION['delete_admins_fail']);
 }
 ?>
 

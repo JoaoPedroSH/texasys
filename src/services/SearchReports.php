@@ -20,6 +20,30 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
         $valor_general_mesas = floatval($valor_general_mesas_response['valor_vendas']);
         $receita = $valor_general_balcao + $valor_general_mesas;
 
+        $sql_valor_general_balcao_T1 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '1' ";
+        $valor_general_balcao_T1_response = $mysqli->query($sql_valor_general_balcao_T1)->fetch_assoc();
+        $valor_general_balcao_T1 = floatval($valor_general_balcao_T1_response['valor_vendas']);
+        $sql_valor_general_mesas_T1 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '1' ";
+        $valor_general_mesas_T1_response = $mysqli->query($sql_valor_general_mesas_T1)->fetch_assoc();
+        $valor_general_mesas_T1 = floatval($valor_general_mesas_T1_response['valor_vendas']);
+        $receita_t1 = $valor_general_balcao_T1 + $valor_general_mesas_T1;
+
+        $sql_valor_general_balcao_T2 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '2'  ";
+        $valor_general_balcao_T2_response = $mysqli->query($sql_valor_general_balcao_T2)->fetch_assoc();
+        $valor_general_balcao_T2 = floatval($valor_general_balcao_T2_response['valor_vendas']);
+        $sql_valor_general_mesas_T2 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '2' ";
+        $valor_general_mesas_T2_response = $mysqli->query($sql_valor_general_mesas_T2)->fetch_assoc();
+        $valor_general_mesas_T2 = floatval($valor_general_mesas_T2_response['valor_vendas']);
+        $receita_t2 = $valor_general_balcao_T2 + $valor_general_mesas_T2;
+
+        $sql_valor_general_balcao_T3 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '3' ";
+        $valor_general_balcao_T3_response = $mysqli->query($sql_valor_general_balcao_T3)->fetch_assoc();
+        $valor_general_balcao_T3 = floatval($valor_general_balcao_T3_response['valor_vendas']);
+        $sql_valor_general_mesas_T3 = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte'  AND turno = '3' ";
+        $valor_general_mesas_T3_response = $mysqli->query($sql_valor_general_mesas_T3)->fetch_assoc();
+        $valor_general_mesas_T3 = floatval($valor_general_mesas_T3_response['valor_vendas']);
+        $receita_t3 = $valor_general_balcao_T3 + $valor_general_mesas_T3;
+
         /* Lucro */
         $sql_lucro_general_balcao = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' ";
         $lucro_general_balcao_response = $mysqli->query($sql_lucro_general_balcao)->fetch_assoc();
@@ -28,6 +52,30 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
         $lucro_general_mesas_response = $mysqli->query($sql_lucro_general_mesas)->fetch_assoc();
         $lucro_general_mesas = floatval($lucro_general_mesas_response['lucro_vendas']);
         $lucro =  $lucro_general_balcao + $lucro_general_mesas;
+
+        $sql_lucro_general_balcao_T1 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '1' ";
+        $lucro_general_balcao_T1_response = $mysqli->query($sql_lucro_general_balcao_T1)->fetch_assoc();
+        $lucro_general_balcao_T1 = floatval($lucro_general_balcao_T1_response['lucro_vendas']);
+        $sql_lucro_general_mesas_T1 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '1' ";
+        $lucro_general_mesas_T1_response = $mysqli->query($sql_lucro_general_mesas_T1)->fetch_assoc();
+        $lucro_general_mesas_T1 = floatval($lucro_general_mesas_T1_response['lucro_vendas']);
+        $lucro_t1 =  $lucro_general_balcao_T1 + $lucro_general_mesas_T1;
+
+        $sql_lucro_general_balcao_T2 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '2' ";
+        $lucro_general_balcao_T2_response = $mysqli->query($sql_lucro_general_balcao_T2)->fetch_assoc();
+        $lucro_general_balcao_T2 = floatval($lucro_general_balcao_T2_response['lucro_vendas']);
+        $sql_lucro_general_mesas_T2 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '2' ";
+        $lucro_general_mesas_T2_response = $mysqli->query($sql_lucro_general_mesas_T2)->fetch_assoc();
+        $lucro_general_mesas_T2 = floatval($lucro_general_mesas_T2_response['lucro_vendas']);
+        $lucro_t2 =  $lucro_general_balcao_T2 + $lucro_general_mesas_T2;
+
+        $sql_lucro_general_balcao_T3 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '3' ";
+        $lucro_general_balcao_T3_response = $mysqli->query($sql_lucro_general_balcao_T3)->fetch_assoc();
+        $lucro_general_balcao_T3 = floatval($lucro_general_balcao_T3_response['lucro_vendas']);
+        $sql_lucro_general_mesas_T3 = "SELECT SUM(lucro) AS lucro_vendas FROM produtos_adicionados_mesas WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '3' ";
+        $lucro_general_mesas_T3_response = $mysqli->query($sql_lucro_general_mesas_T3)->fetch_assoc();
+        $lucro_general_mesas_T3 = floatval($lucro_general_mesas_T3_response['lucro_vendas']);
+        $lucro_t3 =  $lucro_general_balcao_T3 + $lucro_general_mesas_T3;
 
         /* Produtos */
         $get_produtos_balcao = "SELECT id_produto, quantidade, valor, lucro FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' ";
@@ -43,7 +91,6 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
             $produtos_mesas[] = $resposta_produtos_mesas;
         }
         $produtos = array_merge($produtos_balcao, $produtos_mesas);
-
     } else {
         /* Receita */
         $sql_valor_general_balcao = "SELECT SUM(valor) AS valor_vendas FROM produtos_adicionados_balcao WHERE data_hora >= '$data_atual' AND data_hora <= '$data_seguinte' AND turno = '$turno' ";
@@ -91,7 +138,6 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
         }
     }
     $produtos_combinados = array_values($produtos_combinados);
-
     if (empty($produtos_combinados)) {
         $status = false;
     } else {
@@ -99,13 +145,31 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
     }
 }
 
+if ($turno == 0) {
+    $response = array(
+        'status' => $status,
+        'data_inicio' => $data_atual,
+        'data_final' => $data_seguinte,
+        'receita' => $receita,
+        'receita_t1' => $receita_t1,
+        'receita_t2' => $receita_t2,
+        'receita_t3' => $receita_t3,
+        'lucro' => $lucro,
+        'lucro_t1' => $lucro_t1,
+        'lucro_t2' => $lucro_t2,
+        'lucro_t3' => $lucro_t3,
+        'produtos_dados' => $produtos_combinados
+    );
+} else {
+    $response = array(
+        'status' => $status,
+        'data_inicio' => $data_atual,
+        'data_final' => $data_seguinte,
+        'receita' => $receita,
+        'lucro' => $lucro,
+        'produtos_dados' => $produtos_combinados
+    );
+}
+
 header('Content-Type: application/json');
-$response = array(
-    'status' => $status,
-    'data_inicio' => $data_atual,
-    'data_final' => $data_seguinte,
-    'receita' => $receita,
-    'lucro' => $lucro,
-    'produtos_dados' => $produtos_combinados
-);
 echo json_encode($response);

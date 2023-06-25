@@ -216,7 +216,7 @@ include_once '../../../assets/html/head.html';
                                                     </div>
 
                                                     <a role="button" data-bs-toggle="modal" data-bs-target="#DeleteProducts_<?= $products['$id'] ?>">
-                                                        <i style="cursor:pointer" class="bi bi-trash3"></i>
+                                                        <i class="bi bi-trash3"></i>
                                                     </a>
 
                                                     <!-- Modal Delete -->

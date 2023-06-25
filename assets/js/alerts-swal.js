@@ -257,3 +257,23 @@ function swalReportsFailed() {
     timer: 1500,
   });
 }
+
+function swalAdminsDeleteSuccess() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Administrador deletado com sucesso!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
+
+function swalAdminsDeleteFailed() {
+  Swal.fire({
+    position: "top-end",
+    icon: "failed",
+    title: "Erro ao deletar administrador!",
+    showConfirmButton: false,
+    timer: 1500,
+  });
+}
