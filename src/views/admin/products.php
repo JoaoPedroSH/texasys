@@ -58,8 +58,8 @@ include_once '../../../assets/html/head.html';
                                     <div class="col-md-4 form-floating mb-3">
                                         <select name="category" id="category" class="form-select" required>
                                             <option value="">Selecione</option>
-                                            <option value="alcoólica">Bebida alcoólica</option>
-                                            <option value="não alcoólica">Bebida não alcoólica</option>
+                                            <option value="B. alcoólica">Bebida alcoólica</option>
+                                            <option value="B. não alcoólica">Bebida não alcoólica</option>
                                             <option value="Porções">Porções</option>
                                         </select>
                                         <label for="category">
@@ -136,7 +136,7 @@ include_once '../../../assets/html/head.html';
                                             <th scope="col">Quantidade (Unidades)</th>
                                             <th scope="col">Fonecedor</th>
                                             <th scope="col">Valor de fornecedor (R$)</th>
-                                            <th scope="col">Data de cadastro</th>
+                                            <th scope="col">Data da últ. reposição</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -170,8 +170,8 @@ include_once '../../../assets/html/head.html';
                                                                     <input type="hidden" name="id" value="<?= $products['id'] ?>">
                                                                     <div class="col-md-12 form-floating mb-3 mt-3">
                                                                         <select name="category" id="category" class="form-select" required>
-                                                                            <option value="alcoólica" <?php if ($products['categoria'] == 'alcoólica') { ?> selected <?php } ?>>Bebida alcoólica</option>
-                                                                            <option value="não alcoólica" <?php if ($products['categoria'] == 'não alcoólica') { ?> selected <?php } ?>>Bebida não alcoólica</option>
+                                                                            <option value="B. alcoólica" <?php if ($products['categoria'] == 'B. alcoólica') { ?> selected <?php } ?>>Bebida alcoólica</option>
+                                                                            <option value="B. não alcoólica" <?php if ($products['categoria'] == 'B. não alcoólica') { ?> selected <?php } ?>>Bebida não alcoólica</option>
                                                                             <option value="Porções" <?php if ($products['categoria'] == 'Porções') { ?> selected <?php } ?>>Porções</option>
                                                                         </select>
                                                                         <label for="category">
@@ -200,6 +200,12 @@ include_once '../../../assets/html/head.html';
                                                                         <input value="<?= $products['fornecedor'] ?>" type="text" name="supplier" id="supplier" class="form-control" placeholder="Quantidade" required>
                                                                         <label for="supplier">
                                                                             <strong> Fornecedor </strong>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-12 form-floating mb-3">
+                                                                        <input value="<?= $products['valor_fornecedor'] ?>" step="any" type="number" name="supplier-value" id="supplier-value" class="form-control" placeholder="Valor(R$)" required>
+                                                                        <label for="supplier-value">
+                                                                            <strong> Valor de Fornecedor(R$) </strong>
                                                                         </label>
                                                                     </div>
                                                                     <div class="modal-footer">

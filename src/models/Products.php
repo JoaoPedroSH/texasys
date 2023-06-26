@@ -46,8 +46,18 @@ class Products
         $supplier = $mysqli->escape_string($request['supplier']);
         $supplierValue = $mysqli->escape_string($request['supplier-value']);
 
-        $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity' WHERE id = $id";
-        $update_response = $mysqli->query($update_query);
+        $get_products = "SELECT quantidade FROM produtos WHERE id = $id";
+        $get_products_response = $mysqli->query($get_products)->fetch_assoc();
+        date_default_timezone_set('America/Belem');
+        $data_atual = date('Y-m-d');
+
+        if ($get_products_response['quantidade'] < $quantity) {
+            $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity', data = '$data_atual' WHERE id = $id";
+            $update_response = $mysqli->query($update_query);
+        }else {
+            $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity' WHERE id = $id";
+            $update_response = $mysqli->query($update_query);
+        }
 
         if ($update_response == true) {
             session_start();

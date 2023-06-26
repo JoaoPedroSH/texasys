@@ -60,7 +60,7 @@ include_once '../../../assets/html/head.html';
                                             <th scope="col">Produto</th>
                                             <th scope="col">Valor</th>
                                             <th scope="col">Quantidade (unidades)</th>
-                                            <th scope="col">Data de cadastro</th>
+                                            <th scope="col">Data da últ. reposição</th>
                                         </tr>
                                     </thead>
                                     <tbody id="dataTable">
