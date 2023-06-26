@@ -147,6 +147,7 @@ if (isset($_POST['calendario']) && isset($_POST['turno'])) {
 
 if ($turno == 0) {
     $response = array(
+        'tipo_filtro' => 'total',
         'status' => $status,
         'data_inicio' => $data_atual,
         'data_final' => $data_seguinte,
@@ -162,6 +163,7 @@ if ($turno == 0) {
     );
 } else {
     $response = array(
+        'tipo_filtro' => $turno,
         'status' => $status,
         'data_inicio' => $data_atual,
         'data_final' => $data_seguinte,

@@ -234,10 +234,17 @@ if (isset($_SESSION['access_admin_success'])) {
 
                                         <form action="../../controllers/PrintController.php" method="POST">
                                             <input type="hidden" name="print-report" value="">
+                                            <input type="hidden" id="tipo-filtro" name="tipo-filtro" value="">
                                             <input type="hidden" id="dado-data1" name="dado-data1" value="">
                                             <input type="hidden" id="dado-data2" name="dado-data2" value="">
                                             <input type="hidden" id="dado-receita" name="dado-receita" value="">
+                                            <input type="hidden" id="dado-receita-1" name="dado-receita-1" value="">
+                                            <input type="hidden" id="dado-receita-2" name="dado-receita-2" value="">
+                                            <input type="hidden" id="dado-receita-3" name="dado-receita-3" value="">
                                             <input type="hidden" id="dado-lucro" name="dado-lucro" value="">
+                                            <input type="hidden" id="dado-lucro-1" name="dado-lucro-1" value="">
+                                            <input type="hidden" id="dado-lucro-2" name="dado-lucro-2" value="">
+                                            <input type="hidden" id="dado-lucro-3" name="dado-lucro-3" value="">
                                             <input type="hidden" id="dado-produtos" name="dado-produtos" value="">
                                             <button type="submit" id="printReports" class="btn btn-sm btn-success rounded-pill mt-2" style="display: none;">
                                                 <strong>Imprimir</strong> <i class="bi bi-printer"></i>
@@ -281,10 +288,17 @@ if (isset($_SESSION['access_admin_success'])) {
 
                     if (data.status === true) {
                         document.getElementById("printReports").style.display = "inline-block";
+                        document.getElementById("tipo-filtro").value = data.tipo_filtro;
                         document.getElementById("dado-data1").value = data.data_inicio;
                         document.getElementById("dado-data2").value = data.data_final;
                         document.getElementById("dado-receita").value = data.receita;
+                        document.getElementById("dado-receita-1").value = data.receita_t1;
+                        document.getElementById("dado-receita-2").value = data.receita_t2;
+                        document.getElementById("dado-receita-3").value = data.receita_t3;
                         document.getElementById("dado-lucro").value = data.lucro;
+                        document.getElementById("dado-lucro-1").value = data.lucro_t1;
+                        document.getElementById("dado-lucro-2").value = data.lucro_t2;
+                        document.getElementById("dado-lucro-3").value = data.lucro_t3;
                         document.getElementById("dado-produtos").value = JSON.stringify(data.produtos_dados);
                         swalReportsSuccess()
                     } else {
