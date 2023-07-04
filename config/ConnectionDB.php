@@ -1,9 +1,7 @@
 <?php 
 
     require_once 'Environment.php';
-
     use config\Environment;
-
     Environment::load();
 
     $host = "{$_ENV['HOST']}";
