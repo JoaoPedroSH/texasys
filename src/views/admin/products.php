@@ -221,12 +221,12 @@ include_once '../../../assets/html/head.html';
                                                         </div>
                                                     </div>
 
-                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#DeleteProducts_<?= $products['$id'] ?>">
+                                                    <a role="button" data-bs-toggle="modal" data-bs-target="#DeleteProducts_<?= $products['id'] ?>">
                                                         <i class="bi bi-trash3"></i>
                                                     </a>
 
                                                     <!-- Modal Delete -->
-                                                    <div class="modal fade" id="DeleteProducts_<?= $products['$id'] ?>">
+                                                    <div class="modal fade" id="DeleteProducts_<?= $products['id'] ?>">
                                                         <div class="modal-dialog ">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
