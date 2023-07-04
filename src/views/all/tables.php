@@ -124,7 +124,7 @@ include_once '../../../assets/html/head.html';
                                     <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
                                         <div class="col-md-9">
                                             <div id="dataTable_filter" class="dataTables_filter">
-                                                <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
+                                                <input type="search" id="search_balcao" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -183,7 +183,7 @@ include_once '../../../assets/html/head.html';
                                 <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
                                     <div class="col-md-12">
                                         <div id="dataTable_filter" class="dataTables_filter">
-                                            <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
+                                            <input type="search" id="search_balcao" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@ include_once '../../../assets/html/head.html';
 
                                     <tbody id="dataTable">
                                         <?php
-                                        $get_products_table_query = "SELECT * FROM produtos_adicionados_balcao";
+                                        $get_products_table_query = "SELECT * FROM produtos_adicionados_balcao WHERE status = 'aberto'";
                                         $get_products_table_response = $mysqli->query($get_products_table_query);
 
                                         while ($products_added = $get_products_table_response->fetch_assoc()) {
@@ -402,7 +402,7 @@ include_once '../../../assets/html/head.html';
                                                                             <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
                                                                                 <div class="col-md-9">
                                                                                     <div id="dataTable_filter" class="dataTables_filter">
-                                                                                        <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
+                                                                                        <input type="search" id="search_mesas" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-3">
