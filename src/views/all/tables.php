@@ -547,7 +547,7 @@ include_once '../../../assets/html/head.html';
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <h2 class="modal-title" style="text-align: center;"> DESEJA IMPRIMIR A CONTA DA MESA <strong><?= $tables['cod_mesa'] ?></strong> ? </h2>
-                                                                            <form action="../../controllers/PrintController.php" method="POST">
+                                                                            <form action="../../controllers/PrintController.php" target="_blank" method="POST">
                                                                                 <input type="hidden" name="print" value="true">
                                                                                 <input type="hidden" name="id-tables-print" value="<?= $tables['cod_mesa'] ?>">
                                                                                 <input type="hidden" id="value-totality-print">

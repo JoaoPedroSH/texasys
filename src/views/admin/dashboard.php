@@ -232,7 +232,7 @@ if (isset($_SESSION['access_admin_success'])) {
                                             <strong id="text-gerar-reports">Gerar</strong> <i class="bi bi-file-earmark-text-fill"></i>
                                         </button>
 
-                                        <form action="../../controllers/PrintController.php" method="POST">
+                                        <form action="../../controllers/PrintController.php" target="_blank" method="POST">
                                             <input type="hidden" name="print-report" value="">
                                             <input type="hidden" id="tipo-filtro" name="tipo-filtro" value="">
                                             <input type="hidden" id="dado-data1" name="dado-data1" value="">

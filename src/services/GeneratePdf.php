@@ -61,8 +61,8 @@ function PrintBillTable($REQUEST)
             <thead id="thead-cabecalho">
                 <tr>
                     <td>
-                        <h4> Mesa ' . $REQUEST['id-tables-print'] . '</h4>
-                        <h4> Valor: R$' . $product_sum_table . '</h4>
+                        <h4> MESA ' . $REQUEST['id-tables-print'] . '</h4>
+                        <h4> VALOR TOTAL: R$ ' . $product_sum_table . '</h4>
                     </td>
                     <td>
                         <img src="https://raw.githubusercontent.com/impulse-devs/TexaSys/main/assets/img/logo.png" width="80px" height="40px"> 
