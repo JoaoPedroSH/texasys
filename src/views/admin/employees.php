@@ -3,6 +3,9 @@
 <?php
 session_start();
 require_once '../../../config/ConnectionDB.php';
+
+$get_employees_query = "SELECT * FROM funcionarios";
+$get_employees_response = $mysqli->query($get_employees_query);
 ?>
 
 <?php
@@ -116,8 +119,6 @@ include_once '../../../assets/html/head.html';
                                     </thead>
                                     <tbody id="dataTable">
                                         <?php
-                                        $get_employees_query = "SELECT * FROM funcionarios";
-                                        $get_employees_response = $mysqli->query($get_employees_query);
                                         while ($employees = $get_employees_response->fetch_assoc()) {
                                         ?>
                                             <tr>
@@ -131,10 +132,10 @@ include_once '../../../assets/html/head.html';
                                                     <form id="formDischarge" action="../../controllers/EmployeesController.php" method="POST">
                                                         <input type="hidden" name="discharge_debit" value="true">
                                                         <input type="hidden" name="id_employees_discharge" value="<?= $employees['id'] ?>">
-                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish">
+                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish_<?= $employees['id'] ?>">
                                                             <i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
 
-                                                        <div class="modal fade" id="dischargeEmployeesFinish">
+                                                        <div class="modal fade" id="dischargeEmployeesFinish_<?= $employees['id'] ?>">
                                                             <div class="modal-dialog ">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
