@@ -7,6 +7,12 @@ require_once '../../../config/ConnectionDB.php';
 
 $get_products_query = "SELECT * FROM produtos";
 $get_products_response = $mysqli->query($get_products_query);
+
+$get_categories_query = "SELECT * FROM categorias";
+$get_categories_response = $mysqli->query($get_categories_query);
+
+$get_categories_select_query = "SELECT * FROM categorias";
+$get_categories_select_response = $mysqli->query($get_categories_select_query);
 ?>
 
 <?php
@@ -57,10 +63,12 @@ include_once '../../../assets/html/head.html';
                                 <div class="row">
                                     <div class="col-md-4 form-floating mb-3">
                                         <select name="category" id="category" class="form-select" required>
-                                            <option value="">Selecione</option>
-                                            <option value="B. alcoólica">Bebida alcoólica</option>
-                                            <option value="B. não alcoólica">Bebida não alcoólica</option>
-                                            <option value="Porções">Porções</option>
+                                            <option selected disabled value="">Selecione</option>
+                                            <?php
+                                            while ($categorie_select = $get_categories_select_response->fetch_assoc()) {
+                                            ?>
+                                                <option value="<?= $categorie_select['descricao'] ?>"><?= $categorie_select['descricao'] ?></option>
+                                            <?php } ?>
                                         </select>
                                         <label for="category">
                                             <strong> Categoria </strong>
@@ -121,9 +129,96 @@ include_once '../../../assets/html/head.html';
                         <div class="card">
                             <div class="card-body">
                                 <div id="search-filter" class="row">
+                                    <div class="col-md-7">
+                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Categories">
+                                            Categorias <i class="bi bi-list-nested"></i>
+                                        </button>
+
+                                        <div class="modal fade" id="Categories" tabindex="-1" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">CATEGORIAS</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mb-3">
+                                                                <button type="button" class="btn btn-sm btn-warning rounded-pill" data-bs-toggle="modal" data-bs-target="#addCategories">
+                                                                    Cadastrar <i class="bi bi-plus-circle-fill"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <table class="table table-hover table-bordered">
+                                                                    <thead>
+                                                                        <tr class="table-primary">
+                                                                            <div id="dataTable_filter" class="dataTables_filter">
+                                                                                <input type="search" id="search" class="form-control form-control-md" placeholder="Buscar" aria-controls="dataTable">
+                                                                            </div>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="dataTable_categorie">
+                                                                        <?php
+                                                                        while ($categories = $get_categories_response->fetch_assoc()) {
+                                                                        ?>
+                                                                            <tr>
+                                                                                <td><?= $categories['descricao'] ?></td>
+                                                                                <td>
+                                                                                    <form action="../../controllers/ProductsController.php" method="POST">
+                                                                                        <input type="hidden" name="delete-categorie" value="true">
+                                                                                        <input type="hidden" name="id" value="<?= $categories['id'] ?>">
+                                                                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                                                            <i class="bi bi-trash3"></i>
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </td>
+                                                                            </tr>
+                                                                        <?php } ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="addCategories" tabindex="-1" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">CADASTRAR CATEGORIA</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="../../controllers/ProductsController.php" method="POST">
+                                                        <input type="hidden" name="add-categorie" value="true">
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col form-floating mb-3">
+                                                                    <input type="text" name="categorie" id="categorie" class="form-control" required>
+                                                                    <label for="categorie">
+                                                                        <strong> Descrição </strong>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                        <i class="bi bi-x-square"></i>
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-success">
+                                                                        <i class="bi bi-check-square"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-5">
                                         <div id="dataTable_filter" class="dataTables_filter">
-                                            <input type="search" id="search" class="form-control form-control-md" placeholder="Buscar" aria-controls="dataTable">
+                                            <input type="search" id="search_products" class="form-control form-control-md" placeholder="Buscar" aria-controls="dataTable">
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +257,7 @@ include_once '../../../assets/html/head.html';
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                <h5 class="modal-title">EDITAR PRODUTO</h5>
+                                                                    <h5 class="modal-title">EDITAR PRODUTO</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <form action="../../controllers/ProductsController.php" method="POST">

@@ -18,3 +18,11 @@ if (isset($_POST['edit'])) {
 if (isset($_POST['delete'])) {
     return $products->deleteProducts($_POST['id']);
 }
+
+if (isset($_POST['add-categorie'])) {
+    return $products->postCategories($_POST);
+}
+
+if (isset($_POST['delete-categorie'])) {
+    return $products->deleteCategories($_POST['id']);
+}
