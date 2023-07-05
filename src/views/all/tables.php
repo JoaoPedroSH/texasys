@@ -34,8 +34,7 @@ include_once '../../../assets/html/head.html';
                     <div class="card-header"></div>
                     <div class="card-body">
                         <form action="../../controllers/SalesCounterController.php" method="POST">
-                            <input type="hidden" name="radio-stacked-sales-counter" value="client">
-
+                            <input type="hidden" name="tipo-vendas" value="client">
                             <div class="d-flex align-items-center">
                                 <div>
                                     <button type="button" id="button-add-product-sales-counter" data-bs-toggle="modal" data-bs-target="#addProductSalesCounter" class="btn btn-warning btn-md" title="Adicionar produtos">
@@ -108,6 +107,7 @@ include_once '../../../assets/html/head.html';
                                     </div>
                                     <form action="../../controllers/SalesCounterController.php" method="POST">
                                         <input type="hidden" name="add-product-sales-counter" value="true">
+                                        <input type="hidden" name="tipo-vendas" value="client">
                                         <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
                                             <div class="col-md-9">
                                                 <div id="dataTable_filter" class="dataTables_filter">
@@ -224,6 +224,7 @@ include_once '../../../assets/html/head.html';
                                                         <div class="form-control" style="align-items:center; border:0px; text-align:center">
                                                             <form action="../../controllers/SalesCounterController.php" method="POST">
                                                                 <input type="hidden" name="delete-product-added-sales-counter" value="true">
+                                                                <input type="hidden" name="tipo-vendas" value="client">
                                                                 <input type="hidden" name="cod-product-added" value="<?= $products_added['id'] ?>">
                                                                 <input type="hidden" name="id-product" value="<?= $products_added['id_produto'] ?>">
                                                                 <input type="hidden" name="quant-product" value="<?= $products_added['quantidade'] ?>">

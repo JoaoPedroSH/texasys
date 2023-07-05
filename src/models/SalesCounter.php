@@ -24,7 +24,7 @@ class SalesCounter
         $data_hora = date('Y-m-d H:i:s');
         $timestamp = strtotime($data_hora);
 
-        $tipo_vendas = $request['radio-stacked-sales-counter'];
+        $tipo_vendas = $request['tipo-vendas'];
 
         /** Cadastrar na tabela 'vendas_balcao' */
         if ($tipo_vendas == 'client') {
@@ -57,19 +57,35 @@ class SalesCounter
         $mysqli->query($add_value_employees);
 
         if ($insert_client == true || $insert_employees == true) {
-            session_start();
-            $_SESSION['finish_sales_counter_success'] = true;
-            header('Location: ../views/all/tables.php');
+            if ($tipo_vendas == 'client') {
+                session_start();
+                $_SESSION['finish_sales_counter_success'] = true;
+                header('Location: ../views/all/tables.php');
+            }
+            if ($tipo_vendas == 'employees') {
+                session_start();
+                $_SESSION['finish_sales_counter_success'] = true;
+                header('Location: ../views/all/employees.php');
+            }
         } else {
-            session_start();
-            $_SESSION['finish_sales_counter_fail'] = true;
-            header('Location: ../views/all/tables.php');
+            if ($tipo_vendas == 'client') {
+                session_start();
+                $_SESSION['finish_sales_counter_fail'] = true;
+                header('Location: ../views/all/tables.php');
+            }
+            if ($tipo_vendas == 'employees') {
+                session_start();
+                $_SESSION['finish_sales_counter_fail'] = true;
+                header('Location: ../views/all/employees.php');
+            }
         }
     }
 
     public function postAddProductOfSalesCounter($request)
     {
         require '../../config/ConnectionDB.php';
+
+        $tipo_vendas = $request['tipo-vendas'];
 
         foreach ($request as $key => $value) {
             if (strpos($key, 'produto_') !== false) {
@@ -87,9 +103,11 @@ class SalesCounter
 
                     $nome_produto = $products_value['produto'];
                     $message = "Quantidade insuficiente de " . $nome_produto . " no estoque! No pedido: " . $quantidade . ", em estoque: " . $quantity_product . ".";
+
                     echo "<script>
-                                window.location.replace('../views/all/tables.php');
-                                alert('$message');
+                                if (window.confirm('$message')) {
+                                    window.history.back();
+                                }
                             </script>";
                 } else {
                     /* Pegar valor do produto*/
@@ -127,14 +145,28 @@ class SalesCounter
                     $product_add_table = "INSERT INTO produtos_adicionados_balcao (id_produto, quantidade, valor, lucro, data_hora, turno, status) VALUES ('$id_produto', '$quantidade', '$value_product', '$lucro', '$date', '$turno', '$status')";
                     $res_product_add_table = $mysqli->query($product_add_table);
 
-                    if ($res_product_add_table == true ) {
-                        session_start();
-                        $_SESSION['product_sales_counter_added_success'] = true;
-                        header('Location: ../views/all/tables.php');
+                    if ($res_product_add_table == true) {
+                        if ($tipo_vendas == 'client') {
+                            session_start();
+                            $_SESSION['product_sales_counter_added_success'] = true;
+                            header('Location: ../views/all/tables.php');
+                        }
+                        if ($tipo_vendas == 'employees') {
+                            session_start();
+                            $_SESSION['product_sales_counter_added_success'] = true;
+                            header('Location: ../views/all/employees.php');
+                        }
                     } else {
-                        session_start();
-                        $_SESSION['product_sales_counter_added_fail'] = true;
-                        header('Location: ../views/all/tables.php');
+                        if ($tipo_vendas == 'client') {
+                            session_start();
+                            $_SESSION['product_sales_counter_added_fail'] = true;
+                            header('Location: ../views/all/tables.php');
+                        }
+                        if ($tipo_vendas == 'employees') {
+                            session_start();
+                            $_SESSION['product_sales_counter_added_fail'] = true;
+                            header('Location: ../views/all/employees.php');
+                        }
                     }
                 }
             }
@@ -144,6 +176,8 @@ class SalesCounter
     public function deleteProductAddedSalesCounter($request)
     {
         require '../../config/ConnectionDB.php';
+
+        $tipo_vendas = $request['tipo-vendas'];
 
         $cod_product_added = $mysqli->escape_string($request['cod-product-added']);
         $id_product = $mysqli->escape_string($request['id-product']);
@@ -162,13 +196,27 @@ class SalesCounter
         $delete_response = $mysqli->query($delete_query);
 
         if ($delete_response == true) {
-            session_start();
-            $_SESSION['removed_product_sales_counter_success'] = true;
-            header('Location: ../views/all/tables.php');
+            if ($tipo_vendas == 'client') {
+                session_start();
+                $_SESSION['removed_product_sales_counter_success'] = true;
+                header('Location: ../views/all/tables.php');
+            }
+            if ($tipo_vendas == 'employees') {
+                session_start();
+                $_SESSION['removed_product_sales_counter_success'] = true;
+                header('Location: ../views/all/employees.php');
+            }
         } else {
-            session_start();
-            $_SESSION['removed_product_sales_counter_fail'] = true;
-            header('Location: ../views/all/tables.php');
+            if ($tipo_vendas == 'client') {
+                session_start();
+                $_SESSION['removed_product_sales_counter_fail'] = true;
+                header('Location: ../views/all/tables.php');
+            }
+            if ($tipo_vendas == 'employees') {
+                session_start();
+                $_SESSION['removed_product_sales_counter_fail'] = true;
+                header('Location: ../views/all/employees.php');
+            }
         }
     }
 }
