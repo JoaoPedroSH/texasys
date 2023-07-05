@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 20-Jun-2023 às 04:50
+-- Tempo de geração: 05-Jul-2023 às 07:50
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -25,17 +25,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `calendario`
+-- Estrutura da tabela `categorias`
 --
 
-CREATE TABLE `calendario` (
+CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
-  `data_hoje` date NOT NULL,
-  `data_amanha` date NOT NULL,
-  `hora_hoje` time NOT NULL,
-  `hora_amanha` time NOT NULL,
-  `carimbo_hoje` int(11) NOT NULL,
-  `carimbo_amanha` int(11) NOT NULL
+  `descricao` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -43,9 +38,9 @@ CREATE TABLE `calendario` (
 --
 
 --
--- Índices para tabela `calendario`
+-- Índices para tabela `categorias`
 --
-ALTER TABLE `calendario`
+ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53,10 +48,10 @@ ALTER TABLE `calendario`
 --
 
 --
--- AUTO_INCREMENT de tabela `calendario`
+-- AUTO_INCREMENT de tabela `categorias`
 --
-ALTER TABLE `calendario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
