@@ -34,7 +34,7 @@ include_once '../../../assets/html/head.html';
                     <div class="card-header"></div>
                     <div class="card-body">
                         <form action="../../controllers/SalesCounterController.php" method="POST">
-                            <input type="hidden" name="radio-stacked-sales-counter" value="client">
+                            <input type="hidden" name="radio-stacked-sales-counter" value="employees">
 
                             <div class="d-flex align-items-center">
                                 <div>
