@@ -139,6 +139,7 @@ include_once '../../../assets/html/head.html';
                                     <table class="table table-bordered" style="margin-top: 15px;">
                                         <thead>
                                             <tr class="table-secondary">
+                                                <th scope="col">Foto</th>
                                                 <th scope="col">Produto</th>
                                                 <th scope="col">Quantidade</th>
                                             </tr>
@@ -151,10 +152,15 @@ include_once '../../../assets/html/head.html';
                                             while ($products = $get_products_response->fetch_assoc()) {
                                             ?>
                                                 <tr>
+                                                    <td class="col-md-2">
+                                                        <div>
+                                                            <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></center>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="form-check form-control form-switch" style="align-items: center; border:0px">
-                                                            <input style="margin-left: 1%;" class="form-check-input check-produto" type="checkbox" id="produto_<?= $products['id'] ?>" name="produto_<?= $products['id'] ?>" value="<?= $products['id'] ?>">
-                                                            <label style="margin-left: 15%;" class="form-check-label" for="produto_<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
+                                                            <input style="margin-left: 0%;" class="form-check-input check-produto" type="checkbox" id="produto_<?= $products['id'] ?>" name="produto_<?= $products['id'] ?>" value="<?= $products['id'] ?>">
+                                                            <label style="margin-left: 18%;" class="form-check-label" for="produto_<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
                                                         </div>
                                                     </td>
                                                     <td class="col-md-3">
@@ -234,7 +240,7 @@ include_once '../../../assets/html/head.html';
                                                             <input type="hidden" name="cod-product-added" value="<?= $products_added['id'] ?>">
                                                             <input type="hidden" name="id-product" value="<?= $products_added['id_produto'] ?>">
                                                             <input type="hidden" name="quant-product" value="<?= $products_added['quantidade'] ?>">
-                                                            <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-trash" style="color:red; cursor:pointer;"></i></button>
+                                                            <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-trash" style="color:black; cursor:pointer;"></i></button>
                                                         </form>
                                                     </div>
                                                 </td>
@@ -417,6 +423,7 @@ include_once '../../../assets/html/head.html';
                                                                             <table class="table table-bordered" style="margin-top: 15px;">
                                                                                 <thead>
                                                                                     <tr class="table-secondary">
+                                                                                        <th scope="col">Foto</th>
                                                                                         <th scope="col">Produto</th>
                                                                                         <th scope="col">Quantidade</th>
                                                                                     </tr>
@@ -429,10 +436,15 @@ include_once '../../../assets/html/head.html';
                                                                                     while ($products = $get_products_response->fetch_assoc()) {
                                                                                     ?>
                                                                                         <tr>
+                                                                                            <td class="col-md-2">
+                                                                                                <div>
+                                                                                                    <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></center>
+                                                                                                </div>
+                                                                                            </td>
                                                                                             <td>
                                                                                                 <div class="form-check form-control form-switch" style="align-items: center; border:0px">
-                                                                                                    <input style="margin-left: 1%;" class="form-check-input check-produto" type="checkbox" id="produto_<?= $products['id'] ?>" name="produto_<?= $products['id'] ?>" value="<?= $products['id'] ?>">
-                                                                                                    <label style="margin-left: 15%;" class="form-check-label" for="produto_<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
+                                                                                                    <input style="margin-left: 0%;" class="form-check-input check-produto" type="checkbox" id="produto_<?= $products['id'] ?>" name="produto_<?= $products['id'] ?>" value="<?= $products['id'] ?>">
+                                                                                                    <label style="margin-left: 18%;" class="form-check-label" for="produto_<?= $products['id'] ?>"> <?= $products['produto'] ?> </label>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td class="col-md-3">

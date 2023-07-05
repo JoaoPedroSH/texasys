@@ -56,10 +56,11 @@ include_once '../../../assets/html/head.html';
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="table-primary">
+                                            <th scope="col">Foto</th>
                                             <th scope="col">Categoria</th>
                                             <th scope="col">Produto</th>
-                                            <th scope="col">Valor</th>
-                                            <th scope="col">Quantidade (unidades)</th>
+                                            <th scope="col">Valor (R$)</th>
+                                            <th scope="col">Quantidade (UN)</th>
                                             <th scope="col">Data da últ. reposição</th>
                                         </tr>
                                     </thead>
@@ -68,6 +69,9 @@ include_once '../../../assets/html/head.html';
                                         while ($products = $get_products_response->fetch_assoc()) {
                                         ?>
                                             <tr>
+                                                <td>
+                                                    <img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;">
+                                                </td>
                                                 <td><?= $products['categoria'] ?></td>
                                                 <td><?= $products['produto'] ?></td>
                                                 <td>R$ <?= $products['valor_produto'] ?></td>

@@ -8,7 +8,7 @@ $products = new Products();
 
 
 if (isset($_POST['add'])) {
-    return $products->postProducts($_POST);    
+    return $products->postProducts($_POST, $_FILES);    
 }   
 
 if (isset($_POST['edit'])) {

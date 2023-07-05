@@ -41,7 +41,7 @@ class Products
         }
     }
 
-    public function postProducts($request)
+    public function postProducts($request, $file)
     {
         require '../../config/ConnectionDB.php';
 
@@ -52,11 +52,23 @@ class Products
         $supplier = $mysqli->escape_string($request['supplier']);
         $supplierValue = $mysqli->escape_string($request['supplier-value']);
 
+        if (isset($file["photo"])) {
+            $file = $file["photo"];
+            $extension = pathinfo($file["name"], PATHINFO_EXTENSION);
+            $filename = uniqid() . "." . $extension;
+            $tmp_path = $file["tmp_name"];
+            $upload_path = "../storage/" . $filename;
+            move_uploaded_file($tmp_path, $upload_path);
+        } else {
+            $filename = "default.svg";
+            $upload_path = "photos_uploads/" . $filename;
+        }
+
         date_default_timezone_set('America/Belem');
         $data = date('Y-m-d');
 
-        $registerProducts = "INSERT INTO produtos (categoria,produto,valor_produto,fornecedor,valor_fornecedor,quantidade,data) value('$category', '$product',
-        '$value', '$supplier', '$supplierValue', '$quantity', '$data')";
+        $registerProducts = "INSERT INTO produtos (categoria,produto,valor_produto,fornecedor,valor_fornecedor,quantidade,data,foto,caminho_foto) value('$category', '$product',
+        '$value', '$supplier', '$supplierValue', '$quantity', '$data', '$filename', '$upload_path')";
         $registerProducts_response = $mysqli->query($registerProducts);
 
         if ($registerProducts_response == true) {
@@ -90,7 +102,7 @@ class Products
         if ($get_products_response['quantidade'] < $quantity) {
             $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity', data = '$data_atual' WHERE id = $id";
             $update_response = $mysqli->query($update_query);
-        }else {
+        } else {
             $update_query = "UPDATE produtos SET categoria = '$category', produto = '$product', valor_produto = '$value', fornecedor = '$supplier', valor_fornecedor = '$supplierValue', quantidade = '$quantity' WHERE id = $id";
             $update_response = $mysqli->query($update_query);
         }

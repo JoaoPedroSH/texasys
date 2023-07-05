@@ -50,18 +50,29 @@ include_once '../../../assets/html/head.html';
             </button>
 
             <div class="modal fade" id="verticalycentered" tabindex="-1" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">CADASTRAR PRODUTO</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="../../controllers/ProductsController.php" method="POST">
+                        <form action="../../controllers/ProductsController.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="add" value="true">
                             <input type="hidden" name="id">
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
+                                        <input type="file" name="photo" id="photo" class="form-control" style="display: none;" onchange="previewImage(event)">
+                                        <button id="buttonPhoto" for="photo" type="button" class="btn btn-lg btn-outline-secondary" style="width: 100%; font-size: 25px;">
+                                            <label for="photo">
+                                                <i id="iconCamera" class="bi bi-camera" style="color:black;"></i>
+                                            </label>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 form-floating mb-3">
+                                        <center><img id="preview" src="#" alt="Pré-visualização da imagem" style="display: none; width: 45px;"></center>
+                                    </div>
+                                    <div class="col-md-6 form-floating mb-3">
                                         <select name="category" id="category" class="form-select" required>
                                             <option selected disabled value="">Selecione</option>
                                             <?php
@@ -74,31 +85,31 @@ include_once '../../../assets/html/head.html';
                                             <strong> Categoria </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="text" name="product" id="product" class="form-control" placeholder="Produto" required>
                                         <label for="product">
                                             <strong> Produto </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="number" step="any" name="value" id="value" class="form-control" placeholder="Valor em R$" required>
                                         <label for="value">
                                             <strong> Valor de venda </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Produto" required>
                                         <label for="supplier">
                                             <strong> Fornecedor </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="number" step="any" name="supplier-value" id="supplier-value" class="form-control" placeholder="Valor em R$" required>
                                         <label for="supplier-value">
-                                            <strong> Valor de compra </strong>
+                                            <strong> Valor de fornecedor </strong>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 form-floating mb-3">
+                                    <div class="col-md-6 form-floating mb-3">
                                         <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Valor em R$" required>
                                         <label for="quantity">
                                             <strong> Quantidade de unidades </strong>
@@ -225,10 +236,11 @@ include_once '../../../assets/html/head.html';
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="table-primary">
+                                            <th scope="col">Foto</th>
                                             <th scope="col">Categoria</th>
                                             <th scope="col">Produto</th>
                                             <th scope="col">Valor (R$)</th>
-                                            <th scope="col">Quantidade (Unidades)</th>
+                                            <th scope="col">Quantidade (UN)</th>
                                             <th scope="col">Fonecedor</th>
                                             <th scope="col">Valor de fornecedor (R$)</th>
                                             <th scope="col">Data da últ. reposição</th>
@@ -240,6 +252,7 @@ include_once '../../../assets/html/head.html';
                                         while ($products = $get_products_response->fetch_assoc()) {
                                         ?>
                                             <tr>
+                                                <td><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></td>
                                                 <td><?= $products['categoria'] ?></td>
                                                 <td><?= $products['produto'] ?></td>
                                                 <td>R$ <?= $products['valor_produto'] ?></td>
@@ -265,9 +278,13 @@ include_once '../../../assets/html/head.html';
                                                                     <input type="hidden" name="id" value="<?= $products['id'] ?>">
                                                                     <div class="col-md-12 form-floating mb-3 mt-3">
                                                                         <select name="category" id="category" class="form-select" required>
-                                                                            <option value="B. alcoólica" <?php if ($products['categoria'] == 'B. alcoólica') { ?> selected <?php } ?>>Bebida alcoólica</option>
-                                                                            <option value="B. não alcoólica" <?php if ($products['categoria'] == 'B. não alcoólica') { ?> selected <?php } ?>>Bebida não alcoólica</option>
-                                                                            <option value="Porções" <?php if ($products['categoria'] == 'Porções') { ?> selected <?php } ?>>Porções</option>
+                                                                            <?php
+                                                                            $get_categories_edit_query = "SELECT * FROM categorias";
+                                                                            $get_categories_edit_response = $mysqli->query($get_categories_edit_query);
+                                                                            while ($categorie_edit = $get_categories_edit_response->fetch_assoc()) {
+                                                                            ?>
+                                                                                <option value="<?= $categorie_edit['descricao'] ?>" <?php if ($products['categoria'] == $categorie_edit['descricao']) { ?> selected <?php } ?>><?= $categorie_edit['descricao'] ?></option>
+                                                                            <?php } ?>
                                                                         </select>
                                                                         <label for="category">
                                                                             <strong> Categoria </strong>
@@ -364,6 +381,31 @@ include_once '../../../assets/html/head.html';
     </a>
 
 </body>
+
+<script>
+    document.getElementById('buttonPhoto').addEventListener('click', function() {
+        document.getElementById('iconCamera').click();
+    });
+
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    }
+</script>
 
 <!-- ======= Scripts ======= -->
 <?php
