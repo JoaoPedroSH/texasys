@@ -70,4 +70,13 @@
             });
         });
     });
+
+    $(document).ready(function () {
+        $("#search_card_func").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#dataTable_card_func tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>

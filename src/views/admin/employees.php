@@ -127,36 +127,103 @@ include_once '../../../assets/html/head.html';
                                                 <td><?= $employees['numero'] ?></td>
                                                 <td>R$ <?= $employees['debito'] ?></td>
                                                 <td>
-                                                    
 
-                                                    <form id="formDischarge" action="../../controllers/EmployeesController.php" method="POST">
-                                                        <input type="hidden" name="discharge_debit" value="true">
-                                                        <input type="hidden" name="id_employees_discharge" value="<?= $employees['id'] ?>">
-                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish_<?= $employees['id'] ?>">
-                                                            <i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
+                                                    <div class="d-inline-block">
+                                                        <form id="formDischarge" action="../../controllers/EmployeesController.php" method="POST">
+                                                            <input type="hidden" name="discharge_debit" value="true">
+                                                            <input type="hidden" name="id_employees_discharge" value="<?= $employees['id'] ?>">
 
-                                                        <div class="modal fade" id="dischargeEmployeesFinish_<?= $employees['id'] ?>">
-                                                            <div class="modal-dialog ">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <strong style="font-size: 24px;"> DESEJA QUITAR ESTE DEBITO DE R$<?= $employees['debito'] ?>? </strong>
-                                                                    </div>
+                                                            <a role="button" data-bs-toggle="modal" data-bs-target="#dischargeEmployeesFinish_<?= $employees['id'] ?>">
+                                                                <i class="bi bi-file-earmark-check-fill" style="color:#343a40;" title="Quitar débito"></i></a>
 
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
-                                                                            <i class="bi bi-x-square"></i>
-                                                                        </button>
-                                                                        <button type="submit" class="btn btn-success" title="Sim">
-                                                                            <i class="bi bi-check-square"></i>
-                                                                        </button>
+                                                            <div class="modal fade" id="dischargeEmployeesFinish_<?= $employees['id'] ?>">
+                                                                <div class="modal-dialog ">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <strong style="font-size: 24px;"> DESEJA QUITAR ESTE DEBITO DE R$<?= $employees['debito'] ?>? </strong>
+                                                                        </div>
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" title="Não">
+                                                                                <i class="bi bi-x-square"></i>
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-success" title="Sim">
+                                                                                <i class="bi bi-check-square"></i>
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="d-inline-block">
+                                                        <a role="button" data-bs-toggle="modal" data-bs-target="#viewProductsEmployees_<?= $employees['id'] ?>">
+                                                            <i class="bi bi-file-earmark-text-fill" style="color:#343a40;" title="Vizualizar consumo"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal fade" id="viewProductsEmployees_<?= $employees['id'] ?>">
+                                                        <div class="modal-dialog modal-md">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"> CONSUMO DE " <strong><?= $employees['nome'] . ' ' . $employees['sobrenome'] ?> "</strong></h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form action="../../controllers/TablesController.php" method="POST" id="formAddProductsTables">
+                                                                    <input type="hidden" name="view-products-of-tables" value="true">
+                                                                    <input type="hidden" name="id-tables" value="<?= $employees['id'] ?>">
+                                                                    <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
+                                                                        <div class="col-md-12">
+                                                                            <div id="dataTable_filter" class="dataTables_filter">
+                                                                                <input type="search" id="search_card_func" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <table class="table table-bordered" style="margin-top: 15px;">
+                                                                        <thead>
+                                                                            <tr class="table-secondary">
+                                                                                <th scope="col" style="text-align:center">Produto</th>
+                                                                                <th scope="col" style="text-align:center">Quantidade</th>
+                                                                                <th scope="col" style="text-align:center">Valor</th>
+                                                                                <th scope="col" style="text-align:center">Data</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody id="dataTable_card_func">
+                                                                            <?php
+
+                                                                            if ($employees['debito'] != '0') {
+
+                                                                                $id_func = $employees['id'];
+
+                                                                                $get_balcao_vendas_query = "SELECT * FROM vendas_balcao_funcionario WHERE id_funcionario = $id_func AND status = 'pendente' ";
+                                                                                $get_balcao_vendas_response = $mysqli->query($get_balcao_vendas_query)->fetch_assoc();
+                                                                                $id_funcionario_vendas = $get_balcao_vendas_response['id'];
+
+                                                                                $get_balcao_funcionario_query = "SELECT * FROM produtos_adicionados_balcao WHERE id_vendas_balcao = $id_funcionario_vendas AND tipo_vendas = 'employees' AND status_debito = 'pendente' ";
+                                                                                $get_balcao_funcionario_response = $mysqli->query($get_balcao_funcionario_query);
+
+                                                                                while ($func = $get_balcao_funcionario_response->fetch_assoc()) {
+                                                                                    $id_produto = $func['id_produto'];
+                                                                                    $get_product_query = "SELECT * FROM produtos WHERE id = $id_produto";
+                                                                                    $get_product_response = $mysqli->query($get_product_query)->fetch_assoc();
+                                                                            ?>
+                                                                                    <tr>
+                                                                                        <td style="text-align:center"><?= $get_product_response['produto'] ?></td>
+                                                                                        <td style="text-align:center"><?= $func['quantidade'] ?></td>
+                                                                                        <td style="text-align:center">R$ <?= $func['valor'] ?></td>
+                                                                                        <td style="text-align:center"><?= date('d/m/Y', strtotime($func['data_hora'])) ?></td>
+                                                                                    </tr>
+                                                                            <?php }
+                                                                            } ?>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </form>
+                                                            </div>
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php } ?>

@@ -46,7 +46,7 @@ class SalesCounter
         }
 
         /** Alterar os registros das colunas 'status' e 'id_vendas_balcao' na tabela 'produtos_adicionados_balcao' */
-        $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET status = 'fechado', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
+        $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET status = 'fechado', status_debito = 'pendente', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
         $mysqli->query($finish_sales_counter);
 
         $valor_employees = "SELECT SUM(valor_geral) AS valor_total FROM vendas_balcao_funcionario WHERE status = 'pendente' AND id_funcionario = '$id_employees'";
