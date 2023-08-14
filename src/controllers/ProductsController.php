@@ -12,7 +12,11 @@ if (isset($_POST['add'])) {
 }   
 
 if (isset($_POST['edit'])) {
-    return $products->putProducts($_POST);
+    if($_FILES["photo_edit"]["size"] === 0){
+        return $products->putProducts($_POST, false);
+    } else {
+        return $products->putProducts($_POST, $_FILES);
+    }
 }
 
 if (isset($_POST['delete'])) {

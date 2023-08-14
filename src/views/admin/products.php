@@ -273,9 +273,22 @@ include_once '../../../assets/html/head.html';
                                                                     <h5 class="modal-title">EDITAR PRODUTO</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <form action="../../controllers/ProductsController.php" method="POST">
+                                                                <form action="../../controllers/ProductsController.php" method="POST" enctype="multipart/form-data">
                                                                     <input type="hidden" name="edit" value="true">
                                                                     <input type="hidden" name="id" value="<?= $products['id'] ?>">
+                                                                    <div class="row ml-1">
+                                                                        <div class="col-md-7 form-floating mb-3 mt-3">
+                                                                            <input type="file" name="photo_edit" id="photo_edit" class="form-control" style="display: none;" onchange="previewImageEdit(event)">
+                                                                            <button id="buttonPhoto_edit" for="photo_edit" type="button" class="btn btn-lg btn-outline-secondary" style="width: 100%; font-size: 25px;">
+                                                                                <label for="photo_edit">
+                                                                                    <i id="iconCamera_edit" class="bi bi-camera" style="color:black;"></i>
+                                                                                </label>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="col-md-5 form-floating mb-3 mt-3">
+                                                                            <center><img id="preview_edit" src="../../storage/<?= $products['foto'] ?>" style="display: block; width: 45px;"></center>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="col-md-12 form-floating mb-3 mt-3">
                                                                         <select name="category" id="category" class="form-select" required>
                                                                             <?php
@@ -383,6 +396,10 @@ include_once '../../../assets/html/head.html';
 </body>
 
 <script>
+    document.getElementById('buttonPhoto_edit').addEventListener('click', function() {
+        document.getElementById('iconCamera_edit').click();
+    });
+
     document.getElementById('buttonPhoto').addEventListener('click', function() {
         document.getElementById('iconCamera').click();
     });
@@ -403,6 +420,19 @@ include_once '../../../assets/html/head.html';
         } else {
             preview.src = '#';
             preview.style.display = 'none';
+        }
+    }
+
+    function previewImageEdit(event) {
+        var input = event.target;
+        var preview = document.getElementById('preview_edit');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
         }
     }
 </script>

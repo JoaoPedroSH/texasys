@@ -1,2 +1,2 @@
 config/environment.ini
-src/storage/
+src/storage/*
