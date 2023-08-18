@@ -291,11 +291,11 @@ if (isset($_SESSION['access_admin_success'])) {
                         document.getElementById("tipo-filtro").value = data.tipo_filtro;
                         document.getElementById("dado-data1").value = data.data_inicio;
                         document.getElementById("dado-data2").value = data.data_final;
-                        document.getElementById("dado-receita").value = data.receita.toFixed(2);
+                        document.getElementById("dado-receita").value = data.receita;
                         document.getElementById("dado-receita-1").value = data.receita_t1;
                         document.getElementById("dado-receita-2").value = data.receita_t2;
                         document.getElementById("dado-receita-3").value = data.receita_t3;
-                        document.getElementById("dado-lucro").value = data.lucro.toFixed(2);
+                        document.getElementById("dado-lucro").value = data.lucro;
                         document.getElementById("dado-lucro-1").value = data.lucro_t1;
                         document.getElementById("dado-lucro-2").value = data.lucro_t2;
                         document.getElementById("dado-lucro-3").value = data.lucro_t3;
@@ -317,8 +317,8 @@ if (isset($_SESSION['access_admin_success'])) {
                 .then(data => {
                     console.log(data);
                     document.getElementById("sales_today").innerText = data.vendas;
-                    document.getElementById("revenue").innerText = data.receita;
-                    document.getElementById("profit").innerText = data.lucro;
+                    document.getElementById("revenue").innerText = data.receita.toFixed(2);
+                    document.getElementById("profit").innerText = data.lucro.toFixed(2);
                 })
                 .catch(error => {
                     console.error('Erro na requisição:', error);
