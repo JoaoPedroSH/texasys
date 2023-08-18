@@ -399,11 +399,15 @@ include_once '../../../assets/html/head.html';
     document.getElementById('buttonPhoto_edit').addEventListener('click', function() {
         document.getElementById('iconCamera_edit').click();
     });
+</script>
 
+<script>
     document.getElementById('buttonPhoto').addEventListener('click', function() {
         document.getElementById('iconCamera').click();
     });
+</script>
 
+<script>
     function previewImage(event) {
         var input = event.target;
         var preview = document.getElementById('preview');
