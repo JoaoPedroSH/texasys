@@ -151,11 +151,11 @@ if ($turno == 0) {
         'status' => $status,
         'data_inicio' => $data_atual,
         'data_final' => $data_seguinte,
-        'receita' => $receita,
+        'receita' => number_format($receita, 2),
         'receita_t1' => $receita_t1,
         'receita_t2' => $receita_t2,
         'receita_t3' => $receita_t3,
-        'lucro' => $lucro,
+        'lucro' => number_format($lucro, 2),
         'lucro_t1' => $lucro_t1,
         'lucro_t2' => $lucro_t2,
         'lucro_t3' => $lucro_t3,
@@ -167,8 +167,8 @@ if ($turno == 0) {
         'status' => $status,
         'data_inicio' => $data_atual,
         'data_final' => $data_seguinte,
-        'receita' => $receita,
-        'lucro' => $lucro,
+        'receita' =>  number_format($receita, 2),
+        'lucro' =>  number_format($lucro, 2),
         'produtos_dados' => $produtos_combinados
     );
 }
