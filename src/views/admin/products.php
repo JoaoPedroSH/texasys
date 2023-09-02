@@ -281,7 +281,7 @@ include_once '../../../assets/html/head.html';
                                                                             <input type="file" name="photo_edit" id="photo_edit_<?= $products['id'] ?>" class="form-control" style="display: none;" onchange="previewImageEdit(event, <?= $products['id'] ?>)">
                                                                             <a id="buttonPhoto_edit" for="photo_edit_<?= $products['id'] ?>" role="button">
                                                                                 <label for="photo_edit_<?= $products['id'] ?>">
-                                                                                    <i id="iconCamera_edit" class="bi bi-camera" style="color:black; font-size: 40px; cursor: pointer"></i>
+                                                                                    <i id="iconCamera_edit" class="bi bi-camera" style="color:black; font-size: 25px; cursor: pointer;"> Foto</i>
                                                                                 </label>
                                                                             </a>
                                                                         </div>
