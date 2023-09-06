@@ -19,11 +19,16 @@
             <i class="bi bi-bell"><strong id="num_notification"></strong></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="notification" id="dropdownMenu"></div>
-        <div id="clock"></div>
+        <!-- <div id="clock"></div> -->
 
     </div>
 
     <style>
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
         #notification {
             position: absolute;
             right: 12%;
