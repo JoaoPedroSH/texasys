@@ -196,36 +196,36 @@ function PrintReportsDay($REQUEST)
                 $html .= '
                 <tr>
                     <td>
-                        Turno 1: R$' . $REQUEST['dado-receita-1'] . '
+                        Turno 1: R$' . round($REQUEST['dado-receita-1'], 2) . '
                     </td>
                     <td>
-                        Turno 1: R$' . $REQUEST['dado-lucro-1'] . '
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Turno 2: R$' . $REQUEST['dado-receita-2'] . '
-                    </td>
-                    <td>
-                        Turno 2: R$' . $REQUEST['dado-lucro-2'] . '
+                        Turno 1: R$' . round($REQUEST['dado-lucro-1'], 2) . '
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Turno 3: R$' . $REQUEST['dado-receita-3'] . '
+                        Turno 2: R$' . round($REQUEST['dado-receita-2'], 2) . '
                     </td>
                     <td>
-                        Turno 3: R$' . $REQUEST['dado-lucro-3'] . '
+                        Turno 2: R$' . round($REQUEST['dado-lucro-2'], 2) . '
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Turno 3: R$' . round($REQUEST['dado-receita-3'], 2) . '
+                    </td>
+                    <td>
+                        Turno 3: R$' . round($REQUEST['dado-lucro-3'], 2) . '
                     </td>
                 </tr>';
                 }
                 $html .= '
                 <tr>
                     <td class="td-sub-cabecalho">
-                        Total: <b>R$' . $REQUEST['dado-receita'] . '</b>
+                        Total: <b>R$' . round($REQUEST['dado-receita'], 2) . '</b>
                     </td>
                     <td class="td-sub-cabecalho">
-                        Total: <b>R$' . $REQUEST['dado-lucro'] . '</b>
+                        Total: <b>R$' . round($REQUEST['dado-lucro'], 2) . '</b>
                     </td>
                 </tr>
             </thead>
