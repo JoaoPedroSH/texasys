@@ -30,21 +30,6 @@ include_once '../../../assets/html/head.html';
 
                 <div class="card" style="display:inline-flex">
                     <form action="../../controllers/SalesCounterController.php" method="POST">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center mt-1">
-                                <input type="hidden" name="tipo-vendas" value="employees">
-                                <select class="custom-select" name="employees-counter" id="select-employees-counter" required>
-                                    <option selected disabled value="">Selecionar funcionário</option>
-                                    <?php
-                                    $get_employees_query = "SELECT * FROM funcionarios";
-                                    $get_employees_response = $mysqli->query($get_employees_query);
-                                    while ($employees = $get_employees_response->fetch_assoc()) {
-                                    ?>
-                                        <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
@@ -91,7 +76,21 @@ include_once '../../../assets/html/head.html';
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <input type="hidden" name="tipo-vendas" value="employees">
+                                <select class="custom-select" name="employees-counter" id="select-employees-counter" required>
+                                    <option selected disabled value="">Selecionar funcionário</option>
+                                    <?php
+                                    $get_employees_query = "SELECT * FROM funcionarios";
+                                    $get_employees_response = $mysqli->query($get_employees_query);
+                                    while ($employees = $get_employees_response->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                     </form>
