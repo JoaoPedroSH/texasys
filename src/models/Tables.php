@@ -34,7 +34,15 @@ class Tables
             $id_vendas_mesas = $id_mesas_response['id'];
 
             /** Alterar os registros das colunas 'status' e 'id_vendas_mesas' na tabela 'produtos_adicionados_mesas' */
-            $finish_sales_mesas = "UPDATE produtos_adicionados_mesas SET status = 'fechado', id_vendas_mesas = '$id_vendas_mesas' WHERE id_mesa = $id_table AND status = 'aberto'";
+            $hora_atual = date('H');
+            if ($hora_atual >= 8 && $hora_atual < 15) {
+                $retornoTurno = 1;
+            } elseif ($hora_atual >= 15 && $hora_atual < 23) {
+                $retornoTurno = 2;
+            } else {
+                $retornoTurno = 3;
+            }
+            $finish_sales_mesas = "UPDATE produtos_adicionados_mesas SET turno = '$retornoTurno', status = 'fechado', id_vendas_mesas = '$id_vendas_mesas' WHERE id_mesa = $id_table AND status = 'aberto'";
             $mysqli->query($finish_sales_mesas);
 
             $delete_table_query = "DELETE FROM mesas_adicionadas WHERE cod_mesa = $id_table";
