@@ -19,7 +19,7 @@ include_once '../../../assets/html/head.html';
 
     #search-filter {
         justify-content: end;
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
     }
 </style>
 
@@ -143,7 +143,7 @@ include_once '../../../assets/html/head.html';
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <strong style="font-size: 24px;"> DESEJA QUITAR ESTE DEBITO DE R$<?= $employees['debito'] ?>? </strong>
+                                                                            <strong style="font-size: 1.5rem;"> DESEJA QUITAR ESTE DEBITO DE R$<?= $employees['debito'] ?>? </strong>
                                                                         </div>
 
                                                                         <div class="modal-footer">
@@ -174,14 +174,14 @@ include_once '../../../assets/html/head.html';
                                                                 <form action="../../controllers/TablesController.php" method="POST" id="formAddProductsTables">
                                                                     <input type="hidden" name="view-products-of-tables" value="true">
                                                                     <input type="hidden" name="id-tables" value="<?= $employees['id'] ?>">
-                                                                    <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
+                                                                    <div id="search-filter" class="row" style="margin-top: .9375rem; margin-left: .3125rem; margin-right: .3125rem;">
                                                                         <div class="col-md-12">
                                                                             <div id="dataTable_filter" class="dataTables_filter">
                                                                                 <input type="search" id="search_card_func" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <table class="table table-bordered" style="margin-top: 15px;">
+                                                                    <table class="table table-bordered" style="margin-top: .9375rem;">
                                                                         <thead>
                                                                             <tr class="table-secondary">
                                                                                 <th scope="col" style="text-align:center">Produto</th>
@@ -199,24 +199,55 @@ include_once '../../../assets/html/head.html';
                                                                                 $id_func = $employees['id'];
 
                                                                                 $get_balcao_vendas_query = "SELECT * FROM vendas_balcao_funcionario WHERE id_funcionario = $id_func AND status = 'pendente' ";
-                                                                                $get_balcao_vendas_response = $mysqli->query($get_balcao_vendas_query)->fetch_assoc();
-                                                                                $id_funcionario_vendas = $get_balcao_vendas_response['id'];
+                                                                                $get_balcao_vendas_response = $mysqli->query($get_balcao_vendas_query);
 
-                                                                                $get_balcao_funcionario_query = "SELECT * FROM produtos_adicionados_balcao WHERE id_vendas_balcao = $id_funcionario_vendas AND tipo_vendas = 'employees' AND status_debito = 'pendente' ";
-                                                                                $get_balcao_funcionario_response = $mysqli->query($get_balcao_funcionario_query);
+                                                                                $resultados_por_id = array();
 
-                                                                                while ($func = $get_balcao_funcionario_response->fetch_assoc()) {
+                                                                                while ($row = $get_balcao_vendas_response->fetch_assoc()) {
+                                                                                    $id_funcionario_vendas = $row['id'];
+
+                                                                                    $get_balcao_funcionario_query = "SELECT * FROM produtos_adicionados_balcao WHERE id_vendas_balcao = $id_funcionario_vendas AND tipo_vendas = 'employees' AND status_debito = 'pendente'";
+                                                                                    $get_balcao_funcionario_response = $mysqli->query($get_balcao_funcionario_query);
+
+                                                                                    while ($produto = $get_balcao_funcionario_response->fetch_assoc()) {
+                                                                                        $resultados_por_id[] = $produto;
+                                                                                    }
+                                                                                }
+
+                                                                                $resultados_finais = array();
+
+                                                                                foreach ($resultados_por_id as $func) {
                                                                                     $id_produto = $func['id_produto'];
                                                                                     $get_product_query = "SELECT * FROM produtos WHERE id = $id_produto";
-                                                                                    $get_product_response = $mysqli->query($get_product_query)->fetch_assoc();
+                                                                                    $get_product_response = $mysqli->query($get_product_query);
+
+                                                                                    if ($get_product_response) {
+                                                                                        $produto = $get_product_response->fetch_assoc();
+
+                                                                                        if ($produto) {
+                                                                                            $resultado_final = array(
+                                                                                                'produto' => $produto['produto'],
+                                                                                                'quantidade' => $func['quantidade'],
+                                                                                                'valor' => $func['valor'],
+                                                                                                'data_hora' => date('d/m/Y', strtotime($func['data_hora']))
+                                                                                            );
+
+                                                                                            $resultados_finais[] = $resultado_final;
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+
+                                                                                foreach ($resultados_finais as $resultado) {
                                                                             ?>
                                                                                     <tr>
-                                                                                        <td style="text-align:center"><?= $get_product_response['produto'] ?></td>
-                                                                                        <td style="text-align:center"><?= $func['quantidade'] ?></td>
-                                                                                        <td style="text-align:center">R$ <?= $func['valor'] ?></td>
-                                                                                        <td style="text-align:center"><?= date('d/m/Y', strtotime($func['data_hora'])) ?></td>
+                                                                                        <td style="text-align:center"><?= $resultado['produto'] ?></td>
+                                                                                        <td style="text-align:center"><?= $resultado['quantidade'] ?></td>
+                                                                                        <td style="text-align:center">R$ <?= $resultado['valor'] ?></td>
+                                                                                        <td style="text-align:center"><?= $resultado['data_hora'] ?></td>
                                                                                     </tr>
-                                                                            <?php }
+                                                                            <?php
+                                                                                }
                                                                             } ?>
                                                                         </tbody>
                                                                     </table>
