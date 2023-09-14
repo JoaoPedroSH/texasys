@@ -435,7 +435,7 @@ include_once '../../../assets/html/head.html';
                                                                                         <tr>
                                                                                             <td class="col-md-2">
                                                                                                 <div>
-                                                                                                    <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></center>
+                                                                                                    <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px; height: 40px;"></center>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td>
