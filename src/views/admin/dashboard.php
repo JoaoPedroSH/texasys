@@ -317,8 +317,8 @@ if (isset($_SESSION['access_admin_success'])) {
                 .then(data => {
                     console.log(data);
                     document.getElementById("sales_today").innerText = data.vendas;
-                    document.getElementById("revenue").innerText = data.receita;
-                    document.getElementById("profit").innerText = data.lucro;
+                    document.getElementById("revenue").innerText = data.receita.toFixed(2);
+                    document.getElementById("profit").innerText = data.lucro.toFixed(2);
                 })
                 .catch(error => {
                     console.error('Erro na requisição:', error);

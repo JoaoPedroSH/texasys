@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
- 
+
 session_start();
 require_once '../../../config/ConnectionDB.php';
 ?>
@@ -395,7 +395,17 @@ include_once '../../../assets/html/head.html';
                                                                             <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px;">
                                                                                 <div class="col-md-9">
                                                                                     <div id="dataTable_filter" class="dataTables_filter">
-                                                                                        <input type="search" id="search_mesas" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
+                                                                                        <script>
+                                                                                            $(document).ready(function() {
+                                                                                                $("#search_mesas_<?= $tables['cod_mesa'] ?>").on("keyup", function() {
+                                                                                                    var value = $(this).val().toLowerCase();
+                                                                                                    $("#dataTable tr").filter(function() {
+                                                                                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                                                                                    });
+                                                                                                });
+                                                                                            });
+                                                                                        </script>
+                                                                                        <input type="search" id="search_mesas_<?= $tables['cod_mesa'] ?>" class="form-control form-control-md" placeholder="Pesquise o produto aqui" aria-controls="dataTable">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-3">
@@ -425,7 +435,7 @@ include_once '../../../assets/html/head.html';
                                                                                         <tr>
                                                                                             <td class="col-md-2">
                                                                                                 <div>
-                                                                                                    <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></center>
+                                                                                                    <center><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px; height: 40px;"></center>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td>
@@ -467,7 +477,17 @@ include_once '../../../assets/html/head.html';
                                                                             <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
                                                                                 <div class="col-md-12">
                                                                                     <div id="dataTable_filter" class="dataTables_filter">
-                                                                                        <input type="search" id="search" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
+                                                                                    <script>
+                                                                                            $(document).ready(function() {
+                                                                                                $("#search_<?= $tables['cod_mesa'] ?>").on("keyup", function() {
+                                                                                                    var value = $(this).val().toLowerCase();
+                                                                                                    $("#dataTable tr").filter(function() {
+                                                                                                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                                                                                                    });
+                                                                                                });
+                                                                                            });
+                                                                                        </script>
+                                                                                        <input type="search" id="search_<?= $tables['cod_mesa'] ?>" class="form-control form-control-md" placeholder="Pesquise aqui" aria-controls="dataTable">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

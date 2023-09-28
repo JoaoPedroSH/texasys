@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
- 
+
 session_start();
 require_once '../../../config/ConnectionDB.php';
 ?>
@@ -30,21 +30,6 @@ include_once '../../../assets/html/head.html';
 
                 <div class="card" style="display:inline-flex">
                     <form action="../../controllers/SalesCounterController.php" method="POST">
-                        <div class="card-header">
-                            <div class="d-flex align-items-center mt-1">
-                                <input type="hidden" name="tipo-vendas" value="employees">
-                                <select class="custom-select" name="employees-counter" id="select-employees-counter" required>
-                                    <option selected disabled value="">Selecionar funcionário</option>
-                                    <?php
-                                    $get_employees_query = "SELECT * FROM funcionarios";
-                                    $get_employees_response = $mysqli->query($get_employees_query);
-                                    while ($employees = $get_employees_response->fetch_assoc()) {
-                                    ?>
-                                        <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
@@ -91,7 +76,21 @@ include_once '../../../assets/html/head.html';
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <input type="hidden" name="tipo-vendas" value="employees">
+                                <select class="custom-select" name="employees-counter" id="select-employees-counter" required>
+                                    <option selected disabled value="">Selecionar funcionário</option>
+                                    <?php
+                                    $get_employees_query = "SELECT * FROM funcionarios";
+                                    $get_employees_response = $mysqli->query($get_employees_query);
+                                    while ($employees = $get_employees_response->fetch_assoc()) {
+                                    ?>
+                                        <option value="<?= $employees['id'] ?>"><?= $employees['nome'] ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -348,24 +347,55 @@ include_once '../../../assets/html/head.html';
                                                                                     $id_func = $funcionarios['id'];
 
                                                                                     $get_balcao_vendas_query = "SELECT * FROM vendas_balcao_funcionario WHERE id_funcionario = $id_func AND status = 'pendente' ";
-                                                                                    $get_balcao_vendas_response = $mysqli->query($get_balcao_vendas_query)->fetch_assoc();
-                                                                                    $id_funcionario_vendas = $get_balcao_vendas_response['id'];
+                                                                                    $get_balcao_vendas_response = $mysqli->query($get_balcao_vendas_query);
 
-                                                                                    $get_balcao_funcionario_query = "SELECT * FROM produtos_adicionados_balcao WHERE id_vendas_balcao = $id_funcionario_vendas AND tipo_vendas = 'employees' AND status_debito = 'pendente' ";
-                                                                                    $get_balcao_funcionario_response = $mysqli->query($get_balcao_funcionario_query);
+                                                                                    $resultados_por_id = array();
 
-                                                                                    while ($func = $get_balcao_funcionario_response->fetch_assoc()) {
+                                                                                    while ($row = $get_balcao_vendas_response->fetch_assoc()) {
+                                                                                        $id_funcionario_vendas = $row['id'];
+
+                                                                                        $get_balcao_funcionario_query = "SELECT * FROM produtos_adicionados_balcao WHERE id_vendas_balcao = $id_funcionario_vendas AND tipo_vendas = 'employees' AND status_debito = 'pendente'";
+                                                                                        $get_balcao_funcionario_response = $mysqli->query($get_balcao_funcionario_query);
+
+                                                                                        while ($produto = $get_balcao_funcionario_response->fetch_assoc()) {
+                                                                                            $resultados_por_id[] = $produto;
+                                                                                        }
+                                                                                    }
+
+                                                                                    $resultados_finais = array();
+
+                                                                                    foreach ($resultados_por_id as $func) {
                                                                                         $id_produto = $func['id_produto'];
                                                                                         $get_product_query = "SELECT * FROM produtos WHERE id = $id_produto";
-                                                                                        $get_product_response = $mysqli->query($get_product_query)->fetch_assoc();
+                                                                                        $get_product_response = $mysqli->query($get_product_query);
+
+                                                                                        if ($get_product_response) {
+                                                                                            $produto = $get_product_response->fetch_assoc();
+
+                                                                                            if ($produto) {
+                                                                                                $resultado_final = array(
+                                                                                                    'produto' => $produto['produto'],
+                                                                                                    'quantidade' => $func['quantidade'],
+                                                                                                    'valor' => $func['valor'],
+                                                                                                    'data_hora' => date('d/m/Y', strtotime($func['data_hora']))
+                                                                                                );
+
+                                                                                                $resultados_finais[] = $resultado_final;
+                                                                                            }
+                                                                                        }
+                                                                                    }
+
+
+                                                                                    foreach ($resultados_finais as $resultado) {
                                                                                 ?>
                                                                                         <tr>
-                                                                                            <td style="text-align:center"><?= $get_product_response['produto'] ?></td>
-                                                                                            <td style="text-align:center"><?= $func['quantidade'] ?></td>
-                                                                                            <td style="text-align:center">R$ <?= $func['valor'] ?></td>
-                                                                                            <td style="text-align:center"><?= date('d/m/Y', strtotime($func['data_hora'])) ?></td>
+                                                                                            <td style="text-align:center"><?= $resultado['produto'] ?></td>
+                                                                                            <td style="text-align:center"><?= $resultado['quantidade'] ?></td>
+                                                                                            <td style="text-align:center">R$ <?= $resultado['valor'] ?></td>
+                                                                                            <td style="text-align:center"><?= $resultado['data_hora'] ?></td>
                                                                                         </tr>
-                                                                                <?php }
+                                                                                <?php
+                                                                                    }
                                                                                 } ?>
                                                                             </tbody>
                                                                         </table>

@@ -45,8 +45,18 @@ class SalesCounter
             $id_vendas_balcao = $id_sales_employees_response['id'];
         }
 
-        /** Alterar os registros das colunas 'status' e 'id_vendas_balcao' na tabela 'produtos_adicionados_balcao' */
-        $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET status = 'fechado', status_debito = 'pendente', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
+        $hora_atual = date('H');
+
+        if ($hora_atual >= 8 && $hora_atual < 15) {
+            $retornoTurno = 1;
+        } elseif ($hora_atual >= 15 && $hora_atual < 23) {
+            $retornoTurno = 2;
+        } else {
+
+            $retornoTurno = 3;
+        }
+
+        $finish_sales_counter = "UPDATE produtos_adicionados_balcao SET turno = '$retornoTurno', status = 'fechado', status_debito = 'pendente', id_vendas_balcao = '$id_vendas_balcao', tipo_vendas = '$tipo_vendas' WHERE status = 'aberto'";
         $mysqli->query($finish_sales_counter);
 
         $valor_employees = "SELECT SUM(valor_geral) AS valor_total FROM vendas_balcao_funcionario WHERE status = 'pendente' AND id_funcionario = '$id_employees'";

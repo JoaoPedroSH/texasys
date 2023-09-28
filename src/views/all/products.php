@@ -70,7 +70,7 @@ include_once '../../../assets/html/head.html';
                                         ?>
                                             <tr>
                                                 <td>
-                                                    <img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;">
+                                                    <img src="../<?= $products['caminho_foto'] ?>" style="width: 40px; height: 40px;">
                                                 </td>
                                                 <td><?= $products['categoria'] ?></td>
                                                 <td><?= $products['produto'] ?></td>

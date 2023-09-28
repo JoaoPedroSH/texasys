@@ -28,7 +28,15 @@ include_once '../../../assets/html/head.html';
         justify-content: end;
         margin-bottom: 20px;
     }
+
+    #buttonPhoto_edit {
+        border: 2px solid gray; /* Estilo, largura e cor da borda */
+        padding: 10px;
+        padding-top: 15px;
+        border-radius: 8px;
+    }
 </style>
+
 
 <body>
 
@@ -252,7 +260,7 @@ include_once '../../../assets/html/head.html';
                                         while ($products = $get_products_response->fetch_assoc()) {
                                         ?>
                                             <tr>
-                                                <td><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px;"></td>
+                                                <td><img src="../<?= $products['caminho_foto'] ?>" style="width: 40px; height: 40px;"></td>
                                                 <td><?= $products['categoria'] ?></td>
                                                 <td><?= $products['produto'] ?></td>
                                                 <td>R$ <?= $products['valor_produto'] ?></td>
@@ -276,17 +284,17 @@ include_once '../../../assets/html/head.html';
                                                                 <form action="../../controllers/ProductsController.php" method="POST" enctype="multipart/form-data">
                                                                     <input type="hidden" name="edit" value="true">
                                                                     <input type="hidden" name="id" value="<?= $products['id'] ?>">
-                                                                    <div class="row ml-1">
-                                                                        <div class="col-md-7 form-floating mb-3 mt-3">
-                                                                            <input type="file" name="photo_edit" id="photo_edit" class="form-control" style="display: none;" onchange="previewImageEdit(event)">
-                                                                            <button id="buttonPhoto_edit" for="photo_edit" type="button" class="btn btn-lg btn-outline-secondary" style="width: 100%; font-size: 25px;">
-                                                                                <label for="photo_edit">
-                                                                                    <i id="iconCamera_edit" class="bi bi-camera" style="color:black;"></i>
+                                                                    <div class="row ml-3 mr-3" style="border: 1px solid gray; border-radius: 8px;">
+                                                                        <div class="col-md-7 form-floating">
+                                                                            <input type="file" name="photo_edit" id="photo_edit_<?= $products['id'] ?>" class="form-control" style="display: none;" onchange="previewImageEdit(event, <?= $products['id'] ?>)">
+                                                                            <a id="buttonPhoto_edit" for="photo_edit_<?= $products['id'] ?>" role="button">
+                                                                                <label for="photo_edit_<?= $products['id'] ?>">
+                                                                                    <i id="iconCamera_edit" class="bi bi-camera" style="color:black; font-size: 30px; cursor: pointer;"></i>
                                                                                 </label>
-                                                                            </button>
+                                                                            </a>
                                                                         </div>
                                                                         <div class="col-md-5 form-floating mb-3 mt-3">
-                                                                            <center><img id="preview_edit" src="../../storage/<?= $products['foto'] ?>" style="display: block; width: 45px;"></center>
+                                                                            <center><img id="preview_edit_<?= $products['id'] ?>" src="../../storage/<?= $products['foto'] ?>" style="display: block; width: 45px;"></center>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-12 form-floating mb-3 mt-3">
@@ -395,11 +403,12 @@ include_once '../../../assets/html/head.html';
 
 </body>
 
-<script>
+<!-- <script>
     document.getElementById('buttonPhoto_edit').addEventListener('click', function() {
         document.getElementById('iconCamera_edit').click();
     });
-</script>
+</script> -->
+
 <script>
     document.getElementById('buttonPhoto').addEventListener('click', function() {
         document.getElementById('iconCamera').click();
@@ -425,9 +434,9 @@ include_once '../../../assets/html/head.html';
         }
     }
 
-    function previewImageEdit(event) {
+    function previewImageEdit(event, id) {
         var input = event.target;
-        var preview = document.getElementById('preview_edit');
+        var preview = document.getElementById('preview_edit_'+id);
 
         if (input.files && input.files[0]) {
             var reader = new FileReader();
