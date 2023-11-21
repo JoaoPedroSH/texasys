@@ -44,6 +44,11 @@ include_once '../../../assets/html/head.html';
                                         <i class="ri-eye-fill" style="font-size: 20px;"></i>
                                     </button>
                                 </div>
+                                <div class="ps-3">
+                                    <button type="button" id="print-sales" class="btn btn-warning btn-md" data-bs-toggle="modal" data-bs-target="#printBillSales" title="Imprimir conta">
+                                        <i class="bi bi-printer-fill" style="font-size: 20px;"></i>
+                                    </button>
+                                </div>
                                 <div class="input-group ps-3 input-group-lg">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">R$</span>
@@ -95,6 +100,32 @@ include_once '../../../assets/html/head.html';
 
                             </div>
                         </form>
+
+                        <div class="modal fade" id="printBillSales" tabindex="-1" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2 class="modal-title" style="text-align: center;"> DESEJA IMPRIMIR A CONTA DO BALCÃO ? </h2>
+                                        <form action="../../controllers/PrintController.php" target="_blank" method="POST">
+                                            <input type="hidden" name="print-sales" value="true">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Não <i class="bi bi-x-square"></i>
+                                                </button>
+                                                <button type="submit" class="btn btn-success">
+                                                    Sim <i class="bi bi-check-square"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="modal fade" id="addProductSalesCounter">
                             <div class="modal-dialog modal-md">
@@ -477,7 +508,7 @@ include_once '../../../assets/html/head.html';
                                                                             <div id="search-filter" class="row" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
                                                                                 <div class="col-md-12">
                                                                                     <div id="dataTable_filter" class="dataTables_filter">
-                                                                                    <script>
+                                                                                        <script>
                                                                                             $(document).ready(function() {
                                                                                                 $("#search_<?= $tables['cod_mesa'] ?>").on("keyup", function() {
                                                                                                     var value = $(this).val().toLowerCase();
@@ -701,6 +732,20 @@ include_once '../../../assets/html/head.html';
 <?php
 include_once '../../../assets/html/scripts.html';
 ?>
+
+<script>
+    function printBillSalesCounter() {
+        fetch('../../controllers/PrintController.php')
+            .then(response => response.json())
+            .then(data => {
+                let valor = data.valor_total;
+                document.getElementById("value-totality").value = valor;
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+            });
+    }
+</script>
 
 <script>
     function valueSalesCounter() {
