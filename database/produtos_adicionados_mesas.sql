@@ -39,7 +39,7 @@ CREATE TABLE `produtos_adicionados_mesas` (
   `turno` int(10) NOT NULL,
   `status` varchar(10) NOT NULL,
   `id_vendas_mesas` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tabelas despejadas

@@ -39,8 +39,8 @@ CREATE TABLE `produtos_adicionados_balcao` (
   `status` varchar(10) NOT NULL,
   `status_debito` varchar(255) DEFAULT NULL,
   `id_vendas_balcao` int(11) NOT NULL,
-  `tipo_vendas` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `tipo_vendas` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tabelas despejadas

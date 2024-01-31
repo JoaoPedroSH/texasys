@@ -32,7 +32,7 @@ CREATE TABLE `mesas_adicionadas` (
   `id` int(11) NOT NULL,
   `cod_mesa` int(11) NOT NULL,
   `funcionario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tabelas despejadas

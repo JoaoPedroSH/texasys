@@ -35,7 +35,7 @@ CREATE TABLE `funcionarios` (
   `sobrenome` varchar(255) NOT NULL,
   `numero` varchar(255) NOT NULL,
   `debito` decimal(10,0) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `funcionarios`

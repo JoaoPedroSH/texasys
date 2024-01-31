@@ -6,7 +6,7 @@
 
     $host = "localhost";
     $user = "root";
-    $password = "21160422";
+    $password = "";
     $dataBase = "texasys";
     $mysqli = new mysqli($host,$user,$password,$dataBase);
         if($mysqli->connect_errno) {

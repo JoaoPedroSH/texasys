@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `mesas_quantidade` (
   `id` int(11) NOT NULL,
   `quantidade` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `mesas_quantidade`

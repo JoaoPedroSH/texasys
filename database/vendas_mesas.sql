@@ -35,7 +35,7 @@ CREATE TABLE `vendas_mesas` (
   `lucro` float NOT NULL,
   `data_hora` datetime NOT NULL,
   `carimbo_data_hora` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tabelas despejadas
